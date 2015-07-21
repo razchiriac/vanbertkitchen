@@ -1,0 +1,22 @@
+<nav>
+	<ul class="pagination pagination">
+		<li><a ui-sref=".category">Category</a></li>
+		<li><a ui-sref=".style">Style</a></li>
+		<li><a ui-sref=".color">Color</a></li>		
+		<li><a ui-sref=".door">Door</a></li>
+	</ul>
+</nav>
+<pre>
+	<a ui-sref=".admin">Admin</a>
+</pre>
+<pre>
+	<button class="btn btn-danger" ng-click="resetDoor()">Reset</a>
+</pre>
+<pre>
+	Selected Category : {{ selectedCat }} <br>     
+	Selected Style : {{ selectedStyle }} <br>
+	Selected Color : {{ selectedColor }} <br>
+	Selected Door : {{ selectedDoor }} <br>
+</pre>
+
+<div ui-view></div>

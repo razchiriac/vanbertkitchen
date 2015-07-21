@@ -1,0 +1,14 @@
+<div>
+	<h2>Choose a category</h2>
+	<div class="col-md-3" ng-repeat="(key, door) in doors">
+			<a ui-sref="doors.style" class="thumbnail" ng-click="setCat(key)">
+			<img src="https://placehold.it/250x250">
+			<div class="caption">
+				<p>{{door.category}}</p>
+			</div>
+		</a>
+	</div>
+
+
+	
+</div>
