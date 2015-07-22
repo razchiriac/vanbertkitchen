@@ -1,23 +1,14 @@
 <nav>
 	<ul class="pagination pagination">
-		<li><a ui-sref=".category">Category</a></li>
-		<li><a ui-sref=".style">Style</a></li>
-		<li><a ui-sref=".color">Color</a></li>		
-		<li><a ui-sref=".door">Door</a></li>
+		<li><a ui-sref=".category">Category <span ng-show="selectedCat">( {{selectedCat}} )</span> </a></li>
+		<li><a ui-sref=".style">Style <span ng-show="selectedStyle">( {{selectedStyle}} )</span> </a></li>
+		<li><a ui-sref=".color">Color <span ng-show="selectedColor">( {{selectedColor}} )</span> </a></li>		
+		<li><a ui-sref=".door">Door <span ng-show="selectedDoor">( {{selectedDoor}} )</span> </a></li>
 	</ul>
+	<br>
+	<button ui-sref=".category" class="btn btn-danger" ng-click="resetDoor()">Clear selections</button>
+	<button ui-sref=".all" class="btn btn-primary">See All Doors</button>
 </nav>
-<pre>
-	<a ui-sref=".admin">Admin</a>
-</pre>
-<pre>
-	<button class="btn btn-danger" ng-click="resetDoor()">Reset</a>
-	<button class="btn btn-primary" ng-click="getUniqueCats()">Unique Cats</a>
-</pre>
-<pre>
-	Selected Category : {{ selectedCat }} <br>
-	Selected Style : {{ selectedStyle }} <br>
-	Selected Color : {{ selectedColor }} <br>
-	Selected Door : {{ selectedDoor }} <br>
-</pre>
+
 
 <div ui-view></div>

@@ -43,70 +43,71 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 		}; //addDoor
 
 		$rootScope.getUniqueCats = function() {
-			var tempCats = [];
+			$rootScope.tempCats = [];
 			$rootScope.tempDoors = [];
 			angular.forEach(doorsArr, function(value, key) {
-				if(tempCats.length < 1) {
-					tempCats.push(value.category);
+				if($rootScope.tempCats.length < 1) {
+					$rootScope.tempCats.push(value.category);
 					$rootScope.tempDoors.push(value);
-				} else if ( ($.inArray( value.category, tempCats ) < 0) ){
-					tempCats.push(value.category);
+				} else if ( ($.inArray( value.category, $rootScope.tempCats ) < 0) ){
+					$rootScope.tempCats.push(value.category);
 					$rootScope.tempDoors.push(value);
 				}
 			});
-			return [tempCats,$rootScope.tempDoors];
+			return [$rootScope.tempCats,$rootScope.tempDoors];
 		};
 
 		$rootScope.getUniqueStyles = function(cat) {
-			var tempStyles = [];
+			$rootScope.tempStyles = [];
 			$rootScope.tempDoors = [];
 			angular.forEach(doorsArr, function(value, key) {
 				if( value.category === cat ) {
-					if(tempStyles.length < 1) {
-						tempStyles.push(value.category);
+					if($rootScope.tempStyles.length < 1) {
+						$rootScope.tempStyles.push(value.category);
 						$rootScope.tempDoors.push(value);
-					} else if ( ($.inArray( value.style, tempStyles ) < 0) ){
-						tempStyles.push(value.style);
+					} else if ( ($.inArray( value.style, $rootScope.tempStyles ) < 0) ){
+						$rootScope.tempStyles.push(value.style);
 						$rootScope.tempDoors.push(value);
 					}
 				}
 			});
-			return [tempStyles,$rootScope.tempDoors];
+			return [$rootScope.tempStyles,$rootScope.tempDoors];
 		};
 
 		$rootScope.getUniqueColors = function(theStyle) {
-			var tempColors = [];
-			var tempDoors = [];
+			$rootScope.tempColors = [];
+			$rootScope.tempDoors = [];
 			angular.forEach(doorsArr, function(value, key) {
 				if( value.style === theStyle ) {
-					if(tempColors.length < 1) {
-						tempColors.push(value.color);
-						tempDoors.push(value);
-					} else if ( ($.inArray( value.color, tempColors ) < 0) ){
-						tempColors.push(value.color);
-						tempDoors.push(value);
+					if($rootScope.tempColors.length < 1) {
+						$rootScope.tempColors.push(value.color);
+						$rootScope.tempDoors.push(value);
+					} else if ( ($.inArray( value.color, $rootScope.tempColors ) < 0) ){
+						$rootScope.tempColors.push(value.color);
+						$rootScope.tempDoors.push(value);
 					}
 				}
 			});
-			return [tempColors,tempDoors];
+			return [$rootScope.tempColors,$rootScope.tempDoors];
 		};
 
-		$rootScope.getUniqueDoors = function(theColor) {
-			var tempDoorNames = [];
-			var tempDoors = [];
+		$rootScope.getUniqueDoors = function(theColor) { 
+			$rootScope.tempDoorNames = [];
+			$rootScope.tempDoors = [];
 			angular.forEach(doorsArr, function(value, key) {
 				if( value.color === theColor ) {
-					if(tempDoorNames.length < 1) {
-						tempDoorNames.push(value.name);
-						tempDoors.push(value);
-					} else if ( ($.inArray( value.name, tempDoorNames ) < 0) ){
-						tempDoorNames.push(value.name);
-						tempDoors.push(value);
+					if($rootScope.tempDoorNames.length < 1) {
+						$rootScope.tempDoorNames.push(value.name);
+						$rootScope.tempDoors.push(value);
+					} else if ( ($.inArray( value.name, $rootScope.tempDoorNames ) < 0) ){
+						$rootScope.tempDoorNames.push(value.name);
+						$rootScope.tempDoors.push(value);
 					}
 				}
 			});
-			return [tempDoorNames,tempDoors];
+			return [$rootScope.tempDoorNames,$rootScope.tempDoors];
 		};
+
 
 		$rootScope.setCat = function(key) {
 			$rootScope.selectedCat = key;

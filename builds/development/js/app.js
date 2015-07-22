@@ -47,6 +47,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $u
 		templateUrl: 'views/doors.admin.html',
 		controller: 'DoorsController'
 	})
+	.state('doors.all', {
+		url: '/all',
+		templateUrl: 'views/doors.all.html',
+		controller: 'DoorsController'
+	})
 
 
 }]);
