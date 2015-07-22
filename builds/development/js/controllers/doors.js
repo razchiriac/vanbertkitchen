@@ -43,30 +43,85 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 		}; //addDoor
 
 		$rootScope.getUniqueCats = function() {
-			var log = [];
+			var tempCats = [];
+			$rootScope.tempDoors = [];
 			angular.forEach(doorsArr, function(value, key) {
-				alert(value.category);
+				if(tempCats.length < 1) {
+					tempCats.push(value.category);
+					$rootScope.tempDoors.push(value);
+				} else if ( ($.inArray( value.category, tempCats ) < 0) ){
+					tempCats.push(value.category);
+					$rootScope.tempDoors.push(value);
+				}
 			});
+			return [tempCats,$rootScope.tempDoors];
+		};
+
+		$rootScope.getUniqueStyles = function(cat) {
+			var tempStyles = [];
+			$rootScope.tempDoors = [];
+			angular.forEach(doorsArr, function(value, key) {
+				if( value.category === cat ) {
+					if(tempStyles.length < 1) {
+						tempStyles.push(value.category);
+						$rootScope.tempDoors.push(value);
+					} else if ( ($.inArray( value.style, tempStyles ) < 0) ){
+						tempStyles.push(value.style);
+						$rootScope.tempDoors.push(value);
+					}
+				}
+			});
+			return [tempStyles,$rootScope.tempDoors];
+		};
+
+		$rootScope.getUniqueColors = function(theStyle) {
+			var tempColors = [];
+			var tempDoors = [];
+			angular.forEach(doorsArr, function(value, key) {
+				if( value.style === theStyle ) {
+					if(tempColors.length < 1) {
+						tempColors.push(value.color);
+						tempDoors.push(value);
+					} else if ( ($.inArray( value.color, tempColors ) < 0) ){
+						tempColors.push(value.color);
+						tempDoors.push(value);
+					}
+				}
+			});
+			return [tempColors,tempDoors];
+		};
+
+		$rootScope.getUniqueDoors = function(theColor) {
+			var tempDoorNames = [];
+			var tempDoors = [];
+			angular.forEach(doorsArr, function(value, key) {
+				if( value.color === theColor ) {
+					if(tempDoorNames.length < 1) {
+						tempDoorNames.push(value.name);
+						tempDoors.push(value);
+					} else if ( ($.inArray( value.name, tempDoorNames ) < 0) ){
+						tempDoorNames.push(value.name);
+						tempDoors.push(value);
+					}
+				}
+			});
+			return [tempDoorNames,tempDoors];
 		};
 
 		$rootScope.setCat = function(key) {
-			var thisCat = $scope.selectedCat = doorsArr.$getRecord(key).category;
-			$rootScope.selectedCat = thisCat;
+			$rootScope.selectedCat = key;
 		};
 
 		$rootScope.setStyle = function(key) {
-			var thisStyle = $scope.selectedStyle = doorsArr.$getRecord(key).style;
-			$rootScope.selectedStyle = thisStyle;
+			$rootScope.selectedStyle = key;
 		};
 
 		$rootScope.setColor = function(key) {
-			var thisColor = $scope.selectedColor = doorsArr.$getRecord(key).color;
-			$rootScope.selectedColor = thisColor;
+			$rootScope.selectedColor = key;
 		};
 
 		$rootScope.setDoor = function(key) {
-			var thisDoor = $scope.selectedDoor = doorsArr.$getRecord(key).name;
-			$rootScope.selectedDoor = thisDoor;
+			$rootScope.selectedDoor = key;
 		};
 
 		$scope.resetDoor = function() {
@@ -77,9 +132,7 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 		};
 
 		$scope.removeDoor = function(key) {
-			
 			doorsArr.$remove(key);
-
 		};
 
 

@@ -1,7 +1,7 @@
 <div>
 	<h2>Choose a style</h2>
-	<div class="col-md-3" ng-repeat="(key, door) in doors" ng-show="door.category == selectedCat">
-			<a ui-sref="doors.color" class="thumbnail" ng-click="setStyle(key)">
+	<div class="col-md-3" ng-repeat="(key, door) in getUniqueStyles(selectedCat)[1]">
+			<a ui-sref="doors.color" class="thumbnail" ng-click="setStyle(door.style)">
 			<img src="https://placehold.it/250x250">
 			<div class="caption">
 				<p>{{door.style}}</p>
