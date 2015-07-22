@@ -1,5 +1,5 @@
-myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL', 
-	function($scope, $rootScope, $firebaseObject, $firebaseArray, FIREBASE_URL) {
+myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL', 
+	function($scope, $rootScope, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
 
 		var refDoors = new Firebase(FIREBASE_URL + '/products/doors');
 
@@ -8,7 +8,15 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebaseObject', 
 
 		doorsObj.$loaded().then(function(data) {
 			$scope.doors = data;
+			doorsObj.$bindTo($scope, 'doors');
 		}); // make sure doors data has loaded
+
+		
+
+		doorsArr.$loaded().then(function(data) {
+			$scope.doorsArr = data;
+			doorsArr.$bindTo($scope, 'doorsArray');
+		});
 
 		$scope.addDoor = function() {
 			var tempDoor = {
@@ -33,6 +41,13 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebaseObject', 
 			});
 
 		}; //addDoor
+
+		$rootScope.getUniqueCats = function() {
+			var log = [];
+			angular.forEach(doorsArr, function(value, key) {
+				alert(value.category);
+			});
+		};
 
 		$rootScope.setCat = function(key) {
 			var thisCat = $scope.selectedCat = doorsArr.$getRecord(key).category;
@@ -61,12 +76,11 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebaseObject', 
 			$rootScope.selectedDoor = '';
 		};
 
-		$rootScope.deleteDoor = function(door) {
-			alert('1')
-			var item = doorsArr.$indexFor(door);
-			alert('2')
-			doorsArr.$remove(item);
-			alert('3')
-		}; //deleteDoor
+		$scope.removeDoor = function(key) {
+			
+			doorsArr.$remove(key);
+
+		};
+
 
 	}]);

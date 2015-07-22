@@ -1,6 +1,6 @@
 <div>
 	<h2>Choose a door</h2>
-	<div class="col-md-3" ng-repeat="(key, door) in doors">
+	<div class="col-md-3" ng-repeat="(key, door) in doors" ng-show="door.color == selectedColor">
 			<a ui-sref="doors.door" class="thumbnail" ng-click="setDoor(key)">
 			<img src="https://placehold.it/250x250">
 			<div class="caption">
