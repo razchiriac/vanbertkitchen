@@ -2,7 +2,7 @@
 	<h2>Choose a style</h2>
 	<div class="col-md-3" ng-repeat="(key, door) in getUniqueStyles(selectedCat)[1]">
 			<a ui-sref="doors.color" class="thumbnail" ng-click="setStyle(door.style)">
-			<img src="https://placehold.it/250x250">
+			<img src="{{door.imageUrl}}">
 			<div class="caption">
 				<p>{{door.style}}</p>
 			</div>

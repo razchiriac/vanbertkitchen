@@ -2,7 +2,7 @@
 	<h2>Choose a door</h2>
 	<div class="col-md-3" ng-repeat="(key, door) in getUniqueDoors(selectedColor)[1]">
 			<a ui-sref="doors.door" class="thumbnail" ng-click="setDoor(door.name)">
-			<img src="https://placehold.it/250x250">
+			<img src="{{door.imageUrl}}">
 			<div class="caption">
 				<p>{{door.name}}</p>
 			</div>

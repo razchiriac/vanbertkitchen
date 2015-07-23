@@ -10,5 +10,10 @@
 	<button ui-sref=".all" class="btn btn-primary">See All Doors</button>
 </nav>
 
+<pre>
+	<input ng-model="photo"
+       onchange="angular.element(this).scope().file_changed(this)"
+       type="file" accept="image/*" />
+</pre>
 
 <div ui-view></div>

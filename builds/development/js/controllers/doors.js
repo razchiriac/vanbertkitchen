@@ -19,25 +19,29 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 		});
 
 		$scope.addDoor = function() {
+			var imgUrl = 'http://placehold.it/190x305';
+			if( $scope.doorImageUrl === '' ) { $scope.doorImageUrl = imgUrl }; 
 			var tempDoor = {
-				name: $scope.doorname,
-				category: $scope.doorcategory,
-				style: $scope.doorstyle,
-				width: $scope.doorwidth,
-				height: $scope.doorheight, 
-				color: $scope.doorcolor,
-				price: $scope.doorprice,
-				date: Firebase.ServerValue.TIMESTAMP
+				name 		: $scope.doorname,
+				category 	: $scope.doorcategory,
+				style 		: $scope.doorstyle,
+				color 		: $scope.doorcolor,
+				width 		: $scope.doorwidth,
+				height 		: $scope.doorheight, 
+				price 		: $scope.doorprice,
+				imageUrl 	: $scope.doorImageUrl,
+				date 		: Firebase.ServerValue.TIMESTAMP
 			}
 
 			doorsArr.$add(tempDoor).then(function(ref) {
-				$scope.doorname = '';
-				$scope.doorcategory = '';
-				$scope.doorstyle = '';
-				$scope.doorcolor = '';
-				$scope.doorwidth = '';
-				$scope.doorheight = '';
-				$scope.doorprice = '';
+				$scope.doorname 		= '';
+				$scope.doorcategory 	= '';
+				$scope.doorstyle 		= '';
+				$scope.doorcolor 		= '';
+				$scope.doorwidth 		= '';
+				$scope.doorheight 		= '';
+				$scope.doorprice 		= '';
+				$scope.doorImageUrl 	= '';
 			});
 
 		}; //addDoor
@@ -135,6 +139,8 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 		$scope.removeDoor = function(key) {
 			doorsArr.$remove(key);
 		};
+
+		
 
 
 	}]);
