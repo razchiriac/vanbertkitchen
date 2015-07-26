@@ -9,6 +9,8 @@ var appControllers = angular.module('appControllers', ['firebase']);
 
 myApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
 
+	Stripe.setPublishableKey('pk_test_PTQxPyzUAucunSs2MkXAuaPo');
+
 	// For any unmatched url, send to /route1
 	$urlRouterProvider.otherwise("/home")
 
@@ -17,6 +19,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $u
 		url: '/home',
 		templateUrl: 'views/home.html'
 	})
+	/* DOORS */
 	.state('doors', {
 		url: '/doors',
 		templateUrl: 'views/doors.html',
@@ -52,6 +55,21 @@ myApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $u
 		templateUrl: 'views/doors.all.html',
 		controller: 'DoorsController'
 	})
+	/* END OF DOORS */
+
+	/* CABINETS */
+
+	/* END OF CABINETS */
+
+	/* CHECKOUT */
+
+	.state('checkout', {
+		url: '/checkout',
+		templateUrl: 'views/checkout.html',
+		controller: 'StripeController'
+	})
+
+	/* END OF CHECKOUT */	
 
 
 }]);
