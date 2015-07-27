@@ -1,0 +1,23 @@
+<h2>Checkout Page</h2>
+
+<div class="container">
+
+      <div class="row">
+        <div class="span4 offset4">
+          <div class="row">
+            
+            <form stripe-form="stripeCallback">
+	            <input ng-model="number" placeholder="Card Number" payments-format="card"
+				   payments-validate="card" />
+				<input ng-model="expiry" placeholder="Expiration" payments-format="expiry"
+				   payments-validate="expiry" />
+				<input ng-model="cvc" placeholder="CVC" payments-format="cvc"
+				   payments-validate="cvc" />
+			    <button type="submit">Submit</button>
+		    </form>
+
+          </div>
+        </div>
+      </div>
+
+    </div>

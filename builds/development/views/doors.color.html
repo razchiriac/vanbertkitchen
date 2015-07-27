@@ -1,0 +1,11 @@
+<div>
+	<h2>Choose a color</h2>
+	<div class="col-md-3" ng-repeat="(key, door) in getUniqueColors(selectedStyle)[1]">
+			<a ui-sref="doors.door" class="thumbnail" ng-click="setColor(door.color)">
+			<img src="{{door.imageUrl}}">
+			<div class="caption">
+				<p>{{door.color}}</p>
+			</div>
+		</a>
+	</div>
+</div>

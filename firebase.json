@@ -1,0 +1,9 @@
+{
+  "firebase": "attendancerazapp",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

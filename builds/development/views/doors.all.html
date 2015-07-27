@@ -1,0 +1,10 @@
+<h3>All doors</h3>
+
+<div class="col-md-3" ng-repeat="(key, door) in doors">
+	<a ui-sref=".all" class="thumbnail" ng-click="setDoor(door.name)">
+	<img src="{{door.imageUrl}}">
+	<div class="caption">
+		<p>{{door.name}}</p>
+	</div>
+	</a>
+</div>

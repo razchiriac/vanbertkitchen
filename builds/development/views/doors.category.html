@@ -1,0 +1,14 @@
+<div>
+	<h2>Choose a category</h2>
+	<div class="col-md-3" ng-repeat="(key, door) in getUniqueCats()[1]">
+			<a ui-sref="doors.style" class="thumbnail" ng-click="setCat(door.category)">
+			<img src="{{door.imageUrl}}">
+			<div class="caption">
+				<p>{{door.category}}</p>
+			</div>
+		</a>
+	</div>
+
+
+	
+</div>
