@@ -5,14 +5,14 @@
 		<h1>Register</h1>
 		<p>To access site features.</p>
 
-		<p class="error formerror" ng-show="message">{{ message }}</p>
+		<p class="error formerror error-console" ng-show="message">{{ message }}</p>
 
-		<input name="firstname" placeholder="First name" ng-model="user.firstname" ng-required="true">
+		<input name="firstname" placeholder="First name" ng-model="user.fname" ng-required="true">
 		<p class="error validationerror"
 			ng-show="myform.firstname.$invalid && myform.firstname.$touched">
 			First name is required</p>
 
-		<input name="lastname" placeholder="Last name" ng-model="user.lastname" ng-required="true">
+		<input name="lastname" placeholder="Last name" ng-model="user.lname" ng-required="true">
 		<p class="error validationerror"
 			ng-show="myform.lastname.$invalid && myform.lastname.$touched">
 			Last name is required</p>
@@ -31,6 +31,6 @@
 
 		<button type="submit" class="btn"
 			ng-disabled="myform.$invalid">Register</button>
-		<p>or <a ng-href="#/login">login</a></p>
+		<p>or <a ui-sref="login">login</a></p>
 	</form>
 </section>

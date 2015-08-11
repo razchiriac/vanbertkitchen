@@ -20,7 +20,7 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 
 		$scope.addDoor = function() {
 			var imgUrl = 'http://placehold.it/190x305';
-			if( $scope.doorImageUrl === '' ) { $scope.doorImageUrl = imgUrl }; 
+			if( $scope.doorImageUrl === '' ) { $scope.doorImageUrl = imgUrl; }
 			var tempDoor = {
 				name 		: $scope.doorname,
 				category 	: $scope.doorcategory,
@@ -31,7 +31,7 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 				price 		: $scope.doorprice,
 				imageUrl 	: $scope.doorImageUrl,
 				date 		: Firebase.ServerValue.TIMESTAMP
-			}
+			};
 
 			doorsArr.$add(tempDoor).then(function(ref) {
 				$scope.doorname 		= '';
