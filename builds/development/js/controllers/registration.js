@@ -49,6 +49,7 @@ myApp.controller('RegistrationController', ["$scope", "$firebaseAuth", "$locatio
 
 		$scope.logout = function () {
 			Auth.unauth();
+			$location.path("/home");
 		};
 
 		// any time auth status updates, add the user data to scope

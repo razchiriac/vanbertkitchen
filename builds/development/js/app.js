@@ -42,6 +42,20 @@ myApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $u
         controller: 'RegistrationController'
 	})
     /* END OF LOGIN & REGISTER */
+	.state('admin', {
+		url: '/admin',
+		templateUrl: 'views/admin.html',
+		controller: 'DoorsController',
+		resolve: {
+			// controller will not be loaded until $requireAuth resolves
+			// Auth refers to our $firebaseAuth wrapper in the example above
+			"currentAuth": ["Auth", function (Auth) {
+				// $requireAuth returns a promise so the resolve waits for it to complete
+				// If the promise is rejected, it will throw a $stateChangeError (see above)
+				return Auth.$requireAuth();
+      }]
+		}
+	})
 	/* DOORS */
 	.state('doors', {
 		url: '/doors',
@@ -67,20 +81,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $u
 		url: '/door',
 		templateUrl: 'views/doors.door.html',
 		controller: 'DoorsController'	
-	})
-	.state('doors.admin', {
-		url: '/admin',
-		templateUrl: 'views/doors.admin.html',
-		controller: 'DoorsController',
-		resolve: {
-			// controller will not be loaded until $requireAuth resolves
-			// Auth refers to our $firebaseAuth wrapper in the example above
-			"currentAuth": ["Auth", function (Auth) {
-				// $requireAuth returns a promise so the resolve waits for it to complete
-				// If the promise is rejected, it will throw a $stateChangeError (see above)
-				return Auth.$requireAuth();
-      }]
-		}
 	})
 	.state('doors.all', {
 		url: '/all',
