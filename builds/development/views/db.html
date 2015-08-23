@@ -1,0 +1,30 @@
+<div class="row">
+    <h4>Doors:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</td>
+                    <th>Category</th>
+                    <th>Style</th>
+                    <th>Color</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="door in doorsArr">
+                <td>{{door.name}}</td>
+                <td>{{door.category}}</td>
+                <td>{{door.style}}</td>
+                <td>{{door.color}}</td>
+                <td>{{door.width | number}}</td>
+                <td>{{door.height | number}}</td>
+                <td>{{door.price | currency}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="removeDoor(door)">Remove Door</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
