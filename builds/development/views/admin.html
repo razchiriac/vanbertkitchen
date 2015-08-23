@@ -1,99 +1,84 @@
 <div>
-	<div class="row">
-		<h2>Admin area</h2>
-		<hr>
-		<div class="panel panel-default">
-			<div class="panel-header">
-				<h3>Add a new door</h3>
-			</div>
-			<div class="panel-body">
-				<form name="myform" ng-submit="addDoor()" novalidate>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Name</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorname">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Category</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorcategory">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Style</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorstyle">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Color</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorcolor">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Width</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorwidth">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Height</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorheight">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Price</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorprice">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Image</label>
-						<div class="col-md-10">
-							<input type="text" class="form-control" ng-model="doorImageUrl">
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="col-md-2 col-md-offset-10">
-							<button type="submit" class="btn btn-default">Add door</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<h4>Doors:</h4>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</td>
-						<th>Category</th>
-						<th>Style</th>
-						<th>Color</th>
-						<th>Width</th>
-						<th>Height</th>
-						<th>Price</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="door in doorsArr">
-					<td>{{door.name}}</td>
-					<td>{{door.category}}</td>
-					<td>{{door.style}}</td>
-					<td>{{door.color}}</td>
-					<td>{{door.width | number}}</td>
-					<td>{{door.height | number}}</td>
-					<td>{{door.price | currency}}</td>
-					<td>
-						<button class="btn btn-danger" ng-click="removeDoor(door)">Remove Door</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+    <div class="row">
+        <h2>Admin area</h2>
+        <hr>
+        <div class="col-md-4">
+            <h4>Add a new door</h4>
+            <hr>
+            <form name="myform" ng-submit="addDoor()" novalidate>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label>Door name</label>
+                        <input ng-model="doorname">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Category</label>
+                        <input type="text" ng-model="doorcategory" class="right">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Style</label>
+                        <input type="text" ng-model="doorstyle">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Color</label>
+                        <input type="text" ng-model="doorcolor">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Width</label>
+                        <input type="text" ng-model="doorwidth">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Height</label>
+                        <input type="text" ng-model="doorheight">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Price</label>
+                        <input type="text" ng-model="doorprice">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Image</label>
+                        <input type="text" ng-model="doorImageUrl">
+                    </li>
+                    <li class="list-group-item">
+                        <button type="submit" class="btn btn-default">Add door</button>
+                    </li>
+                </ul>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+</div>
+<div class="row">
+    <h4>Doors:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</td>
+                    <th>Category</th>
+                    <th>Style</th>
+                    <th>Color</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="door in doorsArr">
+                <td>{{door.name}}</td>
+                <td>{{door.category}}</td>
+                <td>{{door.style}}</td>
+                <td>{{door.color}}</td>
+                <td>{{door.width | number}}</td>
+                <td>{{door.height | number}}</td>
+                <td>{{door.price | currency}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="removeDoor(door)">Remove Door</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </div>
