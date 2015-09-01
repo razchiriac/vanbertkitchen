@@ -1,6 +1,6 @@
 <h2>Admin area</h2>
 <hr>
-<div class="row">
+<div class="row admin">
     <!-- New door form -->
     <div class="col-md-4">
         <h4>Add a new door</h4>
@@ -12,19 +12,18 @@
                 </li>
                 <li class="list-group-item">
                     <label>Category</label>
-                    <select ng-model="doorcategory" class="pull-right">
-                        <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+                    <select class="pull-right" ng-model="selectedCat" ng-options="door.category for door in getUniqueCats()[1]">
                     </select>
                 </li>
                 <li class="list-group-item">
                     <label>Style</label>
-                    <select ng-model="doorcategory" class="pull-right">
-                        <option ng-repeat="category in categories" value="{{category}}">{{category}}</option>
+                    <select class="pull-right" ng-model="selectedStyle" ng-options="door.style for door in getUniqueStyles(selectedCat.category)[1]">
                     </select>
                 </li>
                 <li class="list-group-item">
                     <label>Color</label>
-                    <input type="color" ng-model="doorcolor" class="pull-right">
+                    <select class="pull-right" ng-model="selectedColor" ng-options="door.color for door in getUniqueColors(selectedStyle.style)[1]">
+                    </select>
                 </li>
 
                 <li class="list-group-item">

@@ -6,3 +6,8 @@ body, div, p, h1, h2, h3, h4, h5, h6, pre, label, th, td {
     font-weight: 300 !important;
 }
 
+.admin .list-group-item select {
+    width: 150px;
+    border-radius: 0 !important;
+    background-color: #FFF;
+}
