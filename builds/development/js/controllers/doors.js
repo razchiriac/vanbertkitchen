@@ -1,34 +1,46 @@
 myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
 	function ($scope, $rootScope, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
 
-        var refDoors = new Firebase(FIREBASE_URL + '/products/doors');
+        var refDoors            = new Firebase(FIREBASE_URL + '/products/doors');
+        var refDoorCategories   = new Firebase(FIREBASE_URL + '/products/door-categories');
 
         var doorsObj = $firebaseObject(refDoors);
         var doorsArr = $firebaseArray(refDoors);
 
+        var doorCategoriesObj = $firebaseObject(refDoorCategories);
+        var doorCategoriesArr = $firebaseArray(refDoorCategories);
+
         doorsObj.$loaded().then(function (data) {
             $scope.doors = data;
             doorsObj.$bindTo($scope, 'doors');
-        }); // make sure doors data has loaded
-
-
+        }); // make sure doors object data has loaded
 
         doorsArr.$loaded().then(function (data) {
             $scope.doorsArr = data;
             doorsArr.$bindTo($scope, 'doorsArray');
-        });
+        }); // make sure doors array data has loaded
+
+        doorCategoriesObj.$loaded().then(function (data) {
+            $scope.doorCategories = data;
+            doorCategoriesObj.$bindTo($scope, 'doorCategories');
+        }); // make sure doors object data has loaded
+
+        doorCategoriesArr.$loaded().then(function (data) {
+            $scope.doorCategoriesArr = data;
+            doorCategoriesArr.$bindTo($scope, 'doorCategoriesArray');
+        }); // make sure doors array data has loaded
 
         $scope.addDoor = function () {
             var imgUrl = 'http://placehold.it/190x305';
             $scope.doorImageUrl = imgUrl;
             var tempDoor = {
-                name: $scope.doorname,
-                category: $scope.selectedCat.category,
-                style: $scope.selectedStyle.style,
-                color: $scope.selectedColor.color,
-                price: $scope.doorprice,
-                imageUrl: $scope.doorImageUrl,
-                date: Firebase.ServerValue.TIMESTAMP
+                name:       $scope.doorname,
+                category:   $scope.selectedCat.category,
+                style:      $scope.selectedStyle.style,
+                color:      $scope.selectedColor.color,
+                price:      $scope.doorprice,
+                imageUrl:   $scope.doorImageUrl,
+                date:       Firebase.ServerValue.TIMESTAMP
             };
 
             doorsArr.$add(tempDoor).then(function (ref) {
@@ -39,6 +51,10 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
                 $scope.doorprice = '';
                 $scope.doorImageUrl = '';
             });
+
+            //add category to list of categories
+
+            doorCategoriesArr.$add(tempDoor.category);
 
         }; //addDoor
 
