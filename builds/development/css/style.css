@@ -11,3 +11,11 @@ body, div, p, h1, h2, h3, h4, h5, h6, pre, label, th, td {
     border-radius: 0 !important;
     background-color: #FFF;
 }
+
+table > thead > tr > th {
+    cursor: pointer;
+}
+
+table > thead > tr > th:hover {
+    font-weight: 700 !important;
+}

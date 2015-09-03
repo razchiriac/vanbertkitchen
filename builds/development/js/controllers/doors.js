@@ -59,16 +59,26 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
         }; //addDoor
 
         $scope.addCategory = function () {
-            doorCategoriesArr.$add($scope.newCategory).then(function (ref) {
-                $scope.newCategory = '';
+            var imgUrl = 'http://placehold.it/190x305';
+            $scope.categoryImageUrl = imgUrl;
+            var tempCategory = {
+                name:       $scope.newCategoryName,
+                imageUrl:   $scope.categoryImageUrl,
+                date:       Firebase.ServerValue.TIMESTAMP
+            };
+            doorCategoriesArr.$add(tempCategory).then(function (ref) {
+                $scope.newCategoryName = '';
+                $scope.categoryImageUrl = '';
             });
         }; //addCategory
 
-        $scope.getUniqueCategories = function () {
+        $scope.getUniqueCategories = function ( field ) {
             $scope.tempCategories = [];
             angular.forEach( doorCategoriesArr, function ( value, key ) {
                 if ( ( $scope.tempCategories.length < 1 ) || ( $.inArray( value, $scope.tempCategories ) < 0 ) ) {
-                    $scope.tempCategories.push( value.$value );
+                    if ( field === 'name' || !field ) {
+                        $scope.tempCategories.push( value.name );
+                    }
                 }
             });
             return $scope.tempCategories;
@@ -168,7 +178,8 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             doorsArr.$remove(key);
         };
 
-
-
+        $scope.removeCategory = function (key) {
+            doorCategoriesArr.$remove(key);
+        };
 
 	}]);
