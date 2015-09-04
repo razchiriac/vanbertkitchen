@@ -47,3 +47,26 @@
         </tbody>
     </table>
 </div>
+
+<div class="row">
+    <h4>Styles</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th ng-click="filter = 'name'">Name</th>
+                <th>Category</th>
+                <th ng-click="filter = 'date'">Date added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="style in doorStylesArr">
+                <td>{{style.name}}</td>
+                <td>{{style.category}}</td>
+                <td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeStyle(style)">Remove Style</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -17,13 +17,12 @@
                 </li>
                 <li class="list-group-item">
                     <label>Style</label>
-                    <select class="pull-right" ng-model="selectedStyle" ng-options="door.style for door in getUniqueStyles(selectedCat.category)[1]">
+                    <select class="pull-right" ng-model="selectedStyle" ng-options="style for style in getUniqueStyles(selectedCat)">
                     </select>
                 </li>
                 <li class="list-group-item">
                     <label>Color</label>
-                    <select class="pull-right" ng-model="selectedColor" ng-options="door.color for door in getUniqueColors(selectedStyle.style)[1]">
-                    </select>
+                    <input type="text" ng-model="selectedColor" class="pull-right">
                 </li>
 
                 <li class="list-group-item">
@@ -68,12 +67,16 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <label>Container category</label>
-                        <select class="pull-right" ng-model="selectedCat" ng-options="category for category in getUniqueCategories()">
+                        <select class="pull-right" ng-model="newStyleCategory" ng-options="category for category in getUniqueCategories()">
                         </select>
                     </li>
                     <li class="list-group-item">
                         <label>Name</label>
-                        <input type="text" ng-model="newStyle" class="pull-right">
+                        <input type="text" ng-model="newStyleName" class="pull-right">
+                    </li>
+                    <li class="list-group-item">
+                        <label>Image</label>
+                        <input type="text" ng-model="styleImageUrl" class="pull-right">
                     </li>
                     <li class="list-group-item pull-right">
                         <button type="submit" class="btn btn-default">Add Style</button>
@@ -100,7 +103,10 @@
         <hr>
         <h4>Debug console</h4>
         <span><strong>getUniqueCategories()</strong><span class="pull-right">{{getUniqueCategories()}}</span></span>
-
+        <br>
+        <span><strong>getUniqueStyles(selectedCat)</strong><span class="pull-right">{{getUniqueStyles(selectedCat)}}</span></span>
+        <br>
+        <span><strong>selectedStyle</strong><span class="pull-right">{{selectedStyle}}</span></span>
     </div>
 </div>
 

@@ -3,12 +3,16 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 
         var refDoors            = new Firebase(FIREBASE_URL + '/products/doors');
         var refDoorCategories   = new Firebase(FIREBASE_URL + '/products/door-categories');
+        var refDoorStyles       = new Firebase(FIREBASE_URL + '/products/door-styles');
 
-        var doorsObj = $firebaseObject(refDoors);
-        var doorsArr = $firebaseArray(refDoors);
+        var doorsObj            = $firebaseObject(refDoors);
+        var doorsArr            = $firebaseArray(refDoors);
 
-        var doorCategoriesObj = $firebaseObject(refDoorCategories);
-        var doorCategoriesArr = $firebaseArray(refDoorCategories);
+        var doorCategoriesObj   = $firebaseObject(refDoorCategories);
+        var doorCategoriesArr   = $firebaseArray(refDoorCategories);
+
+        var doorStylesObj       = $firebaseObject(refDoorStyles);
+        var doorStylesArr       = $firebaseArray(refDoorStyles);
 
         doorsObj.$loaded().then(function (data) {
             $scope.doors = data;
@@ -30,14 +34,24 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             doorCategoriesArr.$bindTo($scope, 'doorCategoriesArray');
         }); // make sure doors array data has loaded
 
+        doorStylesObj.$loaded().then(function (data) {
+            $scope.doorStyles = data;
+            doorStylesObj.$bindTo($scope, 'doorStyles');
+        }); // make sure doors object data has loaded
+
+        doorStylesArr.$loaded().then(function (data) {
+            $scope.doorStylesArr = data;
+            doorStylesArr.$bindTo($scope, 'doorStylesArray');
+        }); // make sure doors array data has loaded
+
         $scope.addDoor = function () {
             var imgUrl = 'http://placehold.it/190x305';
             $scope.doorImageUrl = imgUrl;
             var tempDoor = {
                 name:       $scope.doorname,
-                category:   $scope.selectedCat.category,
-                style:      $scope.selectedStyle.style,
-                color:      $scope.selectedColor.color,
+                category:   $scope.selectedCat,
+                style:      $scope.selectedStyle,
+                color:      $scope.selectedColor,
                 price:      $scope.doorprice,
                 imageUrl:   $scope.doorImageUrl,
                 date:       Firebase.ServerValue.TIMESTAMP
@@ -45,9 +59,9 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 
             doorsArr.$add(tempDoor).then(function (ref) {
                 $scope.doorname = '';
-                $scope.selectedCat.category = '';
-                $scope.selectedStyle.style = '';
-                $scope.selectedColor.color = '';
+                $scope.selectedCat = '';
+                $scope.selectedStyle = '';
+                $scope.selectedColor = '';
                 $scope.doorprice = '';
                 $scope.doorImageUrl = '';
             });
@@ -72,6 +86,21 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             });
         }; //addCategory
 
+        $scope.addStyle = function () {
+            var imgUrl = 'http://placehold.it/190x305';
+            $scope.styleImageUrl = imgUrl;
+            var tempStyle = {
+                category:   $scope.newStyleCategory,
+                name:       $scope.newStyleName,
+                imageUrl:   $scope.styleImageUrl,
+                date:       Firebase.ServerValue.TIMESTAMP
+            };
+            doorStylesArr.$add(tempStyle).then(function (ref) {
+                $scope.newStyleName = '';
+                $scope.styleImageUrl = '';
+            });
+        }; //addStyle
+
         $scope.getUniqueCategories = function ( field ) {
             $scope.tempCategories = [];
             angular.forEach( doorCategoriesArr, function ( value, key ) {
@@ -84,37 +113,37 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             return $scope.tempCategories;
         }; // getUniqueCategories
 
-        $scope.getUniqueCats = function () {
-            $scope.tempCats = [];
-            $scope.tempDoors = [];
-            angular.forEach(doorsArr, function (value, key) {
-                if ($scope.tempCats.length < 1) {
-                    $scope.tempCats.push(value.category);
-                    $scope.tempDoors.push(value);
-                } else if (($.inArray(value.category, $scope.tempCats) < 0)) {
-                    $scope.tempCats.push(value.category);
-                    $scope.tempDoors.push(value);
-                }
-            });
-            return [$scope.tempCats, $scope.tempDoors];
-        };
+//  DEPRECATED
+//        $scope.getUniqueCats = function () {
+//            $scope.tempCats = [];
+//            $scope.tempDoors = [];
+//            angular.forEach(doorsArr, function (value, key) {
+//                if ($scope.tempCats.length < 1) {
+//                    $scope.tempCats.push(value.category);
+//                    $scope.tempDoors.push(value);
+//                } else if (($.inArray(value.category, $scope.tempCats) < 0)) {
+//                    $scope.tempCats.push(value.category);
+//                    $scope.tempDoors.push(value);
+//                }
+//            });
+//            return [$scope.tempCats, $scope.tempDoors];
+//        };
 
-        $scope.getUniqueStyles = function (cat) {
+        $scope.getUniqueStyles = function ( selectedCategory ) {
             $scope.tempStyles = [];
-            $scope.tempDoors = [];
-            angular.forEach(doorsArr, function (value, key) {
-                if (value.category === cat) {
-                    if ($scope.tempStyles.length < 1) {
-                        $scope.tempStyles.push(value.category);
-                        $scope.tempDoors.push(value);
-                    } else if (($.inArray(value.style, $scope.tempStyles) < 0)) {
-                        $scope.tempStyles.push(value.style);
-                        $scope.tempDoors.push(value);
+            angular.forEach( doorStylesArr, function ( value, key ) {
+                if ( ( $scope.tempStyles.length < 1 ) || ( $.inArray( value, $scope.tempStyles ) < 0 ) ) {
+                    if ( selectedCategory ) {
+                        if ( value.category === selectedCategory ) {
+                            $scope.tempStyles.push( value.name );
+                        }
+                    } else {
+                        $scope.tempStyles.push( value.name );
                     }
                 }
             });
-            return [$scope.tempStyles, $scope.tempDoors];
-        };
+            return $scope.tempStyles;
+        }; // getUniqueStyles
 
         $scope.getUniqueColors = function (theStyle) {
             $scope.tempColors = [];
