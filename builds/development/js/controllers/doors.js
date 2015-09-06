@@ -211,4 +211,8 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             doorCategoriesArr.$remove(key);
         };
 
+        $scope.removeStyle = function (key) {
+            doorStylesArr.$remove(key);
+        };
+
 	}]);

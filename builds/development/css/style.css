@@ -19,3 +19,11 @@ table > thead > tr > th {
 table > thead > tr > th:hover {
     font-weight: 700 !important;
 }
+
+.debug-console {
+/*    display: none;*/
+}
+
+.colors-btn {
+    line-height: 13px;
+}

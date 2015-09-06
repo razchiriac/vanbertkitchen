@@ -2,7 +2,7 @@
 <hr>
 <div class="row admin">
     <!-- New door form -->
-    <div class="col-md-4">
+    <div class="col-lg-4 col-md-12">
         <h4>Add a new door</h4>
         <form name="myform" ng-submit="addDoor()" novalidate>
             <ul class="list-group">
@@ -22,7 +22,18 @@
                 </li>
                 <li class="list-group-item">
                     <label>Color</label>
-                    <input type="text" ng-model="selectedColor" class="pull-right">
+                    <button class="btn btn-default pull-right colors-btn" type="button" data-toggle="collapse" data-target="#chooseColors" aria-expanded="false" aria-controls="chooseColors">
+                        Choose colors
+                    </button>
+                </li>
+                <li class="list-group-item">
+                    <div class="collapse" id="chooseColors">
+                        <div class="well">
+                            <label ng-repeat="color in colors">
+                                <input type="checkbox" checklist-model="door.colors" checklist-value="color"> {{color}}
+                            </label>
+                        </div>
+                    </div>
                 </li>
 
                 <li class="list-group-item">
@@ -39,53 +50,54 @@
             </ul>
         </form>
     </div>
-    <div class="col-md-4">
+
+    <div class="col-lg-4 col-md-12">
         <!-- New category form -->
-        <div class="row">
-            <h4>Add a new category</h4>
-            <form name="myform" ng-submit="addCategory()" novalidate>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <label>Name</label>
-                        <input type="text" ng-model="newCategoryName" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <label>Image</label>
-                        <input type="text" ng-model="categoryImageUrl" class="pull-right">
-                    </li>
-                    <li class="list-group-item pull-right">
-                        <button type="submit" class="btn btn-default">Add Category</button>
-                    </li>
-                </ul>
-            </form>
-        </div>
+
+        <h4>Add a new category</h4>
+        <form name="myform" ng-submit="addCategory()" novalidate>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Name</label>
+                    <input type="text" ng-model="newCategoryName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="categoryImageUrl" class="pull-right">
+                </li>
+                <li class="list-group-item pull-right">
+                    <button type="submit" class="btn btn-default">Add Category</button>
+                </li>
+            </ul>
+        </form>
+
         <hr>
         <!-- New style form -->
-        <div class="row">
-            <h4>Add a new style</h4>
-            <form name="myform" ng-submit="addStyle()" novalidate>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <label>Container category</label>
-                        <select class="pull-right" ng-model="newStyleCategory" ng-options="category for category in getUniqueCategories()">
-                        </select>
-                    </li>
-                    <li class="list-group-item">
-                        <label>Name</label>
-                        <input type="text" ng-model="newStyleName" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <label>Image</label>
-                        <input type="text" ng-model="styleImageUrl" class="pull-right">
-                    </li>
-                    <li class="list-group-item pull-right">
-                        <button type="submit" class="btn btn-default">Add Style</button>
-                    </li>
-                </ul>
-            </form>
-        </div>
+
+        <h4>Add a new style</h4>
+        <form name="myform" ng-submit="addStyle()" novalidate>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Container category</label>
+                    <select class="pull-right" ng-model="newStyleCategory" ng-options="category for category in getUniqueCategories()">
+                    </select>
+                </li>
+                <li class="list-group-item">
+                    <label>Name</label>
+                    <input type="text" ng-model="newStyleName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="styleImageUrl" class="pull-right">
+                </li>
+                <li class="list-group-item pull-right">
+                    <button type="submit" class="btn btn-default">Add Style</button>
+                </li>
+            </ul>
+        </form>
+
     </div>
-    <div class="col-md-4">
+    <div class="col-lg-4 col-md-12">
         <!-- New color form -->
 
         <h4>Add a new color</h4>
@@ -93,21 +105,34 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <label>Name</label>
-                    <input type="text" ng-model="newColor" class="pull-right">
+                    <input type="text" ng-model="newColorName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="colorImageUrl" class="pull-right">
                 </li>
                 <li class="list-group-item pull-right">
                     <button type="submit" class="btn btn-default">Add Color</button>
                 </li>
             </ul>
         </form>
-        <hr>
+
+    </div>
+</div>
+
+<div class="row debug-console">
+    <div class="panel panel-default col-md-8 col-md-offset-2">
         <h4>Debug console</h4>
+        <hr>
         <span><strong>getUniqueCategories()</strong><span class="pull-right">{{getUniqueCategories()}}</span></span>
         <br>
+        <hr>
         <span><strong>getUniqueStyles(selectedCat)</strong><span class="pull-right">{{getUniqueStyles(selectedCat)}}</span></span>
         <br>
+        <hr>
         <span><strong>selectedStyle</strong><span class="pull-right">{{selectedStyle}}</span></span>
     </div>
+    <hr>
 </div>
 
 
