@@ -29,8 +29,8 @@
                 <li class="list-group-item">
                     <div class="collapse" id="chooseColors">
                         <div class="well">
-                            <label ng-repeat="color in colors">
-                                <input type="checkbox" checklist-model="door.colors" checklist-value="color"> {{color}}
+                            <label ng-repeat="color in doorColorsArr">
+                                <input type="checkbox" ng-model="colorCheckbox" ng-change="colorCheckbox ? addColorToDoor( color ) : removeColorFromDoor( color )"> {{color.name}}
                             </label>
                         </div>
                     </div>
@@ -131,6 +131,11 @@
         <br>
         <hr>
         <span><strong>selectedStyle</strong><span class="pull-right">{{selectedStyle}}</span></span>
+        <br>
+        <hr>
+        <span><strong>tempDoorColors : [ </strong><span ng-repeat="color in tempDoorColors"> {{color.name}} </span></span>
+        <strong class="pull-right"> ]</strong>
+        <br>
     </div>
     <hr>
 </div>

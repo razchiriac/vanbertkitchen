@@ -70,3 +70,24 @@
         </tbody>
     </table>
 </div>
+
+<div class="col-sm-12">
+    <h4>Colors</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th ng-click="filter = 'name'">Name</th>
+                <th ng-click="filter = 'date'">Date added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="color in doorColorsArr">
+                <td>{{color.name}}</td>
+                <td>{{color.date | date : 'MMM d, yyyy, h:mm a'}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeColor(color)">Remove Color</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
