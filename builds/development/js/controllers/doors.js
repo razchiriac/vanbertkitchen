@@ -65,7 +65,10 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
         };
 
         $scope.removeColorFromDoor = function (color) {
-            $scope.tempDoorColors.pop(color);
+            var index = $scope.tempDoorColors.indexOf(color);
+            if ( index > -1 ) {
+                $scope.tempDoorColors.splice(index, 1);
+            }
         };
 
         $scope.addDoor = function () {
