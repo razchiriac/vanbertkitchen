@@ -35,7 +35,24 @@
                         </div>
                     </div>
                 </li>
-
+                <li class="list-group-item">
+                    <label>Allowed Dimensions</label>
+                    <button class="btn btn-default pull-right" type="button" data-toggle="collapse" data-target="#dimensions" aria-expanded="false" aria-controls="dimensions">Set Dimensions</button>
+                    <div class="collapse" id="dimensions">
+                        <hr>
+                        <label>Min. Width</label>
+                        <input type="number" class="pull-right" min="12" max="36" step="1" ng-model="doorWidth.min" required>
+                        <hr>
+                        <label>Max. Width</label>
+                        <input type="number" class="pull-right" min="{{doorWidth.min}}" max="36" step="1" ng-model="doorWidth.max" required>
+                        <hr>
+                        <label>Min. Height</label>
+                        <input type="number" class="pull-right" min="12" max="36" step="1" ng-model="doorHeight.min" required>
+                        <hr>
+                        <label>Max. Height</label>
+                        <input type="number" class="pull-right" min="{{doorHeight.min}}" max="36" step="1" ng-model="doorHeight.max" required>
+                    </div>
+                </li>
                 <li class="list-group-item">
                     <label>Price per sq. in</label>
                     <input type="text" ng-model="doorprice" class="pull-right">

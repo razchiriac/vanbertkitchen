@@ -66,7 +66,7 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
 
         $scope.removeColorFromDoor = function (color) {
             var index = $scope.tempDoorColors.indexOf(color);
-            if ( index > -1 ) {
+            if (index > -1) {
                 $scope.tempDoorColors.splice(index, 1);
             }
         };
@@ -79,6 +79,10 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
                 category: $scope.selectedCat,
                 style: $scope.selectedStyle,
                 colors: $scope.tempDoorColors,
+                minWidth: $scope.doorWidth.min,
+                maxWidth: $scope.doorWidth.max,
+                minHeight: $scope.doorHeight.min,
+                maxHeight: $scope.doorHeight.max,
                 price: $scope.doorprice,
                 imageUrl: $scope.doorImageUrl,
                 date: Firebase.ServerValue.TIMESTAMP
@@ -88,7 +92,11 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
                 $scope.doorname = '';
                 $scope.selectedCat = '';
                 $scope.selectedStyle = '';
-                $scope.selectedColor = '';
+                $scope.tempDoorColors = '';
+                $scope.doorWidth.min = '';
+                $scope.doorWidth.max = '';
+                $scope.doorHeight.min = '';
+                $scope.doorHeight.max = '';
                 $scope.doorprice = '';
                 $scope.doorImageUrl = '';
             });
