@@ -45,7 +45,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         .state('admin', {
             url: '/admin',
             templateUrl: 'views/admin.html',
-            controller: 'DoorsController',
             resolve: {
                 // controller will not be loaded until $requireAuth resolves
                 // Auth refers to our $firebaseAuth wrapper in the example above
@@ -73,7 +72,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         .state('admin.cabinets', {
             url: '/admin-cabinets',
             templateUrl: 'views/admin.cabinets.html',
-            controller: 'DoorsController',
+            controller: 'CabinetsController',
             resolve: {
                 // controller will not be loaded until $requireAuth resolves
                 // Auth refers to our $firebaseAuth wrapper in the example above

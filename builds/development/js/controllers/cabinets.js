@@ -1,144 +1,221 @@
-myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL', 
-	function($scope, $rootScope, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
+myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
+	function ($scope, $rootScope, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
 
-		var refCabinets = new Firebase(FIREBASE_URL + '/products/cabinets');
+        var refCabinets = new Firebase(FIREBASE_URL + '/products/cabinets');
+        var refCabinetCategories = new Firebase(FIREBASE_URL + '/products/cabinet-categories');
+        var refCabinetStyles = new Firebase(FIREBASE_URL + '/products/cabinet-styles');
+        var refCabinetColors = new Firebase(FIREBASE_URL + '/products/cabinet-colors');
 
-		var cabinetsObj = $firebaseObject(refCabinets);
-		var cabinetsArr = $firebaseArray(refCabinets);
+        var cabinetsObj = $firebaseObject(refCabinets);
+        var cabinetsArr = $firebaseArray(refCabinets);
 
-		cabinetsObj.$loaded().then(function(data) {
-			$scope.cabinets = data;
-			cabinetsObj.$bindTo($scope, 'cabinets');
-		}); // make sure cabinets data has loaded
+        var cabinetCategoriesObj = $firebaseObject(refCabinetCategories);
+        var cabinetCategoriesArr = $firebaseArray(refCabinetCategories);
 
-		cabinetsArr.$loaded().then(function(data) {
-			$scope.cabinetsArr = data;
-			cabinetsArr.$bindTo($scope, 'cabinetsArray');
-		});
+        var cabinetStylesObj = $firebaseObject(refCabinetStyles);
+        var cabinetStylesArr = $firebaseArray(refCabinetStyles);
 
-		$scope.addCabinet = function() {
-			var imgUrl = 'http://placehold.it/190x305';
-			if( $scope.cabinetImageUrl === '' ) { $scope.cabinetImageUrl = imgUrl }; 
-			var tempCabinet = {
-				name 		: $scope.cabinetname,
-				category 	: $scope.cabinetcategory,
-				style 		: $scope.cabinetstyle,
-				color 		: $scope.cabinetcolor,
-				width 		: $scope.cabinetwidth,
-				height 		: $scope.cabinetheight, 
-				price 		: $scope.cabinetprice,
-				imageUrl 	: $scope.cabinetImageUrl,
-				date 		: Firebase.ServerValue.TIMESTAMP
-			}
+        var cabinetColorsObj = $firebaseObject(refCabinetColors);
+        var cabinetColorsArr = $firebaseArray(refCabinetColors);
 
-			cabinetsArr.$add(tempCabinet).then(function(ref) {
-				$scope.cabinetname 		= '';
-				$scope.cabinetcategory 	= '';
-				$scope.cabinetstyle 	= '';
-				$scope.cabinetcolor 	= '';
-				$scope.cabinetwidth 	= '';
-				$scope.cabinetheight 	= '';
-				$scope.cabinetprice 	= '';
-				$scope.cabinetImageUrl 	= '';
-			});
+        cabinetsObj.$loaded().then(function (data) {
+            $scope.cabinets = data;
+            cabinetsObj.$bindTo($scope, 'cabinets');
+        }); // make sure cabinets object data has loaded
 
-		}; //addCabinet
+        cabinetsArr.$loaded().then(function (data) {
+            $scope.cabinetsArr = data;
+            cabinetsArr.$bindTo($scope, 'cabinetsArray');
+        }); // make sure cabinets array data has loaded
 
-		$scope.getUniqueCats = function() {
-			$scope.tempCats = [];
-			$scope.tempCabinets = [];
-			angular.forEach(cabinetsArr, function(value, key) {
-				if($scope.tempCats.length < 1) {
-					$scope.tempCats.push(value.category);
-					$scope.tempCabinets.push(value);
-				} else if ( ($.inArray( value.category, $scope.tempCats ) < 0) ){
-					$scope.tempCats.push(value.category);
-					$scope.tempCabinets.push(value);
-				}
-			});
-			return [$scope.tempCats,$scope.tempCabinets];
-		};
+        cabinetCategoriesObj.$loaded().then(function (data) {
+            $scope.cabinetCategories = data;
+            cabinetCategoriesObj.$bindTo($scope, 'cabinetCategories');
+        }); // make sure cabinets object data has loaded
 
-		$scope.getUniqueStyles = function(cat) {
-			$scope.tempStyles = [];
-			$scope.tempCabinets = [];
-			angular.forEach(cabinetsArr, function(value, key) {
-				if( value.category === cat ) {
-					if($scope.tempStyles.length < 1) {
-						$scope.tempStyles.push(value.category);
-						$scope.tempCabinets.push(value);
-					} else if ( ($.inArray( value.style, $scope.tempStyles ) < 0) ){
-						$scope.tempStyles.push(value.style);
-						$scope.tempCabinets.push(value);
-					}
-				}
-			});
-			return [$scope.tempStyles,$scope.tempCabinets];
-		};
+        cabinetCategoriesArr.$loaded().then(function (data) {
+            $scope.cabinetCategoriesArr = data;
+            cabinetCategoriesArr.$bindTo($scope, 'cabinetCategoriesArray');
+        }); // make sure cabinets array data has loaded
 
-		$scope.getUniqueColors = function(theStyle) {
-			$scope.tempColors = [];
-			$scope.tempCabinets = [];
-			angular.forEach(cabinetsArr, function(value, key) {
-				if( value.style === theStyle ) {
-					if($scope.tempColors.length < 1) {
-						$scope.tempColors.push(value.color);
-						$scope.tempCabinets.push(value);
-					} else if ( ($.inArray( value.color, $scope.tempColors ) < 0) ){
-						$scope.tempColors.push(value.color);
-						$scope.tempCabinets.push(value);
-					}
-				}
-			});
-			return [$scope.tempColors,$scope.tempCabinets];
-		};
+        cabinetStylesObj.$loaded().then(function (data) {
+            $scope.cabinetStyles = data;
+            cabinetStylesObj.$bindTo($scope, 'cabinetStyles');
+        }); // make sure cabinets object data has loaded
 
-		$scope.getUniqueCabinets = function(theColor) { 
-			$scope.tempCabinetNames = [];
-			$scope.tempCabinets = [];
-			angular.forEach(cabinetsArr, function(value, key) {
-				if( value.color === theColor ) {
-					if($scope.tempCabinetNames.length < 1) {
-						$scope.tempCabinetNames.push(value.name);
-						$scope.tempCabinets.push(value);
-					} else if ( ($.inArray( value.name, $scope.tempCabinetNames ) < 0) ){
-						$scope.tempCabinetNames.push(value.name);
-						$scope.tempCabinets.push(value);
-					}
-				}
-			});
-			return [$scope.tempCabinetNames,$scope.tempCabinets];
-		};
+        cabinetStylesArr.$loaded().then(function (data) {
+            $scope.cabinetStylesArr = data;
+            cabinetStylesArr.$bindTo($scope, 'cabinetStylesArray');
+        }); // make sure cabinets array data has loaded
+
+        cabinetColorsObj.$loaded().then(function (data) {
+            $scope.cabinetColors = data;
+            cabinetColorsObj.$bindTo($scope, 'cabinetColors');
+        }); // make sure cabinets object data has loaded
+
+        cabinetColorsArr.$loaded().then(function (data) {
+            $scope.cabinetColorsArr = data;
+            cabinetColorsArr.$bindTo($scope, 'cabinetColorsArray');
+        }); // make sure cabinets array data has loaded
+
+        $scope.tempCabinetColors = [];
+
+        $scope.addColorToCabinet = function (color) {
+            $scope.tempCabinetColors.push(color);
+        };
+
+        $scope.removeColorFromCabinet = function (color) {
+            var index = $scope.tempCabinetColors.indexOf(color);
+            if (index > -1) {
+                $scope.tempCabinetColors.splice(index, 1);
+            }
+        };
+
+        $scope.addCabinet = function () {
+            var imgUrl = 'http://placehold.it/190x305';
+            $scope.cabinetImageUrl = imgUrl;
+            var tempCabinet = {
+                name: $scope.cabinetname,
+                category: $scope.selectedCat,
+                style: $scope.selectedStyle,
+                colors: $scope.tempCabinetColors,
+                minWidth: $scope.cabinetWidth.min,
+                maxWidth: $scope.cabinetWidth.max,
+                minHeight: $scope.cabinetHeight.min,
+                maxHeight: $scope.cabinetHeight.max,
+                minDepth: $scope.cabinetDepth.min,
+                maxDepth: $scope.cabinetDepth.max,
+                price: $scope.cabinetprice,
+                imageUrl: $scope.cabinetImageUrl,
+                date: Firebase.ServerValue.TIMESTAMP
+            };
+
+            cabinetsArr.$add(tempCabinet).then(function (ref) {
+                $scope.cabinetname = '';
+                $scope.selectedCat = '';
+                $scope.selectedStyle = '';
+                $scope.tempCabinetColors = '';
+                $scope.cabinetWidth.min = '';
+                $scope.cabinetWidth.max = '';
+                $scope.cabinetHeight.min = '';
+                $scope.cabinetHeight.max = '';
+                $scope.cabinetDepth.min = '';
+                $scope.cabinetDepth.max = '';
+                $scope.cabinetprice = '';
+                $scope.cabinetImageUrl = '';
+            });
+
+        }; //addCabinet
+
+        $scope.addCategory = function () {
+            var imgUrl = 'http://placehold.it/190x305';
+            $scope.categoryImageUrl = imgUrl;
+            var tempCategory = {
+                name: $scope.newCategoryName,
+                imageUrl: $scope.categoryImageUrl,
+                date: Firebase.ServerValue.TIMESTAMP
+            };
+            cabinetCategoriesArr.$add(tempCategory).then(function (ref) {
+                $scope.newCategoryName = '';
+                $scope.categoryImageUrl = '';
+            });
+        }; //addCategory
+
+        $scope.addStyle = function () {
+            var imgUrl = 'http://placehold.it/190x305';
+            $scope.styleImageUrl = imgUrl;
+            var tempStyle = {
+                category: $scope.newStyleCategory,
+                name: $scope.newStyleName,
+                imageUrl: $scope.styleImageUrl,
+                date: Firebase.ServerValue.TIMESTAMP
+            };
+            cabinetStylesArr.$add(tempStyle).then(function (ref) {
+                $scope.newStyleName = '';
+                $scope.styleImageUrl = '';
+            });
+        }; //addStyle
+
+        $scope.addColor = function () {
+            var imgUrl = 'http://placehold.it/190x305';
+            $scope.colorImageUrl = imgUrl;
+            var tempColor = {
+                name: $scope.newColorName,
+                imageUrl: $scope.colorImageUrl,
+                date: Firebase.ServerValue.TIMESTAMP
+            };
+            cabinetColorsArr.$add(tempColor).then(function (ref) {
+                $scope.newColorName = '';
+                $scope.colorImageUrl = '';
+            });
+        }; //addStyle
+
+        $scope.getUniqueCategories = function (field) {
+            $scope.tempCategories = [];
+            angular.forEach(cabinetCategoriesArr, function (value, key) {
+                if (($scope.tempCategories.length < 1) || ($.inArray(value, $scope.tempCategories) < 0)) {
+                    if (field === 'name' || !field) {
+                        $scope.tempCategories.push(value.name);
+                    }
+                }
+            });
+            return $scope.tempCategories;
+        }; // getUniqueCategories
 
 
-		$scope.setCat = function(key) {
-			$scope.selectedCat = key;
-		};
+        $scope.getUniqueStyles = function (selectedCategory) {
+            $scope.tempStyles = [];
+            angular.forEach(cabinetStylesArr, function (value, key) {
+                if (($scope.tempStyles.length < 1) || ($.inArray(value, $scope.tempStyles) < 0)) {
+                    if (selectedCategory) {
+                        if (value.category === selectedCategory) {
+                            $scope.tempStyles.push(value.name);
+                        }
+                    } else {
+                        $scope.tempStyles.push(value.name);
+                    }
+                }
+            });
+            return $scope.tempStyles;
+        }; // getUniqueStyles
 
-		$scope.setStyle = function(key) {
-			$scope.selectedStyle = key;
-		};
+        $scope.setCat = function (key) {
+            $scope.selectedCat = key;
+        };
 
-		$scope.setColor = function(key) {
-			$scope.selectedColor = key;
-		};
+        $scope.setStyle = function (key) {
+            $scope.selectedStyle = key;
+        };
 
-		$scope.setCabinet = function(key) {
-			$scope.selectedCabinet = key;
-		};
+        $scope.setColor = function (key) {
+            $scope.selectedColor = key;
+        };
 
-		$scope.resetCabinet = function() {
-			$scope.selectedCat = '';
-			$scope.selectedStyle = '';
-			$scope.selectedColor = '';
-			$scope.selectedCabinet = '';
-		};
+        $scope.setCabinet = function (key) {
+            $scope.selectedDoor = key;
+        };
 
-		$scope.removeCabinet = function(key) {
-			cabinetsArr.$remove(key);
-		};
+        $scope.resetCabinet = function () {
+            $scope.selectedCat = '';
+            $scope.selectedStyle = '';
+            $scope.selectedColor = '';
+            $scope.selectedDoor = '';
+        };
 
-		
+        $scope.removeCabinet = function (key) {
+            cabinetsArr.$remove(key);
+        };
 
+        $scope.removeCategory = function (key) {
+            cabinetCategoriesArr.$remove(key);
+        };
+
+        $scope.removeStyle = function (key) {
+            cabinetStylesArr.$remove(key);
+        };
+
+        $scope.removeColor = function (key) {
+            cabinetColorsArr.$remove(key);
+        };
 
 	}]);

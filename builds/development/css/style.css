@@ -21,7 +21,7 @@ table > thead > tr > th:hover {
 }
 
 .debug-console {
-/*    display: none;*/
+    display: none;
 }
 
 .btn {

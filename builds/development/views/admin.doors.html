@@ -1,0 +1,255 @@
+<h3>Doors</h3>
+<hr>
+<div class="row admin">
+    <!-- New door form -->
+    <div class="col-lg-4 col-md-12">
+        <h4>Add a new door</h4>
+        <form name="myform" ng-submit="addDoor()" novalidate>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Name</label>
+                    <input ng-model="doorname" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Category</label>
+                    <select class="pull-right" ng-model="selectedCat" ng-options="category for category in getUniqueCategories()">
+                    </select>
+                </li>
+                <li class="list-group-item">
+                    <label>Style</label>
+                    <select class="pull-right" ng-model="selectedStyle" ng-options="style for style in getUniqueStyles(selectedCat)">
+                    </select>
+                </li>
+                <li class="list-group-item">
+                    <label>Color</label>
+                    <button class="btn btn-default pull-right colors-btn" type="button" data-toggle="collapse" data-target="#chooseColors" aria-expanded="false" aria-controls="chooseColors">
+                        Choose colors
+                    </button>
+                </li>
+                <li class="list-group-item">
+                    <div class="collapse" id="chooseColors">
+                        <div class="well">
+                            <label ng-repeat="color in doorColorsArr">
+                                <input type="checkbox" ng-model="colorCheckbox" ng-change="colorCheckbox ? addColorToDoor( color ) : removeColorFromDoor( color )"> {{color.name}}
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Allowed Dimensions</label>
+                    <button class="btn btn-default pull-right" type="button" data-toggle="collapse" data-target="#dimensions" aria-expanded="false" aria-controls="dimensions">Set Dimensions</button>
+                    <div class="collapse" id="dimensions">
+                        <hr>
+                        <label>Min. Width</label>
+                        <input type="number" class="pull-right" min="12" max="36" step="1" ng-model="doorWidth.min" required>
+                        <hr>
+                        <label>Max. Width</label>
+                        <input type="number" class="pull-right" min="{{doorWidth.min}}" max="36" step="1" ng-model="doorWidth.max" required>
+                        <hr>
+                        <label>Min. Height</label>
+                        <input type="number" class="pull-right" min="12" max="36" step="1" ng-model="doorHeight.min" required>
+                        <hr>
+                        <label>Max. Height</label>
+                        <input type="number" class="pull-right" min="{{doorHeight.min}}" max="36" step="1" ng-model="doorHeight.max" required>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Price per sq. in</label>
+                    <input type="text" ng-model="doorprice" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="doorImageUrl" class="pull-right">
+                </li>
+                <li class="list-group-item pull-right">
+                    <button type="submit" class="btn btn-default">Add door</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+        <!-- New category form -->
+
+        <h4>Add a new category</h4>
+        <form name="myform" ng-submit="addCategory()" novalidate>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Name</label>
+                    <input type="text" ng-model="newCategoryName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="categoryImageUrl" class="pull-right">
+                </li>
+                <li class="list-group-item pull-right">
+                    <button type="submit" class="btn btn-default">Add Category</button>
+                </li>
+            </ul>
+        </form>
+
+        <!-- New style form -->
+
+        <h4>Add a new style</h4>
+        <form name="myform" ng-submit="addStyle()" novalidate>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Container category</label>
+                    <select class="pull-right" ng-model="newStyleCategory" ng-options="category for category in getUniqueCategories()">
+                    </select>
+                </li>
+                <li class="list-group-item">
+                    <label>Name</label>
+                    <input type="text" ng-model="newStyleName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="styleImageUrl" class="pull-right">
+                </li>
+                <li class="list-group-item pull-right">
+                    <button type="submit" class="btn btn-default">Add Style</button>
+                </li>
+            </ul>
+        </form>
+
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <!-- New color form -->
+
+        <h4>Add a new color</h4>
+        <form name="myform" ng-submit="addColor()" novalidate>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Name</label>
+                    <input type="text" ng-model="newColorName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Image</label>
+                    <input type="text" ng-model="colorImageUrl" class="pull-right">
+                </li>
+                <li class="list-group-item pull-right">
+                    <button type="submit" class="btn btn-default">Add Color</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+
+<div class="row debug-console">
+    <div class="panel panel-default col-md-8 col-md-offset-2">
+        <h4>Debug console</h4>
+        <hr>
+        <span><strong>getUniqueCategories()</strong><span class="pull-right">{{getUniqueCategories()}}</span></span>
+        <br>
+        <hr>
+        <span><strong>getUniqueStyles(selectedCat)</strong><span class="pull-right">{{getUniqueStyles(selectedCat)}}</span></span>
+        <br>
+        <hr>
+        <span><strong>selectedStyle</strong><span class="pull-right">{{selectedStyle}}</span></span>
+        <br>
+        <hr>
+        <span><strong>tempDoorColors : [ </strong><span ng-repeat="color in tempDoorColors"> {{color.name}} </span></span>
+        <strong class="pull-right"> ]</strong>
+        <br>
+    </div>
+    <hr>
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <h4>Doors</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-click="filter = 'name'">Name</th>
+                    <th ng-click="filter = 'category'">Category</th>
+                    <th ng-click="filter = 'style'">Style</th>
+                    <th ng-click="filter = 'color'">Color</th>
+                    <th ng-click="filter = 'price'">Price</th>
+                    <th ng-click="filter = 'date'">Date added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="door in doorsArr | orderBy:filter">
+                    <td>{{door.name}}</td>
+                    <td>{{door.category}}</td>
+                    <td>{{door.style}}</td>
+                    <td>{{door.color}}</td>
+                    <td>{{door.price | currency}}</td>
+                    <td>{{door.date | date : 'MMM d, yyyy, h:mm a'}}</td>
+                    <td>
+                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeDoor(door)">Remove Door</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-12">
+        <h4>Categories</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-click="filter = 'name'">Name</th>
+                    <th ng-click="filter = 'date'">Date added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="category in doorCategoriesArr">
+                    <td>{{category.name}}</td>
+                    <td>{{category.date | date : 'MMM d, yyyy, h:mm a'}}</td>
+                    <td>
+                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeCategory(category)">Remove Category</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-12">
+        <h4>Styles</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-click="filter = 'name'">Name</th>
+                    <th>Category</th>
+                    <th ng-click="filter = 'date'">Date added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="style in doorStylesArr">
+                    <td>{{style.name}}</td>
+                    <td>{{style.category}}</td>
+                    <td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
+                    <td>
+                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeStyle(style)">Remove Style</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-12">
+        <h4>Colors</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-click="filter = 'name'">Name</th>
+                    <th ng-click="filter = 'date'">Date added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="color in doorColorsArr">
+                    <td>{{color.name}}</td>
+                    <td>{{color.date | date : 'MMM d, yyyy, h:mm a'}}</td>
+                    <td>
+                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeColor(color)">Remove Color</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
