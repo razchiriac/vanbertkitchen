@@ -191,21 +191,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
             $scope.selectedColor = key;
         };
 
-        $scope.setCabinet = function (key) {
-            $scope.selectedDoor = key;
-        };
-
-        $scope.resetCabinet = function () {
-            $scope.selectedCat = '';
-            $scope.selectedStyle = '';
-            $scope.selectedColor = '';
-            $scope.selectedDoor = '';
-        };
-
-        $scope.removeCabinet = function (key) {
-            cabinetsArr.$remove(key);
-        };
-
         $scope.removeCategory = function (key) {
             cabinetCategoriesArr.$remove(key);
         };

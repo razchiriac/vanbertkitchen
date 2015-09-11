@@ -147,7 +147,7 @@
     <hr>
     <div class="col-sm-12">
         <h4>Cabinets</h4>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th ng-click="filter = 'name'">Name</th>
@@ -160,11 +160,25 @@
             </thead>
             <tbody>
                 <tr ng-repeat="cabinet in cabinetsArr | orderBy:filter">
-                    <td>{{cabinet.name}}</td>
-                    <td>{{cabinet.category}}</td>
-                    <td>{{cabinet.style}}</td>
+                    <td ng-dblclick="editName = !editName" ng-init="editName = false">
+                        <span ng-hide="editName">{{cabinet.name}}</span>
+                        <input ng-show="editName" my-enter="cabinetsArr.$save(cabinet); editName = false" type="text" ng-model="cabinet.name">
+                    </td>
+                    <td ng-dblclick="editCategory = !editCategory" ng-init="editCategory = false">
+                        <span ng-hide="editCategory">{{cabinet.category}}</span>
+                        <select ng-show="editCategory" ng-change="editStyle = true" my-enter="cabinetsArr.$save(cabinet); editCategory = false" type="text" ng-model="cabinet.category" ng-options="category for category in getUniqueCategories()">
+                        </select>
+                    </td>
+                    <td ng-dblclick="editStyle = !editStyle" ng-init="editStyle = false">
+                        <span ng-hide="editStyle">{{cabinet.style}}</span>
+                        <select ng-show="editStyle" my-enter="cabinetsArr.$save(cabinet); editStyle = false" type="text" ng-model="cabinet.style" ng-options="style for style in getUniqueStyles(cabinet.category)">
+                        </select>
+                    </td>
                     <td>{{cabinet.color}}</td>
-                    <td>{{cabinet.price | currency}}</td>
+                    <td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
+                        <span ng-hide="editPrice">{{cabinet.price | currency}}</span>
+                        <input ng-show="editPrice" my-enter="cabinetsArr.$save(cabinet); editPrice = false" type="text" ng-model="cabinet.price">
+                    </td>
                     <td>{{cabinet.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
                         <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeCabinet(cabinet)">Remove Cabinet</button>
@@ -176,7 +190,7 @@
 
     <div class="col-sm-12">
         <h4>Categories</h4>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th ng-click="filter = 'name'">Name</th>
@@ -197,7 +211,7 @@
 
     <div class="col-sm-12">
         <h4>Styles</h4>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th ng-click="filter = 'name'">Name</th>
@@ -220,7 +234,7 @@
 
     <div class="col-sm-12">
         <h4>Colors</h4>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th ng-click="filter = 'name'">Name</th>
