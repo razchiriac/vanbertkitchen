@@ -1,4 +1,6 @@
 # Vanbert Kitchens SPA
+
+[![Join the chat at https://gitter.im/razchiriac/vanbertkitchen](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/razchiriac/vanbertkitchen?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 This is an application for a client of MocaJazz.com which uses Angular.js and Firebase to create a smooth three-way data binding environment
 
 ## Instructions
