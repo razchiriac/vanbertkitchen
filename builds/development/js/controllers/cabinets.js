@@ -191,15 +191,27 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
             $scope.selectedColor = key;
         };
 
+        $scope.removeCabinet = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            cabinetsArr.$remove(key);
+        };
+
         $scope.removeCategory = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             cabinetCategoriesArr.$remove(key);
         };
 
         $scope.removeStyle = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             cabinetStylesArr.$remove(key);
         };
 
         $scope.removeColor = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             cabinetColorsArr.$remove(key);
         };
 

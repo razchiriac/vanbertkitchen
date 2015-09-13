@@ -217,18 +217,26 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
         };
 
         $scope.removeDoor = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             doorsArr.$remove(key);
         };
 
         $scope.removeCategory = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             doorCategoriesArr.$remove(key);
         };
 
         $scope.removeStyle = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             doorStylesArr.$remove(key);
         };
 
         $scope.removeColor = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
             doorColorsArr.$remove(key);
         };
 

@@ -180,7 +180,32 @@
                     <td>{{door.price | currency}}</td>
                     <td>{{door.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeDoor(door)">Remove Door</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{door.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{door.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{door.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeDoor(door)">Yes, Delete this Door</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -201,7 +226,32 @@
                     <td>{{category.name}}</td>
                     <td>{{category.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeCategory(category)">Remove Category</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{category.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{category.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{category.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" ng-click="removeCategory(category)" data-dismiss="modal">Yes, Delete this Category</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -224,7 +274,32 @@
                     <td>{{style.category}}</td>
                     <td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeStyle(style)">Remove Style</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{style.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{style.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{style.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" ng-click="removeStyle(style)" data-dismiss="modal">Yes, Delete this Style</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -245,7 +320,32 @@
                     <td>{{color.name}}</td>
                     <td>{{color.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeColor(color)">Remove Color</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{color.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{color.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{color.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" ng-click="removeColor(color)" data-dismiss="modal">Yes, Delete this Color</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>

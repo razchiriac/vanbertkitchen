@@ -141,7 +141,6 @@
     </div>
 </div>
 
-
 <div class="row">
     <h3>Database</h3>
     <hr>
@@ -174,14 +173,78 @@
                         <select ng-show="editStyle" my-enter="cabinetsArr.$save(cabinet); editStyle = false" type="text" ng-model="cabinet.style" ng-options="style for style in getUniqueStyles(cabinet.category)">
                         </select>
                     </td>
-                    <td>{{cabinet.color}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".{{cabinet.$id}}-modal">
+                            See Colors
+                            <span class="badge">{{cabinet.colors.length}}</span>
+                        </button>
+                        <div class="modal fade colors-modal {{cabinet.$id}}-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Colors for {{cabinet.name}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="current-colors">
+                                            <h5><strong>Current colors</strong></h5>
+                                            <span ng-repeat="color in cabinet.colors">
+                                                <span class="label label-primary"> {{color.name}}
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <hr>
+                                        <div class="all-colors">
+                                            <h5><strong>Available colors</strong></h5>
+                                            <span ng-repeat="color in getColorsNotInCabinet(cabinet)">
+                                                <span class="label label-primary"> {{color.name}}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
                     <td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
                         <span ng-hide="editPrice">{{cabinet.price | currency}}</span>
                         <input ng-show="editPrice" my-enter="cabinetsArr.$save(cabinet); editPrice = false" type="text" ng-model="cabinet.price">
                     </td>
                     <td>{{cabinet.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeCabinet(cabinet)">Remove Cabinet</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{cabinet.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{cabinet.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeCabinet(cabinet)">Yes, Delete this Cabinet</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -199,10 +262,38 @@
             </thead>
             <tbody>
                 <tr ng-repeat="category in cabinetCategoriesArr">
-                    <td>{{category.name}}</td>
+                    <td ng-dblclick="editCategoryName = !editCategoryName" ng-init="editCategoryName = false">
+                        <span ng-hide="editCategoryName">{{category.name}}</span>
+                        <input ng-show="editCategoryName" my-enter="cabinetCategoriesArr.$save(category); editCategoryName = false" type="text" ng-model="category.name">
+                    </td>
                     <td>{{category.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeCategory(category)">Remove Category</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{category.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{category.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{category.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" ng-click="removeCategory(category)" data-dismiss="modal">Yes, Delete this Category</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -221,11 +312,43 @@
             </thead>
             <tbody>
                 <tr ng-repeat="style in cabinetStylesArr">
-                    <td>{{style.name}}</td>
-                    <td>{{style.category}}</td>
+                    <td ng-dblclick="editStyleName = !editStyleName" ng-init="editStyleName = false">
+                        <span ng-hide="editStyleName">{{style.name}}</span>
+                        <input ng-show="editStyleName" my-enter="cabinetStylesArr.$save(style); editStyleName = false" type="text" ng-model="style.name">
+                    </td>
+                    <td ng-dblclick="editStyleCategory = !editStyleCategory" ng-init="editStyleCategory = false">
+                        <span ng-hide="editStyleCategory">{{style.category}}</span>
+                        <select ng-show="editStyleCategory" my-enter="cabinetCategoriesArr.$save(s); editStyleCategory = false" type="text" ng-model="style.category" ng-options="category for category in getUniqueCategories()">
+                        </select>
+                    </td>
                     <td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeStyle(style)">Remove Style</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{style.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{style.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{style.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" ng-click="removeStyle(style)" data-dismiss="modal">Yes, Delete this Style</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -243,10 +366,38 @@
             </thead>
             <tbody>
                 <tr ng-repeat="color in cabinetColorsArr">
-                    <td>{{color.name}}</td>
+                    <td ng-dblclick="editColorName = !editColorName" ng-init="editColorName = false">
+                        <span ng-hide="editColorName">{{color.name}}</span>
+                        <input ng-show="editColorName" my-enter="cabinetColorsArr.$save(Color); editColorName = false" type="text" ng-model="color.name">
+                    </td>
                     <td>{{color.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
-                        <button class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="removeColor(color)">Remove Color</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{color.$id}}-trash-modal">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <div class="modal fade colors-modal {{color.$id}}-trash-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">You're about to delete {{color.name}} ...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button type="button" class="btn btn-danger" ng-click="removeColor(color)" data-dismiss="modal">Yes, Delete this Color</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </td>
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
                     </td>
                 </tr>
             </tbody>

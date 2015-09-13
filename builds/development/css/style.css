@@ -46,8 +46,6 @@ body.modal-open,
     margin-right: 0;
 }
 
-
-
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -55,4 +53,21 @@ body.modal-open,
     bottom: 0;
     left: 0;
     z-index: 1040;
+}
+
+.colors-modal .label {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    margin: 19px 5px;
+    font: -webkit-control;
+    line-height: 2em;
+    cursor: pointer;
+}
+
+.colors-modal .all-colors .label:hover {
+    background: #22C9FB;
+}
+
+.colors-modal .current-colors .label:hover {
+    background: red;
 }
