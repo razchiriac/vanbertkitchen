@@ -244,7 +244,28 @@
                         <!-- /.modal -->
                     </td>
                     <td>
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+                        <button class="btn btn-default" data-toggle="modal" data-target=".{{cabinet.$id}}-image-modal">
+                            <span class="glyphicon glyphicon-picture"></span>
+                        </button>
+                        <div class="modal fade image-modal {{cabinet.$id}}-image-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Cabinet image dialog for <strong>{{cabinet.name}}</strong></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>Current image: </span>
+                                        <img src="{{cabinet.imageUrl}}" alt="{{cabinet.name}} image">
+                                        <input type="text" ng-model="cabinet.imageUrl">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button class="btn btn-danger" data-dismiss="modal" ng-click="cabinetsArr.$save(cabinet)">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -293,7 +314,28 @@
                         <!-- /.modal -->
                     </td>
                     <td>
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+                        <button class="btn btn-default" data-toggle="modal" data-target=".{{category.$id}}-image-modal">
+                            <span class="glyphicon glyphicon-picture"></span>
+                        </button>
+                        <div class="modal fade image-modal {{category.$id}}-image-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Category image dialog for <strong>{{category.name}}</strong></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>Current image: </span>
+                                        <img src="{{category.imageUrl}}" alt="{{category.name}} image">
+                                        <input type="text" ng-model="category.imageUrl">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button class="btn btn-danger" data-dismiss="modal" ng-click="cabinetCategoriesArr.$save(category)">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -348,7 +390,28 @@
                         <!-- /.modal -->
                     </td>
                     <td>
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+                        <button class="btn btn-default" data-toggle="modal" data-target=".{{style.$id}}-image-modal">
+                            <span class="glyphicon glyphicon-picture"></span>
+                        </button>
+                        <div class="modal fade image-modal {{style.$id}}-image-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Style image dialog for <strong>{{style.name}}</strong></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>Current image: </span>
+                                        <img src="{{style.imageUrl}}" alt="{{style.name}} image">
+                                        <input type="text" ng-model="style.imageUrl">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button class="btn btn-danger" data-dismiss="modal" ng-click="cabinetStylesArr.$save(style)">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -397,7 +460,28 @@
                         <!-- /.modal -->
                     </td>
                     <td>
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+                        <button class="btn btn-default" data-toggle="modal" data-target=".{{color.$id}}-image-modal">
+                            <span class="glyphicon glyphicon-picture"></span>
+                        </button>
+                        <div class="modal fade image-modal {{color.$id}}-image-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Color image dialog for <strong>{{color.name}}</strong></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>Current image: </span>
+                                        <img src="{{color.imageUrl}}" alt="{{color.name}} image">
+                                        <input type="text" ng-model="color.imageUrl">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                        <button class="btn btn-danger" data-dismiss="modal" ng-click="cabinetColorsArr.$save(cabinet)">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
