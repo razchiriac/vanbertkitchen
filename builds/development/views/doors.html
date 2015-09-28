@@ -1,14 +1,35 @@
-<nav>
-	<ul class="pagination pagination">
-		<li><a ui-sref=".category">Category <span ng-show="selectedCat">( {{selectedCat}} )</span> </a></li>
-		<li><a ui-sref=".style">Style <span ng-show="selectedStyle">( {{selectedStyle}} )</span> </a></li>
-		<li><a ui-sref=".color">Color <span ng-show="selectedColor">( {{selectedColor}} )</span> </a></li>		
-		<li><a ui-sref=".door">Door <span ng-show="selectedDoor">( {{selectedDoor}} )</span> </a></li>
-	</ul>
-	<br>
-	<button ui-sref=".category" class="btn btn-danger" ng-click="resetDoor()">Clear selections</button>
-	<button ui-sref=".all" class="btn btn-primary">See All Doors</button>
-</nav>
-
-
-<div ui-view></div>
+<div class="container">
+	<div class="col-lg-9">
+		<div class="row">
+			<h3>Doors</h3>
+			<button class="btn btn-default">Show all</button>
+			<hr>
+		</div>
+		<div class="col-md-3" ng-repeat="door in doorsArr | filter:doorFilter">
+			<a ui-sref="" class="thumbnail" ng-click="">
+				<img src="{{door.imageUrl}}">
+				<div class="caption">
+					<p><strong>Name:</strong> {{door.name}}</p>
+					<p><strong>Category:</strong> {{door.category}}</p>
+					<p><strong>Style:</strong> {{door.style}}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<ul>
+			<li>Categories</li>
+			<ul>
+				<li ng-repeat="category in doorCategoriesArr">
+					<button class="btn btn-default btn-xs">{{category.name}}</button>
+				</li>
+			</ul>
+			<li>Styles</li>
+			<ul>
+				<li ng-repeat="style in doorStylesArr">
+					<button class="btn btn-default btn-xs">{{style.name}}</button>
+				</li>
+			</ul>
+		</ul>
+	</div>
+</div>

@@ -71,3 +71,7 @@ body.modal-open,
 .colors-modal .current-colors .label:hover {
     background: red;
 }
+
+.all-colors ul {
+	list-style: none;
+}

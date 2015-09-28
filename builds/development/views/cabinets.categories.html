@@ -1,0 +1,11 @@
+<div>
+    <h2>Choose a category</h2>
+    <div class="col-md-3" ng-repeat="category in cabinetCategoriesArr">
+        <a ui-sref="cabinets.styles" class="thumbnail" ng-click="setCat(category)">
+            <img src="{{category.imageUrl}}">
+            <div class="caption">
+                <p>{{category.name}}</p>
+            </div>
+        </a>
+    </div>
+</div>
