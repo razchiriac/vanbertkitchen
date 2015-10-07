@@ -1,60 +1,60 @@
-myApp.controller('RegistrationController', ["$scope", "$firebaseAuth", "$location", "Auth", "FIREBASE_URL",
-	function ($scope, $firebaseAuth, $location, Auth, FIREBASE_URL) {
+myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAuth", "$location", "Auth", "FIREBASE_URL",
+	function ($scope, $rootScope, $firebaseAuth, $location, Auth, FIREBASE_URL) {
 
-		$scope.auth = Auth;
+		$rootScope.auth = Auth;
 
-		$scope.login = function (provider) {
-			$scope.authData = null;
-			$scope.error = null;
+		$rootScope.login = function (provider) {
+			$rootScope.authData = null;
+			$rootScope.error = null;
 			if (provider) {
 				Auth.$authWithOAuthPopup(provider, function (error, authData) {
 					if (error) {
 						console.log("Login Failed!", error);
 					} else {
 						$location.path("/home");
-						$scope.user.fname = authData.google.displayName;
+						$rootScope.user.fname = authData.google.displayName;
 						console.log("Authenticated successfully with payload:", authData);
 					}
 				});
 			} else {
 				Auth.$authWithPassword({
-					email: $scope.user.email,
-					password: $scope.user.password
+					email: $rootScope.user.email,
+					password: $rootScope.user.password
 				}).then(function (authData) {
-					$scope.authData = authData;
+					$rootScope.authData = authData;
 					$location.path("/home");
 				}).catch(function (error) {
-					$scope.error = error;
+					$rootScope.error = error;
 				});
 			}
 		};
 
-		$scope.register = function () {
-			$scope.authData = null;
-			$scope.error = null;
+		$rootScope.register = function () {
+			$rootScope.authData = null;
+			$rootScope.error = null;
 
 			Auth.$createUser({
-				email: $scope.user.email,
-				password: $scope.user.password,
-				fname: $scope.user.fname,
-				lname: $scope.user.lname
+				email: $rootScope.user.email,
+				password: $rootScope.user.password,
+				fname: $rootScope.user.fname,
+				lname: $rootScope.user.lname
 			}).then(function (authData) {
-				$scope.login();
-				$scope.authData = authData;
+				$rootScope.login();
+				$rootScope.authData = authData;
 				$location.path("/home");
 			}).catch(function (error) {
-				$scope.error = error;
+				$rootScope.error = error;
 			});
 		};
 
-		$scope.logout = function () {
+		$rootScope.logout = function () {
 			Auth.unauth();
 			$location.path("/home");
 		};
 
 		// any time auth status updates, add the user data to scope
-		$scope.auth.$onAuth(function (authData) {
-			$scope.authData = authData;
+		$rootScope.auth.$onAuth(function (authData) {
+			$rootScope.authData = authData;
 		});
 
 }]); //RegistrationController

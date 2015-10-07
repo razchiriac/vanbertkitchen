@@ -110,8 +110,26 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		$scope.cabinetWishList = [];
 
 		$scope.addToWishList = function (thisCabinet) {
-			var tempCabinet = angular.copy(thisCabinet);
+			//////////////////////
+			var tempCabinet = {
+				name: thisCabinet.name,
+				category: thisCabinet.category,
+				style: thisCabinet.style,
+				color: $scope.chosenColor,
+				width: thisCabinet.width,
+				height: thisCabinet.height,
+				depth: thisCabinet.depth,
+				price: $scope.cabinetprice,
+				imageUrl: thisCabinet.ImageUrl,
+				date: Firebase.ServerValue.TIMESTAMP
+			};
 			$scope.cabinetWishList.push(tempCabinet);
+
+//			cabinetsArr.$add(tempCabinet).then(function (ref) {
+//
+//			});
+			//////////////////////
+
 		}; // addToWishList
 
 		$scope.removeFromWishList = function (thisCabinet) {
@@ -206,6 +224,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 
 		// Category filter
 		$scope.categoryIncludes = [];
+
 
 		$scope.includeCategory = function (category) {
 			var i = $.inArray(category, $scope.categoryIncludes);

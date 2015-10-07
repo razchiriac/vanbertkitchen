@@ -98,11 +98,11 @@ body.modal-open,
 }
 
 .refine-bar .list-group-item-heading .glyphicon {
-	-webkit-transition: -webkit-transform 0.5s ease-in-out;
-	-moz-transition: -moz-transform 0.5s ease-in-out;
-	-ms-transition: -ms-transform 0.5s ease-in-out;
-	-o-transition: -o-transform 0.5s ease-in-out;
-	transition: transform 0.5s ease-in-out;
+	-webkit-transition: -webkit-transform 0.25s ease-in-out;
+	-moz-transition: -moz-transform 0.25s ease-in-out;
+	-ms-transition: -ms-transform 0.25s ease-in-out;
+	-o-transition: -o-transform 0.25s ease-in-out;
+	transition: transform 0.25s ease-in-out;
 }
 
 .refine-bar .list-group-item-heading[aria-expanded="false"] .glyphicon {

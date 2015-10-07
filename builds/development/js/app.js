@@ -30,6 +30,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 			url: '/home',
 			templateUrl: 'views/home.html'
 		})
+		.state('user', {
+			url: '/user',
+			templateUrl: 'views/user/user.html'
+		})
 		/* LOGIN & REGISTER */
 		.state('login', {
 			url: '/login',
@@ -109,6 +113,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
 
 }]);
+
+
 
 myApp.directive('myEnter', function () {
 	return function (scope, element, attrs) {
