@@ -204,6 +204,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			$scope.selectedColor = key;
 		};
 
+		// Category filter
 		$scope.categoryIncludes = [];
 
 		$scope.includeCategory = function (category) {
@@ -216,12 +217,34 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		}
 
 		$scope.categoryFilter = function (cabinet) {
-			if ($scope.categoryIncludes.length > 0) {
-				if ($.inArray(cabinet.category, $scope.categoryIncludes) < 0)
-					return;
+				if ($scope.categoryIncludes.length > 0) {
+					if ($.inArray(cabinet.category, $scope.categoryIncludes) < 0)
+						return;
+				}
+				return cabinet;
 			}
-			return cabinet;
+			// End category filter
+
+		// Style filter
+		$scope.styleIncludes = [];
+
+		$scope.includeStyle = function (style) {
+			var i = $.inArray(style, $scope.styleIncludes);
+			if (i > -1) {
+				$scope.styleIncludes.splice(i, 1);
+			} else {
+				$scope.styleIncludes.push(style);
+			}
 		}
+
+		$scope.styleFilter = function (cabinet) {
+				if ($scope.styleIncludes.length > 0) {
+					if ($.inArray(cabinet.style, $scope.styleIncludes) < 0)
+						return;
+				}
+				return cabinet;
+			}
+			// End style filter
 
 		$scope.removeCabinet = function (key) {
 			$('body').removeClass('modal-open');
