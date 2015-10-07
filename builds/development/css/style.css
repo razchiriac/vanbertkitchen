@@ -18,6 +18,10 @@ td {
 	font-weight: 300 !important;
 }
 
+.gray {
+	background-color: #EEE;
+}
+
 .admin .list-group-item select {
 	width: 150px;
 	border-radius: 0 !important;
@@ -115,4 +119,8 @@ body.modal-open,
 	-ms-transform: rotate(180deg);
 	-o-transform: rotate(180deg);
 	transform: rotate(180deg);
+}
+
+.shadow {
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .23);
 }

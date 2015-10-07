@@ -1,7 +1,10 @@
 <div class="container">
+	<div class="page-header">
+		<h1>Cabinets</h1><small>cats: {{categoryIncludes}}</small>
+	</div>
 	<div class="row">
 		<div class="col-lg-3 col-md-4">
-			<ul class="refine-bar">
+			<ul class="refine-bar shadow">
 				<li class="list-group-item">
 					<h3 class="list-group-item-heading">Refine</h3>
 				</li>
@@ -10,7 +13,7 @@
 					<ul class="collapse" id="categories">
 						<li ng-repeat="category in cabinetCategoriesArr">
 							<label class="checkbox">
-								<input type="checkbox" value=""> {{category.name}}
+								<input type="checkbox" value="" ng-click="includeCategory(category.name)"> {{category.name}}
 							</label>
 						</li>
 					</ul>
@@ -44,9 +47,9 @@
 		<div class="col-lg-9 col-md-8">
 
 			<div class="row">
-				<div class="col-md-4 col-sm-6" ng-repeat="cabinet in cabinetsArr">
+				<div class="col-md-4 col-sm-6" ng-repeat="cabinet in cabinetsArr | filter:categoryFilter">
 
-					<div class="thumbnail" data-toggle="modal" data-target=".cabinet-modal-{{cabinet.$id}}">
+					<div class="thumbnail shadow" data-toggle="modal" data-target=".cabinet-modal-{{cabinet.$id}}">
 						<img src="{{cabinet.imageUrl}}">
 						<div class="caption">
 							<p><strong>Name:</strong> {{cabinet.name}}</p>

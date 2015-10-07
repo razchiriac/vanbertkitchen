@@ -204,6 +204,25 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			$scope.selectedColor = key;
 		};
 
+		$scope.categoryIncludes = [];
+
+		$scope.includeCategory = function (category) {
+			var i = $.inArray(category, $scope.categoryIncludes);
+			if (i > -1) {
+				$scope.categoryIncludes.splice(i, 1);
+			} else {
+				$scope.categoryIncludes.push(category);
+			}
+		}
+
+		$scope.categoryFilter = function (cabinet) {
+			if ($scope.categoryIncludes.length > 0) {
+				if ($.inArray(cabinet.category, $scope.categoryIncludes) < 0)
+					return;
+			}
+			return cabinet;
+		}
+
 		$scope.removeCabinet = function (key) {
 			$('body').removeClass('modal-open');
 			$('.modal-backdrop').remove();
