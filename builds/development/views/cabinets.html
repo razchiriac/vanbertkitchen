@@ -1,153 +1,156 @@
 <div class="container">
-	<div class="col-lg-9">
-		<div class="row">
-			<div class="col-lg-3">
-				<h3>Cabinets</h3>
-				<p ng-click="showByCategory('all')" class="btn btn-default">Show all</p>
-			</div>
-			<div class="col-lg-6 panel">
-				<button type="button" class="btn btn-default" data-toggle="modal" data-target=".color-modal">
-					<span class="glyphicon glyphicon glyphicon-th"></span> Choose color
-				</button>
-				<div class="modal fade colors-modal color-modal">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title">Choose a color</h4>
-							</div>
-							<div class="modal-body">
-								<div class="all-colors">
-									<h5>Available colors</h5>
-									<ul>
-										<li ng-repeat="color in cabinetColorsArr">
-											<label class="label label-primary">
-												<input type="radio" name="chosenColor" ng-model="$parent.chosenColor" ng-value="color"> {{color.name}}
-											</label>
-										</li>
-									</ul>
-								</div>
-								<hr>
-								<span>Chosen color: {{chosenColor.name}}</span>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Save changes</button>
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
-				<!-- /.modal -->
-				<h4> Chosen color: {{chosenColor.name}}</h4>
-			</div>
+	<div class="row">
+		<div class="col-lg-3 col-md-4">
+			<ul class="refine-bar">
+				<li class="list-group-item">
+					<h3 class="list-group-item-heading">Refine</h3>
+				</li>
+				<li class="list-group-item">
+					<label class="list-group-item-heading" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories"><strong>Categories</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
+					<ul class="collapse" id="categories">
+						<li ng-repeat="category in cabinetCategoriesArr">
+							<label class="checkbox">
+								<input type="checkbox" value=""> {{category.name}}
+							</label>
+						</li>
+					</ul>
+				</li>
 
+				<li class="list-group-item">
+					<label class="list-group-item-heading" data-toggle="collapse" data-target="#styles" aria-expanded="false" aria-controls="styles"><strong>Styles</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
+					<ul class="collapse" id="styles">
+						<li ng-repeat="style in cabinetStylesArr">
+							<label class="checkbox">
+								<input type="checkbox" value=""> {{style.name}}
+							</label>
+						</li>
+					</ul>
+				</li>
+
+				<li class="list-group-item">
+					<label class="list-group-item-heading" data-toggle="collapse" data-target="#color" aria-expanded="false" aria-controls="color"><strong>Color</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
+					<ul class="collapse" id="color">
+						<li ng-repeat="color in cabinetColorsArr">
+							<label class="radio">
+								<input type="radio" name="chosenColor" ng-model="$parent.chosenColor" ng-value="color"> {{color.name}}
+							</label>
+						</li>
+					</ul>
+				</li>
+
+			</ul>
 		</div>
-		<hr>
-		<div class="row">
-			<div class="col-md-3" ng-repeat="cabinet in cabinetsArr">
-				<button>
+
+		<div class="col-lg-9 col-md-8">
+
+			<div class="row">
+				<div class="col-md-4 col-sm-6" ng-repeat="cabinet in cabinetsArr">
+
 					<div class="thumbnail" data-toggle="modal" data-target=".cabinet-modal-{{cabinet.$id}}">
 						<img src="{{cabinet.imageUrl}}">
 						<div class="caption">
 							<p><strong>Name:</strong> {{cabinet.name}}</p>
 							<p><strong>Category:</strong> {{cabinet.category}}</p>
 							<p><strong>Style:</strong> {{cabinet.style}}</p>
-							<p><strong>ID:</strong> {{cabinet.$id}}</p>
 						</div>
 					</div>
-				</button>
-				<div class="modal fade cabinet-modal-{{cabinet.$id}}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<h5>{{cabinet.name}}</h5>
-								<hr>
-								<div class="thumbnail">
-									<img src="{{cabinet.imageUrl}}">
-									<div class="caption">
-										<p><strong>Name:</strong> {{cabinet.name}}</p>
-										<p><strong>Category:</strong> {{cabinet.category}}</p>
-										<p><strong>Style:</strong> {{cabinet.style}}</p>
+
+					<div class="modal fade cabinet-modal-{{cabinet.$id}}">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<h5>{{cabinet.name}}</h5>
+									<hr>
+									<div class="thumbnail">
+										<img src="{{cabinet.imageUrl}}">
+										<div class="caption">
+											<p><strong>Name:</strong> {{cabinet.name}}</p>
+											<p><strong>Category:</strong> {{cabinet.category}}</p>
+											<p><strong>Style:</strong> {{cabinet.style}}</p>
+											<p><strong>Color:</strong> {{chosenColor.name}}</p>
+											<div class="cabinet-range"><strong>Width:</strong>
+												<span>Min: {{cabinet.minWidth}}</span>
+												<input type="number" min="{{cabinet.minWidth}}" max="{{cabinet.maxWidth}}" ng-model="cabinet.width">
+												<span>Max: {{cabinet.maxWidth}}</span>
+											</div>
+											<div class="cabinet-range"><strong>Height:</strong>
+												<span>Min: {{cabinet.minHeight}}</span>
+												<input type="number" min="{{cabinet.minHeight}}" max="{{cabinet.maxHeight}}" ng-model="cabinet.height">
+												<span>Max: {{cabinet.maxHeight}}</span>
+											</div>
+											<div class="cabinet-range"><strong>Depth:</strong>
+												<span>Min: {{cabinet.minDepth}}</span>
+												<input type="number" min="{{cabinet.minDepth}}" max="{{cabinet.maxDepth}}" ng-model="cabinet.depth">
+												<span>Max: {{cabinet.maxDepth}}</span>
+											</div>
+											<p><strong>Copies:</strong> {{cabinet.copies}}</p>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-								<button type="button" class="btn btn-primary" ng-click="addToWishList(cabinet)">Add to Wish List</button>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="button" class="btn btn-primary" ng-click="addToWishList(cabinet)">Add to Wish List</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<h4>Wish list</h4>
-			<table class="table table-hover">
-				<thead>
-					<th>Name</th>
-					<th>Category</th>
-					<th>Style</th>
-					<th>Color</th>
-					<th>Width</th>
-					<th>Height</th>
-					<th>Depth</th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="cabinet in cabinetWishList">
-						<td>{{cabinet.name}}</td>
-						<td>{{cabinet.category}}</td>
-						<td>{{cabinet.style}}</td>
-						<td>{{cabinet.color}}</td>
-						<td>{{cabinet.width}}</td>
-						<td>{{cabinet.height}}</td>
-						<td>{{cabinet.depth}}</td>
-						<td>
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
-								<span class="glyphicon glyphicon-trash"></span>
-							</button>
-							<div class="modal fade colors-modal {{cabinet.$id}}-trash-modal">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title">You're about to remove cabinet: {{cabinet.name}} from your wish list</h4>
+			<hr>
+			<div class="row">
+				<h4>Wish list</h4>
+				<table class="table table-hover">
+					<thead>
+						<th>Name</th>
+						<th>Category</th>
+						<th>Style</th>
+						<th>Color</th>
+						<th>Width</th>
+						<th>Height</th>
+						<th>Depth</th>
+						<th>How many</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="cabinet in cabinetWishList">
+							<td>{{cabinet.name}}</td>
+							<td>{{cabinet.category}}</td>
+							<td>{{cabinet.style}}</td>
+							<td>{{cabinet.color}}</td>
+							<td>{{cabinet.width}}</td>
+							<td>{{cabinet.height}}</td>
+							<td>{{cabinet.depth}}</td>
+							<th>{{cabinet.howMany}}</th>
+							<td>
+								<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button>
+								<div class="modal fade colors-modal {{cabinet.$id}}-trash-modal">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">You're about to remove cabinet: {{cabinet.name}} from your wish list</h4>
+											</div>
+											<div class="modal-body">
+												<h5>Are you sure?</h5>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+												<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeFromWishList(cabinet)">Yes, remove this Cabinet</button>
+											</div>
 										</div>
-										<div class="modal-body">
-											<h5>Are you sure?</h5>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-											<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeFromWishList(cabinet)">Yes, remove this Cabinet</button>
-										</div>
+										<!-- /.modal-content -->
 									</div>
-									<!-- /.modal-content -->
+									<!-- /.modal-dialog -->
 								</div>
-								<!-- /.modal-dialog -->
-							</div>
-							<!-- /.modal -->
-						</td>
-					</tr>
-				</tbody>
-			</table>
+								<!-- /.modal -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
+
 	</div>
-	<div class="col-lg-3">
-		<ul>
-			<li>Categories</li>
-			<ul>
-				<li ng-repeat="category in cabinetCategoriesArr">
-					<button ng-click="showByCategory(category.name)" class="btn btn-default btn-xs">{{category.name}}</button>
-				</li>
-			</ul>
-			<li>Styles</li>
-			<ul>
-				<li ng-repeat="style in cabinetStylesArr">
-					<button class="btn btn-default btn-xs">{{style.name}}</button>
-				</li>
-			</ul>
-		</ul>
-	</div>
+
 </div>

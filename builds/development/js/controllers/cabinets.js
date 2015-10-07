@@ -110,7 +110,8 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		$scope.cabinetWishList = [];
 
 		$scope.addToWishList = function (thisCabinet) {
-			$scope.cabinetWishList.push(thisCabinet);
+			var tempCabinet = angular.copy(thisCabinet);
+			$scope.cabinetWishList.push(tempCabinet);
 		}; // addToWishList
 
 		$scope.removeFromWishList = function (thisCabinet) {

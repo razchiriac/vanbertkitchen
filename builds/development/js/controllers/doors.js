@@ -240,4 +240,10 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             doorColorsArr.$remove(key);
         };
 
+		$rootScope.chooseThisDoor = function (key) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            $rootScope.cabinetsChosenDoor = key;
+        };
+
 	}]);

@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+	padding-top: 70px;
 }
 
 body,
@@ -15,63 +15,104 @@ pre,
 label,
 th,
 td {
-    font-weight: 300 !important;
+	font-weight: 300 !important;
 }
 
 .admin .list-group-item select {
-    width: 150px;
-    border-radius: 0 !important;
-    background-color: #FFF;
+	width: 150px;
+	border-radius: 0 !important;
+	background-color: #FFF;
 }
 
 table > thead > tr > th {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 table > thead > tr > th:hover {
-    font-weight: 700 !important;
+	font-weight: 700 !important;
 }
 
 .debug-console {
-    display: none;
+	display: none;
 }
 
 .btn {
-    line-height: 13px;
+	line-height: 13px;
 }
 
 body.modal-open,
 .modal-open .navbar-fixed-top,
 .modal-open .navbar-fixed-bottom {
-    margin-right: 0;
+	margin-right: 0;
 }
 
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1040;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1040;
 }
 
 .colors-modal .label {
-    border: 1px solid transparent;
-    border-radius: 10px;
-    margin: 19px 5px;
-    font: -webkit-control;
-    line-height: 2em;
-    cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	margin: 19px 5px;
+	font: -webkit-control;
+	line-height: 2em;
+	cursor: pointer;
 }
 
 .colors-modal .all-colors .label:hover {
-    background: #22C9FB;
+	background: #22C9FB;
 }
 
 .colors-modal .current-colors .label:hover {
-    background: red;
+	background: red;
 }
 
 .all-colors ul {
 	list-style: none;
+}
+
+.refine-bar {
+	padding-left: 0;
+}
+
+.refine-bar > .list-group-item > ul {
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+.refine-bar .list-group-item-heading {
+	width: 100%;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.refine-bar .list-group-item-heading .glyphicon {
+	-webkit-transition: -webkit-transform 0.5s ease-in-out;
+	-moz-transition: -moz-transform 0.5s ease-in-out;
+	-ms-transition: -ms-transform 0.5s ease-in-out;
+	-o-transition: -o-transform 0.5s ease-in-out;
+	transition: transform 0.5s ease-in-out;
+}
+
+.refine-bar .list-group-item-heading[aria-expanded="false"] .glyphicon {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+.refine-bar .list-group-item-heading[aria-expanded="true"] .glyphicon {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
 }

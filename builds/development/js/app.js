@@ -89,51 +89,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 			templateUrl: 'views/doors.html',
 			controller: 'DoorsController'
 		})
-		.state('doors.category', {
-			url: '/category',
-			templateUrl: 'views/doors.category.html',
-			controller: 'DoorsController'
-		})
-		.state('doors.style', {
-			url: '/style',
-			templateUrl: 'views/doors.style.html',
-			controller: 'DoorsController'
-		})
-		.state('doors.color', {
-			url: '/color',
-			templateUrl: 'views/doors.color.html',
-			controller: 'DoorsController'
-		})
-		.state('doors.door', {
-			url: '/door',
-			templateUrl: 'views/doors.door.html',
-			controller: 'DoorsController'
-		})
-		.state('doors.all', {
-			url: '/all',
-			templateUrl: 'views/doors.all.html',
-			controller: 'DoorsController'
-		})
 		/* END OF DOORS */
 		/* CABINETS */
 		.state('cabinets', {
 			url: '/cabinets',
 			templateUrl: 'views/cabinets.html',
-			controller: 'CabinetsController'
-		})
-		.state('cabinets.categories', {
-			url: '/cabinet-categories',
-			templateUrl: 'views/cabinets.categories.html',
-			controller: 'CabinetsController'
-		})
-		.state('cabinets.styles', {
-			url: '/cabinet-styles',
-			templateUrl: 'views/cabinets.styles.html',
-			controller: 'CabinetsController'
-		})
-		.state('cabinets.all', {
-			url: '/cabinets',
-			templateUrl: 'views/cabinets.all.html',
 			controller: 'CabinetsController'
 		})
 		/* END OF CABINETS */

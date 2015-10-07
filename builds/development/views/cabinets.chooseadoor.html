@@ -1,0 +1,60 @@
+<div class="container">
+	<div class="col-lg-9">
+		<div class="row">
+			<h3>Doors</h3>
+			<hr>
+		</div>
+		<div class="row">
+			<div class="col-md-3" ng-repeat="door in doorsArr">
+				<button>
+					<div class="thumbnail" data-toggle="modal" data-target=".door-modal-{{door.$id}}">
+						<img src="{{door.imageUrl}}">
+						<div class="caption">
+							<p><strong>Name:</strong> {{door.name}}</p>
+							<p><strong>Category:</strong> {{door.category}}</p>
+							<p><strong>Style:</strong> {{door.style}}</p>
+						</div>
+					</div>
+				</button>
+				<div class="modal fade door-modal-{{door.$id}}">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<h5>{{door.name}}</h5>
+								<hr>
+								<div class="thumbnail">
+									<img src="{{door.imageUrl}}">
+									<div class="caption">
+										<p><strong>Name:</strong> {{door.name}}</p>
+										<p><strong>Category:</strong> {{door.category}}</p>
+										<p><strong>Style:</strong> {{door.style}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-primary" ng-click="chooseThisDoor(door)">Choose this door</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<ul>
+			<li>Categories</li>
+			<ul>
+				<li ng-repeat="category in doorCategoriesArr">
+					<button class="btn btn-default btn-xs">{{category.name}}</button>
+				</li>
+			</ul>
+			<li>Styles</li>
+			<ul>
+				<li ng-repeat="style in doorStylesArr">
+					<button class="btn btn-default btn-xs">{{style.name}}</button>
+				</li>
+			</ul>
+		</ul>
+	</div>
+</div>
