@@ -337,7 +337,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		$scope.removeFromWishList = function (thisCabinet) {
 			$('body').removeClass('modal-open');
 			$('.modal-backdrop').remove();
-			wishListArr.pop(thisCabinet);
+			wishListArr.$remove(thisCabinet);
 		};
 
 		$scope.removeCabinet = function (key) {
