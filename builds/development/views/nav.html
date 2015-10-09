@@ -26,7 +26,7 @@
 			<a ui-sref="admin"><span class="glyphicon glyphicon-cog"></span> Admin</a>
 		</li>
 		<li ng-show="authData">
-			<a ui-sref="user"><span class="glyphicon glyphicon-user"></span> Hello {{ authData.google.displayName }}</a>
+			<a ui-sref="user"><span class="glyphicon glyphicon-user"></span> Hello {{authData.google.displayName}}</a>
 		</li>
 		<li ng-show="authData">
 			<a ui-sref="home" ng-click="auth.$unauth()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>

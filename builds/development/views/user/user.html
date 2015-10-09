@@ -50,11 +50,31 @@
 					</form>
 				</div>
 			</div>
+			<div class="card" ng-controller="CabinetsController">
+				<div class="header">
+					<h4 class="title">Wish List</h4>
+					<button class="btn btn-primary" ng-click="wishListInit()">Init</button>
+				</div>
+				<div class="content">
+					<div class="row">
+						<div class="col-md-2"><strong>User ID: </strong></div>
+						<div class="col-md-4">{{wishList.$id}}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							{{ wishList }}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<img width="200px" src="{{authData.google.cachedUserProfile.picture}}" alt="">
 			</div>
+			<span>
+				ID: {{authData.google.cachedUserProfile.id}}
+			</span>
 		</div>
 	</div>
 </div>

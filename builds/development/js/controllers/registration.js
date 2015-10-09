@@ -14,6 +14,7 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 						$location.path("/home");
 						$rootScope.user.fname = authData.google.displayName;
 						console.log("Authenticated successfully with payload:", authData);
+						//$rootScope.wishListInit();
 					}
 				});
 			} else {
@@ -55,6 +56,7 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 		// any time auth status updates, add the user data to scope
 		$rootScope.auth.$onAuth(function (authData) {
 			$rootScope.authData = authData;
+			$rootScope.wishListInit();
 		});
 
 }]); //RegistrationController

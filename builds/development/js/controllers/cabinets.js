@@ -5,6 +5,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		var refCabinetCategories = new Firebase(FIREBASE_URL + '/products/cabinet-categories');
 		var refCabinetStyles = new Firebase(FIREBASE_URL + '/products/cabinet-styles');
 		var refCabinetColors = new Firebase(FIREBASE_URL + '/products/cabinet-colors');
+		var refWishLists = new Firebase(FIREBASE_URL + '/wishlists');
 
 		var cabinetsObj = $firebaseObject(refCabinets);
 		var cabinetsArr = $firebaseArray(refCabinets);
@@ -18,45 +19,58 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		var cabinetColorsObj = $firebaseObject(refCabinetColors);
 		var cabinetColorsArr = $firebaseArray(refCabinetColors);
 
+		var wishListsObj = $firebaseObject(refWishLists);
+		var wishListsArr = $firebaseArray(refWishLists);
+
+		wishListsObj.$loaded().then(function (data) {
+			$rootScope.wishLists = data;
+			wishListsObj.$bindTo($rootScope, 'wishLists');
+		});
+
+		wishListsArr.$loaded().then(function (data) {
+			$rootScope.wishListsArr = data;
+			wishListsArr.$bindTo($rootScope, 'wishListsArray');
+		});
+
 		cabinetsObj.$loaded().then(function (data) {
 			$scope.cabinets = data;
 			cabinetsObj.$bindTo($scope, 'cabinets');
-		}); // make sure cabinets object data has loaded
+		});
 
 		cabinetsArr.$loaded().then(function (data) {
 			$scope.cabinetsArr = data;
 			cabinetsArr.$bindTo($scope, 'cabinetsArray');
-		}); // make sure cabinets array data has loaded
+		});
 
 		cabinetCategoriesObj.$loaded().then(function (data) {
 			$scope.cabinetCategories = data;
 			cabinetCategoriesObj.$bindTo($scope, 'cabinetCategories');
-		}); // make sure cabinets object data has loaded
+		});
 
 		cabinetCategoriesArr.$loaded().then(function (data) {
 			$scope.cabinetCategoriesArr = data;
 			cabinetCategoriesArr.$bindTo($scope, 'cabinetCategoriesArray');
-		}); // make sure cabinets array data has loaded
+		});
 
 		cabinetStylesObj.$loaded().then(function (data) {
 			$scope.cabinetStyles = data;
 			cabinetStylesObj.$bindTo($scope, 'cabinetStyles');
-		}); // make sure cabinets object data has loaded
+		});
 
 		cabinetStylesArr.$loaded().then(function (data) {
 			$scope.cabinetStylesArr = data;
 			cabinetStylesArr.$bindTo($scope, 'cabinetStylesArray');
-		}); // make sure cabinets array data has loaded
+		});
 
 		cabinetColorsObj.$loaded().then(function (data) {
 			$scope.cabinetColors = data;
 			cabinetColorsObj.$bindTo($scope, 'cabinetColors');
-		}); // make sure cabinets object data has loaded
+		});
 
 		cabinetColorsArr.$loaded().then(function (data) {
 			$scope.cabinetColorsArr = data;
 			cabinetColorsArr.$bindTo($scope, 'cabinetColorsArray');
-		}); // make sure cabinets array data has loaded
+		});
 
 		$scope.tempCabinetColors = [];
 
@@ -106,37 +120,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			});
 
 		}; //addCabinet
-
-		$scope.cabinetWishList = [];
-
-		$scope.addToWishList = function (thisCabinet) {
-			//////////////////////
-			var tempCabinet = {
-				name: thisCabinet.name,
-				category: thisCabinet.category,
-				style: thisCabinet.style,
-				color: $scope.chosenColor,
-				width: thisCabinet.width,
-				height: thisCabinet.height,
-				depth: thisCabinet.depth,
-				price: $scope.cabinetprice,
-				imageUrl: thisCabinet.ImageUrl,
-				date: Firebase.ServerValue.TIMESTAMP
-			};
-			$scope.cabinetWishList.push(tempCabinet);
-
-//			cabinetsArr.$add(tempCabinet).then(function (ref) {
-//
-//			});
-			//////////////////////
-
-		}; // addToWishList
-
-		$scope.removeFromWishList = function (thisCabinet) {
-			$('body').removeClass('modal-open');
-			$('.modal-backdrop').remove();
-			$scope.cabinetWishList.pop(thisCabinet);
-		};
 
 		$scope.addCategory = function () {
 			var imgUrl = 'http://placehold.it/190x305';
@@ -257,13 +240,105 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		}
 
 		$scope.styleFilter = function (cabinet) {
-				if ($scope.styleIncludes.length > 0) {
-					if ($.inArray(cabinet.style, $scope.styleIncludes) < 0)
-						return;
-				}
-				return cabinet;
+			if ($scope.styleIncludes.length > 0) {
+				if ($.inArray(cabinet.style, $scope.styleIncludes) < 0)
+					return;
 			}
-			// End style filter
+			return cabinet;
+		};
+		// End style filter
+
+		/* wish list format */
+		/**
+		var demoWishList = {
+			"userID" 	: "103811676446098468781",
+			"cabinets" 	: {
+				"name" 	: "Cabinet 1",
+				........,
+				....,
+				..
+			},
+			"doors" 	: {
+				"name" 	: "Door 1",
+				......,
+				..
+			}
+		}
+		*/
+		/* end of wish list format */
+		/* wishlist process */
+		/*
+		user logs in
+			is there a wish list in the db with the same user id
+				yes - bind it to the scope
+				no	- create a wish list with user id (createWishList)
+		*/
+		// creates and / or binds a wish list
+		$rootScope.wishListInit = function () {
+			// if it exists it binds it, if not, it creates it
+			refWishList = new Firebase(FIREBASE_URL + '/wishlists/' + $rootScope.authData.google.cachedUserProfile.id);
+			wishListObj = $firebaseObject(refWishList);
+			wishListArr = $firebaseArray(refWishList);
+
+			wishListObj.$loaded().then(function (data) {
+				$rootScope.wishList = data;
+				wishListObj.$bindTo($rootScope, 'wishList');
+			});
+
+			wishListArr.$loaded().then(function (data) {
+				$rootScope.wishListArr = data;
+				wishListArr.$bindTo($rootScope, 'wishListArray');
+			});
+
+			$rootScope.wishList.userID = $rootScope.authData.google.cachedUserProfile.id;
+
+		};
+
+		/*
+		user goes to cabinets page
+		user adds a cabinet to wish list
+			is the user logged in ?
+				no 	- ask user to log in before using the wish list
+				yes - add the cabinet to the user's wish list
+		*/
+		/* end of wishlist process */
+
+
+
+		$scope.addToWishList = function (thisCabinet) {
+			//////////////////////
+			// is user logged in ?
+			if (!$rootScope.authData) {
+				alert("please log in first");
+			} else {
+				// collect cabinet data
+				var tempCabinet = {
+					name: thisCabinet.name,
+					category: thisCabinet.category,
+					style: thisCabinet.style,
+					//color: $scope.chosenColor,
+					//width: thisCabinet.width,
+					//height: thisCabinet.height,
+					//depth: thisCabinet.depth,
+					//price: $scope.cabinetprice,
+					//imageUrl: thisCabinet.ImageUrl,
+					date: Firebase.ServerValue.TIMESTAMP
+				};
+				// push it to the user's wish list
+				wishListArr.$add(tempCabinet);
+			}
+
+
+
+			//////////////////////
+
+		}; // addToWishList
+
+		$scope.removeFromWishList = function (thisCabinet) {
+			$('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+			wishListArr.pop(thisCabinet);
+		};
 
 		$scope.removeCabinet = function (key) {
 			$('body').removeClass('modal-open');
