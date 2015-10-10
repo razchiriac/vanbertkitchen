@@ -167,10 +167,18 @@
 						</div>
 						<!-- /.modal -->
 					</td>
+					<td>
+						<button type="button" class="btn btn-success pull-right" ng-click="addToCart(cabinet)">Add to Cart</button>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="8">
 						<h2 class="pull-right">Total: {{wishListPrice() | currency}}</h2>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="8">
+						<button class="btn btn-success pull-right" ng-click="addAllToCart(wishListArr)">Add all to Cart</button>
 					</td>
 				</tr>
 			</tbody>

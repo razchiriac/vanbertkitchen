@@ -57,6 +57,7 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 		$rootScope.auth.$onAuth(function (authData) {
 			$rootScope.authData = authData;
 			$rootScope.wishListInit();
+			$rootScope.cartInit();
 		});
 
 }]); //RegistrationController

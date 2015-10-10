@@ -282,20 +282,15 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			refWishList = new Firebase(FIREBASE_URL + '/wishlists/' + $rootScope.authData.google.cachedUserProfile.id);
 			wishListObj = $firebaseObject(refWishList);
 			wishListArr = $firebaseArray(refWishList);
-
 			wishListObj.$loaded().then(function (data) {
 				$rootScope.wishList = data;
 				wishListObj.$bindTo($rootScope, 'wishList');
 			});
-
 			wishListArr.$loaded().then(function (data) {
 				$rootScope.wishListArr = data;
 				wishListArr.$bindTo($rootScope, 'wishListArray');
 			});
-
 			$rootScope.wishList.userID = $rootScope.authData.google.cachedUserProfile.id;
-
-
 		};
 
 		$scope.wishListPrice = function () {
@@ -314,8 +309,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 				yes - add the cabinet to the user's wish list
 		*/
 		/* end of wishlist process */
-
-
 
 		$scope.addToWishList = function (thisCabinet) {
 			//////////////////////
@@ -348,6 +341,69 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			var tempPrice = thisCabinet.category.price + (thisCabinet.style.price * thisCabinet.width * thisCabinet.height * thisCabinet.depth) / 100.00;
 			return tempPrice;
 		};
+
+		/* SHOPPING CART */
+
+		$rootScope.cartInit = function () {
+			// if it exists it binds it, if not, it creates it
+			refCart = new Firebase(FIREBASE_URL + '/carts/' + $rootScope.authData.google.cachedUserProfile.id);
+			cartObj = $firebaseObject(refCart);
+			cartArr = $firebaseArray(refCart);
+			cartObj.$loaded().then(function (data) {
+				$rootScope.cart = data;
+				cartObj.$bindTo($rootScope, 'cart');
+			});
+			cartArr.$loaded().then(function (data) {
+				$rootScope.cartArr = data;
+				cartArr.$bindTo($rootScope, 'cartArray');
+			});
+			$rootScope.cart.userID = $rootScope.authData.google.cachedUserProfile.id;
+		};
+
+		$scope.cartPrice = function () {
+			var result = 0.00;
+			angular.forEach(cartArr, function (value, key) {
+				result += parseFloat(value.price);
+			});
+			return result;
+		};
+
+		$scope.addToCart = function (thisCabinet) {
+			//////////////////////
+			// is user logged in ?
+			if (!$rootScope.authData) {
+				alert("please log in first");
+			} else {
+				// collect cabinet data
+				var tempCabinet = {
+					name: thisCabinet.name,
+					category: thisCabinet.category,
+					style: thisCabinet.style,
+					color: thisCabinet.color,
+					width: thisCabinet.width,
+					height: thisCabinet.height,
+					depth: thisCabinet.depth,
+					price: thisCabinet.price,
+					date: Firebase.ServerValue.TIMESTAMP
+				};
+				// push it to the user's cart
+				cartArr.$add(tempCabinet);
+			}
+		}; // addToCart
+
+		$scope.addAllToCart = function (inputArr) {
+			angular.forEach(inputArr, function (value, key) {
+				$scope.addToCart(value);
+			});
+		};
+
+		$scope.removeFromCart = function (thisCabinet) {
+			$('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+			cartArr.$remove(thisCabinet);
+		};
+
+		/* END OF SHOPPING CART */
 
 		$scope.removeFromWishList = function (thisCabinet) {
 			$('body').removeClass('modal-open');
