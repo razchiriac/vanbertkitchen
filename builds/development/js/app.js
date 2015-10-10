@@ -34,6 +34,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 			url: '/user',
 			templateUrl: 'views/user/user.html'
 		})
+		.state('cart', {
+			url: '/cart',
+			templateUrl: 'views/user/cart.html'
+		})
 		/* LOGIN & REGISTER */
 		.state('login', {
 			url: '/login',

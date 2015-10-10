@@ -23,6 +23,9 @@
 			<a ui-sref="home" ng-click="login('google')">Login with Google</a>
 		</li>
 		<li ng-show="authData">
+			<a ui-sref="cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+		</li>
+		<li ng-show="authData">
 			<a ui-sref="admin"><span class="glyphicon glyphicon-cog"></span> Admin</a>
 		</li>
 		<li ng-show="authData">

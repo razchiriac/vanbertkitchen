@@ -295,6 +295,15 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 
 			$rootScope.wishList.userID = $rootScope.authData.google.cachedUserProfile.id;
 
+
+		};
+
+		$scope.wishListPrice = function () {
+			var result = 0.00;
+			angular.forEach(wishListArr, function (value, key) {
+				result += parseFloat(value.price);
+			});
+			return result;
 		};
 
 		/*
@@ -335,8 +344,8 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			//////////////////////
 		}; // addToWishList
 
-		$scope.calcPrice = function(thisCabinet) {
-			var tempPrice = thisCabinet.category.price + ( thisCabinet.style.price * thisCabinet.width * thisCabinet.height * thisCabinet.depth ) / 100.00;
+		$scope.calcPrice = function (thisCabinet) {
+			var tempPrice = thisCabinet.category.price + (thisCabinet.style.price * thisCabinet.width * thisCabinet.height * thisCabinet.depth) / 100.00;
 			return tempPrice;
 		};
 
