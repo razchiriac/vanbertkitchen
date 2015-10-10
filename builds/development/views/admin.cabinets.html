@@ -12,12 +12,12 @@
                 </li>
                 <li class="list-group-item">
                     <label>Category</label>
-                    <select class="pull-right" ng-model="selectedCat" ng-options="category for category in getUniqueCategories()">
+                    <select class="pull-right" ng-model="selectedCat" ng-options="category.name for category in getUniqueCategories()">
                     </select>
                 </li>
                 <li class="list-group-item">
                     <label>Style</label>
-                    <select class="pull-right" ng-model="selectedStyle" ng-options="style for style in getUniqueStyles(selectedCat)">
+                    <select class="pull-right" ng-model="selectedStyle" ng-options="style.name for style in getUniqueStyles(selectedCat)">
                     </select>
                 </li>
                 <li class="list-group-item">
@@ -76,13 +76,16 @@
 
     <div class="col-lg-4 col-md-12">
         <!-- New category form -->
-
         <h4>Add a new category</h4>
         <form name="myform" ng-submit="addCategory()" novalidate>
             <ul class="list-group">
                 <li class="list-group-item">
                     <label>Name</label>
                     <input type="text" ng-model="newCategoryName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Price factor</label>
+                    <input type="text" ng-model="newCategoryPrice" class="pull-right">
                 </li>
                 <li class="list-group-item">
                     <label>Image</label>
@@ -95,18 +98,21 @@
         </form>
 
         <!-- New style form -->
-
         <h4>Add a new style</h4>
         <form name="myform" ng-submit="addStyle()" novalidate>
             <ul class="list-group">
                 <li class="list-group-item">
                     <label>Container category</label>
-                    <select class="pull-right" ng-model="newStyleCategory" ng-options="category for category in getUniqueCategories()">
+                    <select class="pull-right" ng-model="newStyleCategory" ng-options="category.name for category in getUniqueCategories()">
                     </select>
                 </li>
                 <li class="list-group-item">
                     <label>Name</label>
                     <input type="text" ng-model="newStyleName" class="pull-right">
+                </li>
+                <li class="list-group-item">
+                    <label>Price factor</label>
+                    <input type="text" ng-model="newStylePrice" class="pull-right">
                 </li>
                 <li class="list-group-item">
                     <label>Image</label>
@@ -164,13 +170,13 @@
                         <input ng-show="editName" my-enter="cabinetsArr.$save(cabinet); editName = false" type="text" ng-model="cabinet.name">
                     </td>
                     <td ng-dblclick="editCategory = !editCategory" ng-init="editCategory = false">
-                        <span ng-hide="editCategory">{{cabinet.category}}</span>
-                        <select ng-show="editCategory" ng-change="editStyle = true" my-enter="cabinetsArr.$save(cabinet); editCategory = false" type="text" ng-model="cabinet.category" ng-options="category for category in getUniqueCategories()">
+                        <span ng-hide="editCategory">{{cabinet.category.name}}</span>
+                        <select ng-show="editCategory" ng-change="editStyle = true" my-enter="cabinetsArr.$save(cabinet); editCategory = false" type="text" ng-model="cabinet.category" ng-options="category.name for category in getUniqueCategories()">
                         </select>
                     </td>
                     <td ng-dblclick="editStyle = !editStyle" ng-init="editStyle = false">
-                        <span ng-hide="editStyle">{{cabinet.style}}</span>
-                        <select ng-show="editStyle" my-enter="cabinetsArr.$save(cabinet); editStyle = false" type="text" ng-model="cabinet.style" ng-options="style for style in getUniqueStyles(cabinet.category)">
+                        <span ng-hide="editStyle">{{cabinet.style.name}}</span>
+                        <select ng-show="editStyle" my-enter="cabinetsArr.$save(cabinet); editStyle = false" type="text" ng-model="cabinet.style" ng-options="style.name for style in getUniqueStyles(cabinet.category)">
                         </select>
                     </td>
                     <td>
@@ -278,6 +284,7 @@
             <thead>
                 <tr>
                     <th ng-click="filter = 'name'">Name</th>
+                    <th>Price factor</th>
                     <th ng-click="filter = 'date'">Date added</th>
                 </tr>
             </thead>
@@ -286,6 +293,10 @@
                     <td ng-dblclick="editCategoryName = !editCategoryName" ng-init="editCategoryName = false">
                         <span ng-hide="editCategoryName">{{category.name}}</span>
                         <input ng-show="editCategoryName" my-enter="cabinetCategoriesArr.$save(category); editCategoryName = false" type="text" ng-model="category.name">
+                    </td>
+                    <td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
+                        <span ng-hide="editPrice">{{category.price | currency}}</span>
+                        <input ng-show="editPrice" my-enter="cabinetCategoriesArr.$save(category); editPrice = false" type="text" ng-model="category.price">
                     </td>
                     <td>{{category.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
@@ -349,6 +360,7 @@
                 <tr>
                     <th ng-click="filter = 'name'">Name</th>
                     <th>Category</th>
+                    <th>Price factor</th>
                     <th ng-click="filter = 'date'">Date added</th>
                 </tr>
             </thead>
@@ -362,6 +374,10 @@
                         <span ng-hide="editStyleCategory">{{style.category}}</span>
                         <select ng-show="editStyleCategory" my-enter="cabinetCategoriesArr.$save(s); editStyleCategory = false" type="text" ng-model="style.category" ng-options="category for category in getUniqueCategories()">
                         </select>
+                    </td>
+                    <td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
+                        <span ng-hide="editPrice">{{style.price | currency}}</span>
+                        <input ng-show="editPrice" my-enter="cabinetStylesArr.$save(style); editPrice = false" type="text" ng-model="style.price">
                     </td>
                     <td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>

@@ -54,8 +54,8 @@
 						<img src="{{cabinet.imageUrl}}">
 						<div class="caption">
 							<p><strong>Name:</strong> {{cabinet.name}}</p>
-							<p><strong>Category:</strong> {{cabinet.category}}</p>
-							<p><strong>Style:</strong> {{cabinet.style}}</p>
+							<p><strong>Category:</strong> {{cabinet.category.name}}</p>
+							<p><strong>Style:</strong> {{cabinet.style.name}}</p>
 						</div>
 					</div>
 
@@ -68,24 +68,35 @@
 									<div class="thumbnail">
 										<img src="{{cabinet.imageUrl}}">
 										<div class="caption">
-											<p><strong>Name:</strong> {{cabinet.name}}</p>
-											<p><strong>Category:</strong> {{cabinet.category}}</p>
-											<p><strong>Style:</strong> {{cabinet.style}}</p>
-											<p><strong>Color:</strong> {{chosenColor.name}}</p>
-											<div class="cabinet-range"><strong>Width:</strong>
+											<div class="list-group-item">
+												<strong>Name:</strong> {{cabinet.name}}
+											</div>
+											<div class="list-group-item">
+												<strong>Category:</strong> {{cabinet.category.name}}
+											</div>
+											<div class="list-group-item">
+												<strong>Style:</strong> {{cabinet.style.name}}
+											</div>
+											<div class="list-group-item">
+												<strong>Color:</strong> {{chosenColor.name}}
+											</div>
+											<div class="list-group-item"><strong>Width:</strong>
 												<span>Min: {{cabinet.minWidth}}</span>
 												<input type="number" min="{{cabinet.minWidth}}" max="{{cabinet.maxWidth}}" ng-model="cabinet.width">
 												<span>Max: {{cabinet.maxWidth}}</span>
 											</div>
-											<div class="cabinet-range"><strong>Height:</strong>
+											<div class="list-group-item"><strong>Height:</strong>
 												<span>Min: {{cabinet.minHeight}}</span>
 												<input type="number" min="{{cabinet.minHeight}}" max="{{cabinet.maxHeight}}" ng-model="cabinet.height">
 												<span>Max: {{cabinet.maxHeight}}</span>
 											</div>
-											<div class="cabinet-range"><strong>Depth:</strong>
+											<div class="list-group-item"><strong>Depth:</strong>
 												<span>Min: {{cabinet.minDepth}}</span>
 												<input type="number" min="{{cabinet.minDepth}}" max="{{cabinet.maxDepth}}" ng-model="cabinet.depth">
 												<span>Max: {{cabinet.maxDepth}}</span>
+											</div>
+											<div class="list-group-item">
+												<strong>Price =</strong> {{calcPrice(cabinet) | currency}}
 											</div>
 										</div>
 									</div>
@@ -112,7 +123,6 @@
 		<h4>Wish list</h4>
 		<table class="table table-hover">
 			<thead>
-				<th>ID</th>
 				<th>Name</th>
 				<th>Category</th>
 				<th>Style</th>
@@ -120,19 +130,18 @@
 				<th>Width</th>
 				<th>Height</th>
 				<th>Depth</th>
-				<th>How many</th>
+				<th>Price</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="cabinet in wishListArr">
-					<td>{{cabinet.$id}}</td>
 					<td>{{cabinet.name}}</td>
-					<td>{{cabinet.category}}</td>
-					<td>{{cabinet.style}}</td>
+					<td>{{cabinet.category.name}}</td>
+					<td>{{cabinet.style.name}}</td>
 					<td>{{cabinet.color.name}}</td>
 					<td>{{cabinet.width}}</td>
 					<td>{{cabinet.height}}</td>
 					<td>{{cabinet.depth}}</td>
-					<th>{{cabinet.howMany}}</th>
+					<td>{{cabinet.price | currency}}</td>
 					<td>
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
 							<span class="glyphicon glyphicon-trash"></span>

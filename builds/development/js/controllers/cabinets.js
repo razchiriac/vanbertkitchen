@@ -122,37 +122,40 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		}; //addCabinet
 
 		$scope.addCategory = function () {
-			var imgUrl = 'http://placehold.it/190x305';
-			$scope.categoryImageUrl = imgUrl;
+			$scope.newCategoryPrice = 1;
+			$scope.categoryImageUrl = 'http://placehold.it/190x305';
 			var tempCategory = {
 				name: $scope.newCategoryName,
+				price: $scope.newCategoryPrice,
 				imageUrl: $scope.categoryImageUrl,
 				date: Firebase.ServerValue.TIMESTAMP
 			};
 			cabinetCategoriesArr.$add(tempCategory).then(function (ref) {
 				$scope.newCategoryName = '';
+				$scope.newCategoryPrice = '';
 				$scope.categoryImageUrl = '';
 			});
 		}; //addCategory
 
 		$scope.addStyle = function () {
-			var imgUrl = 'http://placehold.it/190x305';
-			$scope.styleImageUrl = imgUrl;
+			$scope.newCategoryPrice = 1;
+			$scope.styleImageUrl = 'http://placehold.it/190x305';
 			var tempStyle = {
 				category: $scope.newStyleCategory,
 				name: $scope.newStyleName,
+				price: $scope.newStylePrice,
 				imageUrl: $scope.styleImageUrl,
 				date: Firebase.ServerValue.TIMESTAMP
 			};
 			cabinetStylesArr.$add(tempStyle).then(function (ref) {
 				$scope.newStyleName = '';
+				$scope.newStylePrice = '';
 				$scope.styleImageUrl = '';
 			});
 		}; //addStyle
 
 		$scope.addColor = function () {
-			var imgUrl = 'http://placehold.it/190x305';
-			$scope.colorImageUrl = imgUrl;
+			$scope.colorImageUrl = 'http://placehold.it/190x305';
 			var tempColor = {
 				name: $scope.newColorName,
 				imageUrl: $scope.colorImageUrl,
@@ -169,7 +172,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			angular.forEach(cabinetCategoriesArr, function (value, key) {
 				if (($scope.tempCategories.length < 1) || ($.inArray(value, $scope.tempCategories) < 0)) {
 					if (field === 'name' || !field) {
-						$scope.tempCategories.push(value.name);
+						$scope.tempCategories.push(value);
 					}
 				}
 			});
@@ -182,11 +185,11 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			angular.forEach(cabinetStylesArr, function (value, key) {
 				if (($scope.tempStyles.length < 1) || ($.inArray(value, $scope.tempStyles) < 0)) {
 					if (selectedCategory) {
-						if (value.category === selectedCategory) {
-							$scope.tempStyles.push(value.name);
+						if (value.category === selectedCategory.name) {
+							$scope.tempStyles.push(value);
 						}
 					} else {
-						$scope.tempStyles.push(value.name);
+						$scope.tempStyles.push(value);
 					}
 				}
 			});
@@ -311,28 +314,31 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			if (!$rootScope.authData) {
 				alert("please log in first");
 			} else {
+				// calculate price
+
 				// collect cabinet data
 				var tempCabinet = {
 					name: thisCabinet.name,
 					category: thisCabinet.category,
 					style: thisCabinet.style,
-					//color: $scope.chosenColor,
-					//width: thisCabinet.width,
-					//height: thisCabinet.height,
-					//depth: thisCabinet.depth,
-					//price: $scope.cabinetprice,
+					color: $scope.chosenColor,
+					width: thisCabinet.width,
+					height: thisCabinet.height,
+					depth: thisCabinet.depth,
+					price: $scope.calcPrice(thisCabinet),
 					//imageUrl: thisCabinet.ImageUrl,
 					date: Firebase.ServerValue.TIMESTAMP
 				};
 				// push it to the user's wish list
 				wishListArr.$add(tempCabinet);
 			}
-
-
-
 			//////////////////////
-
 		}; // addToWishList
+
+		$scope.calcPrice = function(thisCabinet) {
+			var tempPrice = thisCabinet.category.price + ( thisCabinet.style.price * thisCabinet.width * thisCabinet.height * thisCabinet.depth ) / 100.00;
+			return tempPrice;
+		};
 
 		$scope.removeFromWishList = function (thisCabinet) {
 			$('body').removeClass('modal-open');
