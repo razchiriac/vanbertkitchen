@@ -435,4 +435,34 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			cabinetColorsArr.$remove(key);
 		};
 
+		/* STRIPE CHECKOUT */
+
+		var handler = StripeCheckout.configure({
+			key: 'pk_test_PTQxPyzUAucunSs2MkXAuaPo',
+			image: 'http://mocajazz.com/css/images/logo.png',
+			locale: 'auto',
+			token: function (token) {
+				// Use the token to create the charge with a server-side script.
+				// You can access the token ID with `token.id`
+			}
+		});
+
+		$scope.purchase = function () {
+			// Open Checkout with further options
+			handler.open({
+				name: 'Vanbert Kitchens',
+				description: 'Please fill out your info.',
+				amount: $scope.cartPrice() * 100.00,
+				shippingAddress: true,
+				billingAddress: true
+			});
+			e.preventDefault();
+		};
+
+		$(window).on('popstate', function () {
+			handler.close();
+		});
+
+		/* END OF STRIPE CHECKOUT */
+
 	}]);

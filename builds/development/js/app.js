@@ -109,8 +109,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
 	.state('checkout', {
 		url: '/checkout',
-		templateUrl: 'views/checkout.html',
-		controller: 'StripeController'
+		templateUrl: 'views/checkout.html'
 	})
 
 	/* END OF CHECKOUT */
