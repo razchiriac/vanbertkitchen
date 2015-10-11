@@ -364,7 +364,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 					style: thisCabinet.style,
 					color: $scope.chosenColor,
 					width: thisCabinet.width,
-					widthFraction: parseFloat(thisCabinet.widthFraction),
+					widthFraction: thisCabinet.widthFraction,
 					height: thisCabinet.height,
 					heightFraction: thisCabinet.heightFraction,
 					depth: thisCabinet.depth,
@@ -385,9 +385,15 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			var hFrac = parseFloat(thisCabinet.heightFraction.split("/")[0] / thisCabinet.heightFraction.split("/")[1]);
 			var dFrac = parseFloat(thisCabinet.depthFraction.split("/")[0] / thisCabinet.depthFraction.split("/")[1]);
 
-			if ( thisCabinet.widthFraction === '0' ) { wFrac = 0 };
-			if ( thisCabinet.heightFraction === '0' ) { hFrac = 0 };
-			if ( thisCabinet.depthFraction === '0' ) { dFrac = 0 };
+			if (thisCabinet.widthFraction === '0') {
+				wFrac = 0
+			};
+			if (thisCabinet.heightFraction === '0') {
+				hFrac = 0
+			};
+			if (thisCabinet.depthFraction === '0') {
+				dFrac = 0
+			};
 
 			var width = thisCabinet.width + wFrac;
 			var height = thisCabinet.height + hFrac;
@@ -436,8 +442,11 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 					style: thisCabinet.style,
 					color: thisCabinet.color,
 					width: thisCabinet.width,
+					widthFraction: thisCabinet.widthFraction,
 					height: thisCabinet.height,
+					heightFraction: thisCabinet.heightFraction,
 					depth: thisCabinet.depth,
+					depthFraction: thisCabinet.depthFraction,
 					price: thisCabinet.price,
 					date: Firebase.ServerValue.TIMESTAMP
 				};

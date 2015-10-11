@@ -17,9 +17,9 @@
 				<td>{{cabinet.category.name}}</td>
 				<td>{{cabinet.style.name}}</td>
 				<td>{{cabinet.color.name}}</td>
-				<td>{{cabinet.width}}</td>
-				<td>{{cabinet.height}}</td>
-				<td>{{cabinet.depth}}</td>
+				<td>{{cabinet.width}}, {{cabinet.widthFraction}}</td>
+					<td>{{cabinet.height}}, {{cabinet.heightFraction}}</td>
+					<td>{{cabinet.depth}}, {{cabinet.depthFraction}}</td>
 				<td>{{cabinet.price | currency}}</td>
 				<td>
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
