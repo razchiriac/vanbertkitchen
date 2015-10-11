@@ -72,6 +72,47 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			cabinetColorsArr.$bindTo($scope, 'cabinetColorsArray');
 		});
 
+		$scope.cabinetFractions = [
+			'0',
+			'1/16',
+			'1/8',
+			'3/16',
+			'1/4',
+			'5/16',
+			'3/8',
+			'7/16',
+			'1/2',
+			'9/16',
+			'5/8',
+			'11/16',
+			'3/4',
+			'13/16',
+			'7/8',
+			'15/16'
+		];
+
+		$scope.getWidthOptions = function (thisCabinet) {
+			var result = [];
+			for (i = thisCabinet.minWidth; i <= thisCabinet.maxWidth; i++) {
+				result.push(i);
+			}
+			return result;
+		};
+		$scope.getHeightOptions = function (thisCabinet) {
+			var result = [];
+			for (i = thisCabinet.minHeight; i <= thisCabinet.maxHeight; i++) {
+				result.push(i);
+			}
+			return result;
+		};
+		$scope.getDepthOptions = function (thisCabinet) {
+			var result = [];
+			for (i = thisCabinet.minDepth; i <= thisCabinet.maxDepth; i++) {
+				result.push(i);
+			}
+			return result;
+		};
+
 		$scope.tempCabinetColors = [];
 
 		$scope.addColorToCabinet = function (color) {
@@ -99,7 +140,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 				maxHeight: $scope.cabinetHeight.max,
 				minDepth: $scope.cabinetDepth.min,
 				maxDepth: $scope.cabinetDepth.max,
-				price: $scope.cabinetprice,
 				imageUrl: $scope.cabinetImageUrl,
 				date: Firebase.ServerValue.TIMESTAMP
 			};
@@ -115,7 +155,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 				$scope.cabinetHeight.max = '';
 				$scope.cabinetDepth.min = '';
 				$scope.cabinetDepth.max = '';
-				$scope.cabinetprice = '';
 				$scope.cabinetImageUrl = '';
 			});
 
@@ -325,8 +364,11 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 					style: thisCabinet.style,
 					color: $scope.chosenColor,
 					width: thisCabinet.width,
+					widthFraction: parseFloat(thisCabinet.widthFraction),
 					height: thisCabinet.height,
+					heightFraction: thisCabinet.heightFraction,
 					depth: thisCabinet.depth,
+					depthFraction: thisCabinet.depthFraction,
 					price: $scope.calcPrice(thisCabinet),
 					//imageUrl: thisCabinet.ImageUrl,
 					date: Firebase.ServerValue.TIMESTAMP
@@ -338,7 +380,20 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		}; // addToWishList
 
 		$scope.calcPrice = function (thisCabinet) {
-			var tempPrice = thisCabinet.category.price + (thisCabinet.style.price * thisCabinet.width * thisCabinet.height * thisCabinet.depth) / 100.00;
+
+			var wFrac = parseFloat(thisCabinet.widthFraction.split("/")[0] / thisCabinet.widthFraction.split("/")[1]);
+			var hFrac = parseFloat(thisCabinet.heightFraction.split("/")[0] / thisCabinet.heightFraction.split("/")[1]);
+			var dFrac = parseFloat(thisCabinet.depthFraction.split("/")[0] / thisCabinet.depthFraction.split("/")[1]);
+
+			if ( thisCabinet.widthFraction === '0' ) { wFrac = 0 };
+			if ( thisCabinet.heightFraction === '0' ) { hFrac = 0 };
+			if ( thisCabinet.depthFraction === '0' ) { dFrac = 0 };
+
+			var width = thisCabinet.width + wFrac;
+			var height = thisCabinet.height + hFrac;
+			var depth = thisCabinet.depth + dFrac;
+
+			var tempPrice = thisCabinet.style.price + (thisCabinet.category.price * width * height * depth) / 100.00;
 			return tempPrice;
 		};
 

@@ -81,19 +81,19 @@
 												<strong>Color:</strong> {{chosenColor.name}}
 											</div>
 											<div class="list-group-item"><strong>Width:</strong>
-												<span>Min: {{cabinet.minWidth}}</span>
-												<input type="number" min="{{cabinet.minWidth}}" max="{{cabinet.maxWidth}}" ng-model="cabinet.width">
-												<span>Max: {{cabinet.maxWidth}}</span>
+												<select ng-model="cabinet.width" ng-options="widthOption for widthOption in getWidthOptions(cabinet)"></select>
+												<span> inches, </span>
+												<select ng-model="cabinet.widthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
 											</div>
 											<div class="list-group-item"><strong>Height:</strong>
-												<span>Min: {{cabinet.minHeight}}</span>
-												<input type="number" min="{{cabinet.minHeight}}" max="{{cabinet.maxHeight}}" ng-model="cabinet.height">
-												<span>Max: {{cabinet.maxHeight}}</span>
+												<select ng-model="cabinet.height" ng-options="heightOption for heightOption in getHeightOptions(cabinet)"></select>
+												<span> inches, </span>
+												<select ng-model="cabinet.heightFraction" ng-options="fraction for fraction in cabinetFractions"></select>
 											</div>
 											<div class="list-group-item"><strong>Depth:</strong>
-												<span>Min: {{cabinet.minDepth}}</span>
-												<input type="number" min="{{cabinet.minDepth}}" max="{{cabinet.maxDepth}}" ng-model="cabinet.depth">
-												<span>Max: {{cabinet.maxDepth}}</span>
+												<select ng-model="cabinet.depth" ng-options="depthOption for depthOption in getDepthOptions(cabinet)"></select>
+												<span> inches, </span>
+												<select ng-model="cabinet.depthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
 											</div>
 											<div class="list-group-item">
 												<strong>Price =</strong> {{calcPrice(cabinet) | currency}}
@@ -172,12 +172,12 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="8">
+					<td colspan="10">
 						<h2 class="pull-right">Total: {{wishListPrice() | currency}}</h2>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="8">
+					<td colspan="10">
 						<button class="btn btn-success pull-right" ng-click="addAllToCart(wishListArr)">Add all to Cart</button>
 					</td>
 				</tr>
