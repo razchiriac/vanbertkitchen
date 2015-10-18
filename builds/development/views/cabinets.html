@@ -122,6 +122,9 @@
 												<strong>Style:</strong> {{cabinet.style.name}}
 											</div>
 											<div class="list-group-item">
+												<strong>Door:</strong> {{chosenDoor.name}}
+											</div>
+											<div class="list-group-item">
 												<strong>Color:</strong> {{chosenColor.name}}
 											</div>
 											<div class="list-group-item"><strong>Width:</strong>
@@ -170,6 +173,7 @@
 				<th>Name</th>
 				<th>Category</th>
 				<th>Style</th>
+				<th>Door</th>
 				<th>Color</th>
 				<th>Width</th>
 				<th>Height</th>
@@ -181,6 +185,7 @@
 					<td>{{cabinet.name}}</td>
 					<td>{{cabinet.category.name}}</td>
 					<td>{{cabinet.style.name}}</td>
+					<td>{{cabinet.door.name}}</td>
 					<td>{{cabinet.color.name}}</td>
 					<td>{{cabinet.width}}, {{cabinet.widthFraction}}</td>
 					<td>{{cabinet.height}}, {{cabinet.heightFraction}}</td>
