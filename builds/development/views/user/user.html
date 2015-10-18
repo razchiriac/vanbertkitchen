@@ -34,6 +34,9 @@
 			<span>
 				ID: {{authData.google.cachedUserProfile.id}}
 			</span>
+			<span ng-show="checkRole(authData.google.cachedUserProfile.id)">
+				ADMIN
+			</span>
 		</div>
 
 	</div>

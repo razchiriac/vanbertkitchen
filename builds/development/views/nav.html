@@ -22,10 +22,10 @@
 		<li ng-hide="authData">
 			<a ui-sref="home" ng-click="login('google')">Login with Google</a>
 		</li>
-		<li ng-show="authData">
-			<a ui-sref="cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+		<li ng-show="authData" ng-controller="CabinetsController" ng-init="cartInit()">
+			<a ui-sref="cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span ng-show="cartArr">( {{cartArr.length}} )</span> </a>
 		</li>
-		<li ng-show="authData">
+		<li ng-show="checkRole(authData.google.cachedUserProfile.id)">
 			<a ui-sref="admin"><span class="glyphicon glyphicon-cog"></span> Admin</a>
 		</li>
 		<li ng-show="authData">

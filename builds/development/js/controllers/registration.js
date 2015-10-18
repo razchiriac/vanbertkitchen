@@ -3,6 +3,8 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 
 		$rootScope.auth = Auth;
 
+
+
 		$rootScope.login = function (provider) {
 			$rootScope.authData = null;
 			$rootScope.error = null;
@@ -14,7 +16,6 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 						$location.path("/home");
 						$rootScope.user.fname = authData.google.displayName;
 						console.log("Authenticated successfully with payload:", authData);
-						//$rootScope.wishListInit();
 					}
 				});
 			} else {
@@ -29,6 +30,7 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 				});
 			}
 		};
+
 
 		$rootScope.register = function () {
 			$rootScope.authData = null;
@@ -53,11 +55,17 @@ myApp.controller('RegistrationController', ["$scope", "$rootScope", "$firebaseAu
 			$location.path("/home");
 		};
 
+		$rootScope.checkRole = function (id) {
+			if (id === "103811676446098468781" || id === "102571556401844835615") return true
+			return false
+		};
+
 		// any time auth status updates, add the user data to scope
 		$rootScope.auth.$onAuth(function (authData) {
 			$rootScope.authData = authData;
 			$rootScope.wishListInit();
 			$rootScope.cartInit();
+
 		});
 
 }]); //RegistrationController
