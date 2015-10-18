@@ -2,7 +2,7 @@
 	<div class="page-header">
 		<h1>Cabinets</h1>
 	</div>
-	<div class="row refine-bar">
+	<div class="row">
 		<div class="col-md-3 col-md-offset-3 btn-group">
 			<button class="btn btn-default" data-toggle="modal" data-target=".colors-modal-primary">Choose Color</button>
 			<div class="modal modal-fade colors-modal-primary">
@@ -27,10 +27,35 @@
 			</div>
 			<span class="btn btn-success" ng-show="chosenColor">{{chosenColor.name}}</span>
 		</div>
-
+		<div class="col-md-3 btn-group">
+			<button class="btn btn-default" data-toggle="modal" data-target=".door-modal-primary">Choose Door</button>
+			<div class="modal modal-fade door-modal-primary">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Choose a door</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row" ng-repeat="category in doorCategoriesArr">
+								<h4><u>{{category.name}}</u></h4>
+								<div class="col-md-4" ng-repeat="style in doorStylesArr" ng-show="style.category === category.name">
+									<button class="btn btn-primary" ng-click="setDoor(style)">{{style.name}}</button>
+								</div>
+								<hr>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<span class="btn btn-success" ng-show="chosenDoor">{{chosenDoor.name}}</span>
+		</div>
 	</div>
 	<hr>
-	<div class="row" ng-show="chosenColor">
+	<div class="row" ng-show="chosenColor && chosenDoor">
 		<div class="col-lg-3 col-md-4">
 			<ul class="refine-bar shadow">
 				<li class="list-group-item">

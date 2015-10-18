@@ -159,7 +159,7 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
         }; // getUniqueCategories
 
 
-        $scope.getUniqueStyles = function (selectedCategory) {
+        $scope.getUniqueDoorStyles = function (selectedCategory) {
             $scope.tempStyles = [];
             angular.forEach(doorStylesArr, function (value, key) {
                 if (($scope.tempStyles.length < 1) || ($.inArray(value, $scope.tempStyles) < 0)) {

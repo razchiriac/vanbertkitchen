@@ -72,6 +72,83 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			cabinetColorsArr.$bindTo($scope, 'cabinetColorsArray');
 		});
 
+		//////// DOORS //////////////////
+
+		var refDoors = new Firebase(FIREBASE_URL + '/products/doors');
+		var refDoorCategories = new Firebase(FIREBASE_URL + '/products/door-categories');
+		var refDoorStyles = new Firebase(FIREBASE_URL + '/products/door-styles');
+		var refDoorColors = new Firebase(FIREBASE_URL + '/products/door-colors');
+
+		var doorsObj = $firebaseObject(refDoors);
+		var doorsArr = $firebaseArray(refDoors);
+
+		var doorCategoriesObj = $firebaseObject(refDoorCategories);
+		var doorCategoriesArr = $firebaseArray(refDoorCategories);
+
+		var doorStylesObj = $firebaseObject(refDoorStyles);
+		var doorStylesArr = $firebaseArray(refDoorStyles);
+
+		var doorColorsObj = $firebaseObject(refDoorColors);
+		var doorColorsArr = $firebaseArray(refDoorColors);
+
+		doorsObj.$loaded().then(function (data) {
+			$scope.doors = data;
+			doorsObj.$bindTo($scope, 'doors');
+		}); // make sure doors object data has loaded
+
+		doorsArr.$loaded().then(function (data) {
+			$scope.doorsArr = data;
+			doorsArr.$bindTo($scope, 'doorsArray');
+		}); // make sure doors array data has loaded
+
+		doorCategoriesObj.$loaded().then(function (data) {
+			$scope.doorCategories = data;
+			doorCategoriesObj.$bindTo($scope, 'doorCategories');
+		}); // make sure doors object data has loaded
+
+		doorCategoriesArr.$loaded().then(function (data) {
+			$scope.doorCategoriesArr = data;
+			doorCategoriesArr.$bindTo($scope, 'doorCategoriesArray');
+		}); // make sure doors array data has loaded
+
+		doorStylesObj.$loaded().then(function (data) {
+			$scope.doorStyles = data;
+			doorStylesObj.$bindTo($scope, 'doorStyles');
+		}); // make sure doors object data has loaded
+
+		doorStylesArr.$loaded().then(function (data) {
+			$scope.doorStylesArr = data;
+			doorStylesArr.$bindTo($scope, 'doorStylesArray');
+		}); // make sure doors array data has loaded
+
+		doorColorsObj.$loaded().then(function (data) {
+			$scope.doorColors = data;
+			doorColorsObj.$bindTo($scope, 'doorColors');
+		}); // make sure doors object data has loaded
+
+		doorColorsArr.$loaded().then(function (data) {
+			$scope.doorColorsArr = data;
+			doorColorsArr.$bindTo($scope, 'doorColorsArray');
+		}); // make sure doors array data has loaded
+
+		$scope.getDoorStyles = function (selectedCategory) {
+			$scope.tempStyles = [];
+			angular.forEach(doorStylesArr, function (value, key) {
+				if (($scope.tempStyles.length < 1) || ($.inArray(value, $scope.tempStyles) < 0)) {
+					if (selectedCategory) {
+						if (value.category === selectedCategory) {
+							$scope.tempStyles.push(value.name);
+						}
+					} else {
+						$scope.tempStyles.push(value.name);
+					}
+				}
+			});
+			return $scope.tempStyles;
+		}; // getUniqueStyles
+
+		/////////////////////////////////
+
 		$scope.cabinetFractions = [
 			'0',
 			'1/16',
@@ -245,6 +322,10 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 
 		$scope.setColor = function (key) {
 			$scope.chosenColor = key;
+		};
+
+		$scope.setDoor = function (key) {
+			$scope.chosenDoor = key;
 		};
 
 		// Category filter

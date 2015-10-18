@@ -1,35 +1,115 @@
 <div class="container">
-	<div class="col-lg-9">
-		<div class="row">
-			<h3>Doors</h3>
-			<button class="btn btn-default">Show all</button>
-			<hr>
+	<div class="page-header">
+		<h1>Doors</h1>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-lg-3 col-md-4">
+			<ul class="refine-bar shadow">
+				<li class="list-group-item">
+					<h3 class="list-group-item-heading">Refine</h3>
+				</li>
+				<li class="list-group-item">
+					<label class="list-group-item-heading" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories"><strong>Categories</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
+					<ul class="collapse" id="categories">
+						<li ng-repeat="category in doorCategoriesArr">
+							<label class="checkbox">
+								<input type="checkbox" value="" ng-click="includeCategory(category.name)"> {{category.name}}
+								<span class="badge">{{lengthOfCategory(category)}}</span>
+							</label>
+						</li>
+					</ul>
+				</li>
+
+				<li class="list-group-item">
+					<label class="list-group-item-heading" data-toggle="collapse" data-target="#styles" aria-expanded="false" aria-controls="styles"><strong>Styles</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
+					<ul class="collapse" id="styles">
+						<li ng-repeat="style in doorStylesArr">
+							<label class="checkbox">
+								<input type="checkbox" value="" ng-click="includeStyle(style.name)"> {{style.name}}
+							</label>
+						</li>
+					</ul>
+				</li>
+
+
+
+			</ul>
 		</div>
-		<div class="col-md-3" ng-repeat="door in doorsArr | filter:doorFilter">
-			<a ui-sref="" class="thumbnail" ng-click="">
-				<img src="{{door.imageUrl}}">
-				<div class="caption">
-					<p><strong>Name:</strong> {{door.name}}</p>
-					<p><strong>Category:</strong> {{door.category}}</p>
-					<p><strong>Style:</strong> {{door.style}}</p>
+
+		<div class="col-lg-9 col-md-8">
+
+			<div class="row">
+				<div class="col-md-4 col-sm-6" ng-repeat="door in doorsArr | filter:categoryFilter | filter:styleFilter">
+
+					<div class="thumbnail shadow" data-toggle="modal" data-target=".door-modal-{{door.$id}}">
+						<img src="{{door.imageUrl}}">
+						<div class="caption">
+							<p><strong>Name:</strong> {{door.name}}</p>
+							<p><strong>Category:</strong> {{door.category.name}}</p>
+							<p><strong>Style:</strong> {{door.style.name}}</p>
+						</div>
+					</div>
+
+					<div class="modal fade door-modal-{{door.$id}}">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<h5>{{cabinet.name}}</h5>
+									<hr>
+									<div class="thumbnail">
+										<img src="{{door.imageUrl}}">
+										<div class="caption">
+											<div class="list-group-item">
+												<strong>Name:</strong> {{door.name}}
+											</div>
+											<div class="list-group-item">
+												<strong>Category:</strong> {{door.category.name}}
+											</div>
+											<div class="list-group-item">
+												<strong>Style:</strong> {{door.style.name}}
+											</div>
+											<div class="list-group-item">
+												<strong>Color:</strong> {{chosenColor.name}}
+											</div>
+											<div class="list-group-item"><strong>Width:</strong>
+												<select ng-model="door.width" ng-options="widthOption for widthOption in getWidthOptions(door)"></select>
+												<span> inches, </span>
+												<select ng-model="door.widthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+											</div>
+											<div class="list-group-item"><strong>Height:</strong>
+												<select ng-model="door.height" ng-options="heightOption for heightOption in getHeightOptions(door)"></select>
+												<span> inches, </span>
+												<select ng-model="door.heightFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+											</div>
+											<div class="list-group-item"><strong>Depth:</strong>
+												<select ng-model="door.depth" ng-options="depthOption for depthOption in getDepthOptions(door)"></select>
+												<span> inches, </span>
+												<select ng-model="door.depthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+											</div>
+											<div class="list-group-item">
+												<strong>Price =</strong> {{calcPrice(door) | currency}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary" ng-click="addToWishList(door)">Add to Wish List</button>
+								</div>
+								<div ng-hide="authData" class="alert alert-warning alert-dismissible" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<strong>Hey there!</strong> Please <strong>login</strong> before using the Wish List.
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</a>
+			</div>
+
 		</div>
+
 	</div>
-	<div class="col-lg-3">
-		<ul>
-			<li>Categories</li>
-			<ul>
-				<li ng-repeat="category in doorCategoriesArr">
-					<button class="btn btn-default btn-xs">{{category.name}}</button>
-				</li>
-			</ul>
-			<li>Styles</li>
-			<ul>
-				<li ng-repeat="style in doorStylesArr">
-					<button class="btn btn-default btn-xs">{{style.name}}</button>
-				</li>
-			</ul>
-		</ul>
-	</div>
+
+
 </div>
