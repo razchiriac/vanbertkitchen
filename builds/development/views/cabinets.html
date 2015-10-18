@@ -2,7 +2,35 @@
 	<div class="page-header">
 		<h1>Cabinets</h1>
 	</div>
-	<div class="row">
+	<div class="row refine-bar">
+		<div class="col-md-3 col-md-offset-3 btn-group">
+			<button class="btn btn-default" data-toggle="modal" data-target=".colors-modal-primary">Choose Color</button>
+			<div class="modal modal-fade colors-modal-primary">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Choose a color</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-3" ng-repeat="color in cabinetColorsArr">
+									<button class="btn btn-sm btn-primary" ng-click="setColor(color)">{{color.name}}</button>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<span class="btn btn-success" ng-show="chosenColor">{{chosenColor.name}}</span>
+		</div>
+
+	</div>
+	<hr>
+	<div class="row" ng-show="chosenColor">
 		<div class="col-lg-3 col-md-4">
 			<ul class="refine-bar shadow">
 				<li class="list-group-item">
@@ -31,16 +59,7 @@
 					</ul>
 				</li>
 
-				<li class="list-group-item">
-					<label class="list-group-item-heading" data-toggle="collapse" data-target="#color" aria-expanded="false" aria-controls="color"><strong>Color </strong><span class="label label-primary">{{chosenColor.name}}</span><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
-					<ul class="collapse" id="color">
-						<li ng-repeat="color in cabinetColorsArr">
-							<label class="radio">
-								<input type="radio" name="chosenColor" ng-model="$parent.chosenColor" ng-value="color"> {{color.name}}
-							</label>
-						</li>
-					</ul>
-				</li>
+
 
 			</ul>
 		</div>
@@ -102,7 +121,7 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									<button type="button" class="btn btn-primary" ng-click="addToWishList(cabinet)">Add to Wish List</button>
 								</div>
 								<div ng-hide="authData" class="alert alert-warning alert-dismissible" role="alert">

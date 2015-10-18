@@ -244,7 +244,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		};
 
 		$scope.setColor = function (key) {
-			$scope.selectedColor = key;
+			$scope.chosenColor = key;
 		};
 
 		// Category filter
