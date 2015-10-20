@@ -25,7 +25,7 @@
 					</div>
 				</div>
 			</div>
-			<span class="btn btn-success" ng-show="chosenColor">{{chosenColor.name}}</span>
+			<span class="btn btn-success" ng-show="getColor().name !== ''">{{getColor().name}}</span>
 		</div>
 		<div class="col-md-3 btn-group">
 			<button class="btn btn-default" data-toggle="modal" data-target=".door-modal-primary">Choose Door</button>
@@ -37,10 +37,10 @@
 							<h4 class="modal-title">Choose a door</h4>
 						</div>
 						<div class="modal-body">
-							<div class="row" ng-repeat="category in doorCategoriesArr">
-								<h4><u>{{category.name}}</u></h4>
-								<div class="col-md-4" ng-repeat="style in doorStylesArr" ng-show="style.category === category.name">
-									<button class="btn btn-primary" ng-click="setDoor(style)">{{style.name}}</button>
+							<div class="row" ng-repeat="doorCategory in doorCategoriesArr">
+								<h4><u>{{doorCategory.name}}</u></h4>
+								<div class="col-md-4" ng-repeat="doorStyle in doorStylesArr" ng-show="doorStyle.category === doorCategory.name">
+									<button class="btn btn-primary" ng-click="setDoor(doorStyle)">{{doorStyle.name}}</button>
 								</div>
 								<hr>
 							</div>
@@ -51,11 +51,12 @@
 					</div>
 				</div>
 			</div>
-			<span class="btn btn-success" ng-show="chosenDoor">{{chosenDoor.name}}</span>
+			<span class="btn btn-success" ng-show="getDoor().name !== ''">{{getDoor().name}}</span>
 		</div>
 	</div>
 	<hr>
-	<div class="row" ng-show="chosenColor && chosenDoor">
+	<div class="row" ng-show="getColor().name !== '' && getDoor().name !== ''">
+		<!--
 		<div class="col-lg-3 col-md-4">
 			<ul class="refine-bar shadow">
 				<li class="list-group-item">
@@ -83,85 +84,77 @@
 						</li>
 					</ul>
 				</li>
-
-
-
 			</ul>
 		</div>
+-->
 
-		<div class="col-lg-9 col-md-8">
+		<div class="row" ng-repeat="category in cabinetCategoriesArr">
+			<h3><u>{{category.name}}</u></h3>
+			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show="style.category.name === category.name">
 
-			<div class="row">
-				<div class="col-md-4 col-sm-6" ng-repeat="cabinet in cabinetsArr | filter:categoryFilter | filter:styleFilter">
-
-					<div class="thumbnail shadow" data-toggle="modal" data-target=".cabinet-modal-{{cabinet.$id}}">
-						<img src="{{cabinet.imageUrl}}">
-						<div class="caption">
-							<p><strong>Name:</strong> {{cabinet.name}}</p>
-							<p><strong>Category:</strong> {{cabinet.category.name}}</p>
-							<p><strong>Style:</strong> {{cabinet.style.name}}</p>
-						</div>
+				<div class="thumbnail shadow" data-toggle="modal" data-target=".cabinet-modal-{{style.$id}}">
+					<img src="{{style.imageUrl}}">
+					<div class="caption">
+						<p>{{style.name}}</p>
 					</div>
+				</div>
 
-					<div class="modal fade cabinet-modal-{{cabinet.$id}}">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-body">
-									<h5>{{cabinet.name}}</h5>
-									<hr>
-									<div class="thumbnail">
-										<img src="{{cabinet.imageUrl}}">
-										<div class="caption">
-											<div class="list-group-item">
-												<strong>Name:</strong> {{cabinet.name}}
-											</div>
-											<div class="list-group-item">
-												<strong>Category:</strong> {{cabinet.category.name}}
-											</div>
-											<div class="list-group-item">
-												<strong>Style:</strong> {{cabinet.style.name}}
-											</div>
-											<div class="list-group-item">
-												<strong>Door:</strong> {{chosenDoor.name}}
-											</div>
-											<div class="list-group-item">
-												<strong>Color:</strong> {{chosenColor.name}}
-											</div>
-											<div class="list-group-item"><strong>Width:</strong>
-												<select ng-model="cabinet.width" ng-options="widthOption for widthOption in getWidthOptions(cabinet)"></select>
-												<span> inches, </span>
-												<select ng-model="cabinet.widthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
-											</div>
-											<div class="list-group-item"><strong>Height:</strong>
-												<select ng-model="cabinet.height" ng-options="heightOption for heightOption in getHeightOptions(cabinet)"></select>
-												<span> inches, </span>
-												<select ng-model="cabinet.heightFraction" ng-options="fraction for fraction in cabinetFractions"></select>
-											</div>
-											<div class="list-group-item"><strong>Depth:</strong>
-												<select ng-model="cabinet.depth" ng-options="depthOption for depthOption in getDepthOptions(cabinet)"></select>
-												<span> inches, </span>
-												<select ng-model="cabinet.depthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
-											</div>
-											<div class="list-group-item">
-												<strong>Price =</strong> {{calcPrice(cabinet) | currency}}
-											</div>
+
+				<div class="modal fade cabinet-modal-{{style.$id}}">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<h5>{{style.name}}</h5>
+								<hr>
+								<div class="thumbnail">
+									<img src="{{style.imageUrl}}">
+									<div class="caption">
+										<div class="list-group-item">
+											<strong>Name:</strong> {{style.name}}
+										</div>
+										<div class="list-group-item">
+											<strong>Category:</strong> {{style.category.name}}
+										</div>
+										<div class="list-group-item">
+											<strong>Door:</strong> {{getDoor().name}}
+										</div>
+										<div class="list-group-item">
+											<strong>Color:</strong> {{getColor().name}}
+										</div>
+										<div class="list-group-item"><strong>Width:</strong>
+											<select ng-model="style.width" ng-options="widthOption for widthOption in getWidthOptions('all')"></select>
+											<span> inches, </span>
+											<select ng-model="style.widthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+										</div>
+										<div class="list-group-item"><strong>Height:</strong>
+											<select ng-model="style.height" ng-options="heightOption for heightOption in getHeightOptions('all')"></select>
+											<span> inches, </span>
+											<select ng-model="style.heightFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+										</div>
+										<div class="list-group-item"><strong>Depth:</strong>
+											<select ng-model="style.depth" ng-options="depthOption for depthOption in getDepthOptions('all')"></select>
+											<span> inches, </span>
+											<select ng-model="style.depthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+										</div>
+										<div class="list-group-item">
+											<span><strong>Price = </strong>{{calcPrice(style) | currency}}</span>
 										</div>
 									</div>
 								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary" ng-click="addToWishList(cabinet)">Add to Wish List</button>
-								</div>
-								<div ng-hide="authData" class="alert alert-warning alert-dismissible" role="alert">
-									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<strong>Hey there!</strong> Please <strong>login</strong> before using the Wish List.
-								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" ng-click="addToWishList(style)">Add to Wish List</button>
+							</div>
+							<div ng-hide="authData" class="alert alert-warning alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<strong>Hey there!</strong> Please <strong>login</strong> before using the Wish List.
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
 
 	</div>
@@ -172,7 +165,6 @@
 			<thead>
 				<th>Name</th>
 				<th>Category</th>
-				<th>Style</th>
 				<th>Door</th>
 				<th>Color</th>
 				<th>Width</th>
@@ -181,33 +173,32 @@
 				<th>Price</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="cabinet in wishListArr">
-					<td>{{cabinet.name}}</td>
-					<td>{{cabinet.category.name}}</td>
-					<td>{{cabinet.style.name}}</td>
-					<td>{{cabinet.door.name}}</td>
-					<td>{{cabinet.color.name}}</td>
-					<td>{{cabinet.width}}, {{cabinet.widthFraction}}</td>
-					<td>{{cabinet.height}}, {{cabinet.heightFraction}}</td>
-					<td>{{cabinet.depth}}, {{cabinet.depthFraction}}</td>
-					<td>{{cabinet.price | currency}}</td>
+				<tr ng-repeat="product in wishListArr">
+					<td>{{product.name}}</td>
+					<td>{{product.category.name}}</td>
+					<td>{{product.door.name}}</td>
+					<td>{{product.color.name}}</td>
+					<td>{{product.width}}, {{product.widthFraction}}</td>
+					<td>{{product.height}}, {{product.heightFraction}}</td>
+					<td>{{product.depth}}, {{product.depthFraction}}</td>
+					<td>{{product.price | currency}}</td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{product.$id}}-trash-modal">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
-						<div class="modal fade colors-modal {{cabinet.$id}}-trash-modal">
+						<div class="modal fade colors-modal {{product.$id}}-trash-modal">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title">You're about to remove cabinet: {{cabinet.name}} from your wish list</h4>
+										<h4 class="modal-title">You're about to remove cabinet: {{product.name}} from your wish list</h4>
 									</div>
 									<div class="modal-body">
 										<h5>Are you sure?</h5>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeFromWishList(cabinet)">Yes, remove this Cabinet</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeFromWishList(product)">Yes, remove this Cabinet</button>
 									</div>
 								</div>
 								<!-- /.modal-content -->
@@ -217,7 +208,7 @@
 						<!-- /.modal -->
 					</td>
 					<td>
-						<button type="button" class="btn btn-success pull-right" ng-click="addToCart(cabinet)">Add to Cart</button>
+						<button type="button" class="btn btn-success pull-right" ng-click="addToCart(product)">Add to Cart</button>
 					</td>
 				</tr>
 				<tr>

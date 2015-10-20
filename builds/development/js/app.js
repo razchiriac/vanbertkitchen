@@ -2,7 +2,8 @@ var myApp = angular.module('myApp', [
 	'ngRoute',
 	'ui.router',
 	'firebase',
-	'appControllers'
+	'appControllers',
+	'LocalStorageModule'
 ]).constant('FIREBASE_URL', 'https://vanbertkitchens.firebaseio.com');
 
 var appControllers = angular.module('appControllers', ['firebase']);
@@ -116,6 +117,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
 
 }]);
+
 
 
 

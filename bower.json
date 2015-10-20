@@ -1,0 +1,28 @@
+{
+  "name": "VanbertKitchens",
+  "description": "This app will handle the VanbertKitchens corporate site.",
+  "main": "index.html",
+  "authors": [
+    "Raz Chiriac"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/razchiriac/vanbertkitchen",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-local-storage": "~0.2.3"
+  }
+}

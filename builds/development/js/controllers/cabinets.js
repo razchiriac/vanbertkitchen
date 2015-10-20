@@ -1,5 +1,5 @@
-myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
-	function ($scope, $rootScope, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
+myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageService', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
+	function ($scope, $rootScope, localStorageService, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
 
 		var refCabinets = new Firebase(FIREBASE_URL + '/products/cabinets');
 		var refCabinetCategories = new Firebase(FIREBASE_URL + '/products/cabinet-categories');
@@ -170,22 +170,40 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 
 		$scope.getWidthOptions = function (thisCabinet) {
 			var result = [];
-			for (i = thisCabinet.minWidth; i <= thisCabinet.maxWidth; i++) {
-				result.push(i);
+			if (thisCabinet === 'all') {
+				for (i = 12; i <= 40; i++) {
+					result.push(i);
+				}
+			} else {
+				for (i = thisCabinet.minWidth; i <= thisCabinet.maxWidth; i++) {
+					result.push(i);
+				}
 			}
 			return result;
 		};
 		$scope.getHeightOptions = function (thisCabinet) {
 			var result = [];
-			for (i = thisCabinet.minHeight; i <= thisCabinet.maxHeight; i++) {
-				result.push(i);
+			if (thisCabinet === 'all') {
+				for (i = 12; i <= 40; i++) {
+					result.push(i);
+				}
+			} else {
+				for (i = thisCabinet.minHeight; i <= thisCabinet.maxHeight; i++) {
+					result.push(i);
+				}
 			}
 			return result;
 		};
 		$scope.getDepthOptions = function (thisCabinet) {
 			var result = [];
-			for (i = thisCabinet.minDepth; i <= thisCabinet.maxDepth; i++) {
-				result.push(i);
+			if (thisCabinet === 'all') {
+				for (i = 12; i <= 40; i++) {
+					result.push(i);
+				}
+			} else {
+				for (i = thisCabinet.minDepth; i <= thisCabinet.maxDepth; i++) {
+					result.push(i);
+				}
 			}
 			return result;
 		};
@@ -254,7 +272,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		}; //addCategory
 
 		$scope.addStyle = function () {
-			$scope.newCategoryPrice = 1;
+			$scope.newStylePrice = 1;
 			$scope.styleImageUrl = 'http://placehold.it/190x305';
 			var tempStyle = {
 				category: $scope.newStyleCategory,
@@ -322,10 +340,18 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 
 		$scope.setColor = function (key) {
 			$scope.chosenColor = key;
+			localStorageService.set('color', key);
+		};
+		$scope.getColor = function () {
+			return localStorageService.get('color');
 		};
 
 		$scope.setDoor = function (key) {
 			$scope.chosenDoor = key;
+			localStorageService.set('door', key);
+		};
+		$scope.getDoor = function () {
+			return localStorageService.get('door');
 		};
 
 		// Category filter
@@ -430,28 +456,26 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 		*/
 		/* end of wishlist process */
 
-		$scope.addToWishList = function (thisCabinet) {
+		$scope.addToWishList = function (product) {
 			//////////////////////
 			// is user logged in ?
 			if (!$rootScope.authData) {
 				alert("please log in first");
 			} else {
 				// calculate price
-
 				// collect cabinet data
 				var tempCabinet = {
-					name: thisCabinet.name,
-					category: thisCabinet.category,
-					style: thisCabinet.style,
-					color: $scope.chosenColor,
-					door: $scope.chosenDoor,
-					width: thisCabinet.width,
-					widthFraction: thisCabinet.widthFraction,
-					height: thisCabinet.height,
-					heightFraction: thisCabinet.heightFraction,
-					depth: thisCabinet.depth,
-					depthFraction: thisCabinet.depthFraction,
-					price: $scope.calcPrice(thisCabinet),
+					name: product.name,
+					category: product.category,
+					color: $scope.getColor(),
+					door: $scope.getDoor(),
+					width: product.width,
+					widthFraction: product.widthFraction,
+					height: product.height,
+					heightFraction: product.heightFraction,
+					depth: product.depth,
+					depthFraction: product.depthFraction,
+					price: $scope.calcPrice(product),
 					//imageUrl: thisCabinet.ImageUrl,
 					date: Firebase.ServerValue.TIMESTAMP
 				};
@@ -461,27 +485,27 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', '$firebase', '$f
 			//////////////////////
 		}; // addToWishList
 
-		$scope.calcPrice = function (thisCabinet) {
+		$scope.calcPrice = function (product) {
 
-			var wFrac = parseFloat(thisCabinet.widthFraction.split("/")[0] / thisCabinet.widthFraction.split("/")[1]);
-			var hFrac = parseFloat(thisCabinet.heightFraction.split("/")[0] / thisCabinet.heightFraction.split("/")[1]);
-			var dFrac = parseFloat(thisCabinet.depthFraction.split("/")[0] / thisCabinet.depthFraction.split("/")[1]);
+			var wFrac = parseFloat(product.widthFraction.split("/")[0] / product.widthFraction.split("/")[1]);
+			var hFrac = parseFloat(product.heightFraction.split("/")[0] / product.heightFraction.split("/")[1]);
+			var dFrac = parseFloat(product.depthFraction.split("/")[0] / product.depthFraction.split("/")[1]);
 
-			if (thisCabinet.widthFraction === '0') {
+			if (product.widthFraction === '0') {
 				wFrac = 0
 			};
-			if (thisCabinet.heightFraction === '0') {
+			if (product.heightFraction === '0') {
 				hFrac = 0
 			};
-			if (thisCabinet.depthFraction === '0') {
+			if (product.depthFraction === '0') {
 				dFrac = 0
 			};
 
-			var width = thisCabinet.width + wFrac;
-			var height = thisCabinet.height + hFrac;
-			var depth = thisCabinet.depth + dFrac;
+			var width = product.width + wFrac;
+			var height = product.height + hFrac;
+			var depth = product.depth + dFrac;
 
-			var tempPrice = thisCabinet.style.price + (thisCabinet.category.price * width * height * depth) / 100.00;
+			var tempPrice = product.price + (product.category.price * width * height * depth) / 100.00;
 			return tempPrice;
 		};
 
