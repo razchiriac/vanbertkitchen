@@ -149,25 +149,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 
 		/////////////////////////////////
 
-		$scope.cabinetFractions = [
-			'0',
-			'1/16',
-			'1/8',
-			'3/16',
-			'1/4',
-			'5/16',
-			'3/8',
-			'7/16',
-			'1/2',
-			'9/16',
-			'5/8',
-			'11/16',
-			'3/4',
-			'13/16',
-			'7/8',
-			'15/16'
-		];
-
 		$scope.getWidthOptions = function (thisCabinet) {
 			var result = [];
 			if (thisCabinet === 'all') {
@@ -442,7 +423,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.wishListPrice = function () {
 			var result = 0.00;
 			angular.forEach(wishListArr, function (value, key) {
-				result += parseFloat(value.price);
+				result += (parseFloat(value.price) * parseFloat(value.count));
 			});
 			return result;
 		};
@@ -476,6 +457,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					depth: product.depth,
 					depthFraction: product.depthFraction,
 					price: $scope.calcPrice(product),
+					count: product.count,
 					//imageUrl: thisCabinet.ImageUrl,
 					date: Firebase.ServerValue.TIMESTAMP
 				};
@@ -485,27 +467,34 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			//////////////////////
 		}; // addToWishList
 
+
+		$scope.getWidth = function (product) {
+			return product.width - -product.widthFraction;
+		};
+		$scope.getHeight = function (product) {
+			return product.height - -product.heightFraction;
+		};
+		$scope.getDepth = function (product) {
+			return product.depth - -product.depthFraction;
+		};
+
+		$scope.getVolume = function (product) {
+			return ($scope.getWidth(product) * $scope.getHeight(product) * $scope.getDepth(product)) / (12*12*12);
+		};
+
 		$scope.calcPrice = function (product) {
 
-			var wFrac = parseFloat(product.widthFraction.split("/")[0] / product.widthFraction.split("/")[1]);
-			var hFrac = parseFloat(product.heightFraction.split("/")[0] / product.heightFraction.split("/")[1]);
-			var dFrac = parseFloat(product.depthFraction.split("/")[0] / product.depthFraction.split("/")[1]);
+			var width = $scope.getWidth(product);
+			var height = $scope.getHeight(product);
+			var depth = $scope.getDepth(product);
 
-			if (product.widthFraction === '0') {
-				wFrac = 0
-			};
-			if (product.heightFraction === '0') {
-				hFrac = 0
-			};
-			if (product.depthFraction === '0') {
-				dFrac = 0
-			};
+			var volume = (width / 12) * (height / 12) * (depth / 12);
+			var faceArea = (width / 12) * ((height - 4) / 12);
 
-			var width = product.width + wFrac;
-			var height = product.height + hFrac;
-			var depth = product.depth + dFrac;
+			var doorPrice = parseFloat($scope.getDoor().price) * faceArea;
 
-			var tempPrice = product.price + (product.category.price * width * height * depth) / 100.00;
+			var tempPrice = doorPrice - -parseFloat(product.price) - -parseFloat(product.category.price) * volume;
+
 			return tempPrice;
 		};
 
@@ -530,7 +519,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.cartPrice = function () {
 			var result = 0.00;
 			angular.forEach(cartArr, function (value, key) {
-				result += parseFloat(value.price);
+				result += (parseFloat(value.price) * parseFloat(value.count));
 			});
 			return result;
 		};
@@ -545,7 +534,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 				var tempCabinet = {
 					name: thisCabinet.name,
 					category: thisCabinet.category,
-					style: thisCabinet.style,
 					door: thisCabinet.door,
 					color: thisCabinet.color,
 					width: thisCabinet.width,
@@ -555,6 +543,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					depth: thisCabinet.depth,
 					depthFraction: thisCabinet.depthFraction,
 					price: thisCabinet.price,
+					count: thisCabinet.count,
 					date: Firebase.ServerValue.TIMESTAMP
 				};
 				// push it to the user's cart

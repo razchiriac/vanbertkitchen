@@ -4,30 +4,6 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3 col-md-offset-3 btn-group">
-			<button class="btn btn-default" data-toggle="modal" data-target=".colors-modal-primary">Choose Color</button>
-			<div class="modal modal-fade colors-modal-primary">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Choose a color</h4>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-3" ng-repeat="color in cabinetColorsArr">
-									<button class="btn btn-sm btn-primary" ng-click="setColor(color)">{{color.name}}</button>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<span class="btn btn-success" ng-show="getColor().name !== ''">{{getColor().name}}</span>
-		</div>
-		<div class="col-md-3 btn-group">
 			<button class="btn btn-default" data-toggle="modal" data-target=".door-modal-primary">Choose Door</button>
 			<div class="modal modal-fade door-modal-primary">
 				<div class="modal-dialog">
@@ -40,54 +16,40 @@
 							<div class="row" ng-repeat="doorCategory in doorCategoriesArr">
 								<h4><u>{{doorCategory.name}}</u></h4>
 								<div class="col-md-4" ng-repeat="doorStyle in doorStylesArr" ng-show="doorStyle.category === doorCategory.name">
-									<button class="btn btn-primary" ng-click="setDoor(doorStyle)">{{doorStyle.name}}</button>
+									<button class="btn btn-primary" ng-click="setDoor(doorStyle)" data-dismiss="modal">{{doorStyle.name}}</button>
 								</div>
 								<hr>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+			</div>
+			<span class="btn btn-success" ng-show="getDoor().name !== ''" data-toggle="modal" data-target=".door-modal-primary">{{getDoor().name}}</span>
+		</div>
+		<div class="col-md-3 btn-group">
+			<button class="btn btn-default" data-toggle="modal" data-target=".colors-modal-primary">Choose Color</button>
+			<div class="modal modal-fade colors-modal-primary">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Choose a color</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-3" ng-repeat="color in cabinetColorsArr">
+									<button class="btn btn-sm btn-primary" ng-click="setColor(color)" data-dismiss="modal">{{color.name}}</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<span class="btn btn-success" ng-show="getDoor().name !== ''">{{getDoor().name}}</span>
+			<span class="btn btn-success" ng-show="getColor().name !== ''" data-toggle="modal" data-target=".colors-modal-primary">{{getColor().name}}</span>
 		</div>
 	</div>
 	<hr>
 	<div class="row" ng-show="getColor().name !== '' && getDoor().name !== ''">
-		<!--
-		<div class="col-lg-3 col-md-4">
-			<ul class="refine-bar shadow">
-				<li class="list-group-item">
-					<h3 class="list-group-item-heading">Refine</h3>
-				</li>
-				<li class="list-group-item">
-					<label class="list-group-item-heading" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories"><strong>Categories</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
-					<ul class="collapse" id="categories">
-						<li ng-repeat="category in cabinetCategoriesArr">
-							<label class="checkbox">
-								<input type="checkbox" value="" ng-click="includeCategory(category.name)"> {{category.name}}
-								<span class="badge">{{lengthOfCategory(category)}}</span>
-							</label>
-						</li>
-					</ul>
-				</li>
-
-				<li class="list-group-item">
-					<label class="list-group-item-heading" data-toggle="collapse" data-target="#styles" aria-expanded="false" aria-controls="styles"><strong>Styles</strong><span class="glyphicon glyphicon-menu-down pull-right"></span></label>
-					<ul class="collapse" id="styles">
-						<li ng-repeat="style in cabinetStylesArr">
-							<label class="checkbox">
-								<input type="checkbox" value="" ng-click="includeStyle(style.name)"> {{style.name}}
-							</label>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
--->
-
 		<div class="row" ng-repeat="category in cabinetCategoriesArr">
 			<h3><u>{{category.name}}</u></h3>
 			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show="style.category.name === category.name">
@@ -110,10 +72,10 @@
 									<img src="{{style.imageUrl}}">
 									<div class="caption">
 										<div class="list-group-item">
-											<strong>Name:</strong> {{style.name}}
+											<strong>Name:</strong> {{style.name}} , price = {{style.price | num}}
 										</div>
 										<div class="list-group-item">
-											<strong>Category:</strong> {{style.category.name}}
+											<strong>Category:</strong> {{style.category.name}} , price = {{style.category.price | num}}
 										</div>
 										<div class="list-group-item">
 											<strong>Door:</strong> {{getDoor().name}}
@@ -122,19 +84,82 @@
 											<strong>Color:</strong> {{getColor().name}}
 										</div>
 										<div class="list-group-item"><strong>Width:</strong>
-											<select ng-model="style.width" ng-options="widthOption for widthOption in getWidthOptions('all')"></select>
+											<select ng-model="style.width" ng-options="widthOption for widthOption in getWidthOptions('all')" ng-init="style.width = 12"></select>
 											<span> inches, </span>
-											<select ng-model="style.widthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+											<select ng-model="style.widthFraction" ng-init="style.widthFraction = 0">
+												<option value="0" selected></option>
+												<option ng-value="0.0625 | num">1/16</option>
+												<option ng-value="0.125 | num">1/8</option>
+												<option ng-value="0.1875 | num">3/16</option>
+												<option ng-value="0.25 | num">1/4</option>
+												<option ng-value="0.3125 | num">5/16</option>
+												<option ng-value="0.375 | num">3/8</option>
+												<option ng-value="0.4375 | num">7/16</option>
+												<option ng-value="0.5 | num">1/2</option>
+												<option ng-value="0.5625 | num">9/16</option>
+												<option ng-value="0.625 | num">5/8</option>
+												<option ng-value="0.6875 | num">11/16</option>
+												<option ng-value="0.75 | num">3/4</option>
+												<option ng-value="0.8125 | num">13/16</option>
+												<option ng-value="0.875 | num">7/8</option>
+												<option ng-value="0.9375 | num">15/16</option>
+											</select>
+											<span> = {{ getWidth(style) }}</span>
 										</div>
 										<div class="list-group-item"><strong>Height:</strong>
-											<select ng-model="style.height" ng-options="heightOption for heightOption in getHeightOptions('all')"></select>
+											<select ng-model="style.height" ng-options="heightOption for heightOption in getHeightOptions('all')" ng-init="style.height = 12"></select>
 											<span> inches, </span>
-											<select ng-model="style.heightFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+											<select ng-model="style.heightFraction" ng-init="style.heightFraction = 0">
+												<option value="0" selected></option>
+												<option ng-value="0.0625 | num">1/16</option>
+												<option ng-value="0.125 | num">1/8</option>
+												<option ng-value="0.1875 | num">3/16</option>
+												<option ng-value="0.25 | num">1/4</option>
+												<option ng-value="0.3125 | num">5/16</option>
+												<option ng-value="0.375 | num">3/8</option>
+												<option ng-value="0.4375 | num">7/16</option>
+												<option ng-value="0.5 | num">1/2</option>
+												<option ng-value="0.5625 | num">9/16</option>
+												<option ng-value="0.625 | num">5/8</option>
+												<option ng-value="0.6875 | num">11/16</option>
+												<option ng-value="0.75 | num">3/4</option>
+												<option ng-value="0.8125 | num">13/16</option>
+												<option ng-value="0.875 | num">7/8</option>
+												<option ng-value="0.9375 | num">15/16</option>
+											</select>
+											<span> = {{ getHeight(style) }}</span>
 										</div>
 										<div class="list-group-item"><strong>Depth:</strong>
-											<select ng-model="style.depth" ng-options="depthOption for depthOption in getDepthOptions('all')"></select>
+											<select ng-model="style.depth" ng-options="depthOption for depthOption in getDepthOptions('all')" ng-init="style.depth = 12"></select>
 											<span> inches, </span>
-											<select ng-model="style.depthFraction" ng-options="fraction for fraction in cabinetFractions"></select>
+											<select ng-model="style.depthFraction" ng-init="style.depthFraction = 0">
+												<option value="0" selected></option>
+												<option ng-value="0.0625 | num">1/16</option>
+												<option ng-value="0.125 | num">1/8</option>
+												<option ng-value="0.1875 | num">3/16</option>
+												<option ng-value="0.25 | num">1/4</option>
+												<option ng-value="0.3125 | num">5/16</option>
+												<option ng-value="0.375 | num">3/8</option>
+												<option ng-value="0.4375 | num">7/16</option>
+												<option ng-value="0.5 | num">1/2</option>
+												<option ng-value="0.5625 | num">9/16</option>
+												<option ng-value="0.625 | num">5/8</option>
+												<option ng-value="0.6875 | num">11/16</option>
+												<option ng-value="0.75 | num">3/4</option>
+												<option ng-value="0.8125 | num">13/16</option>
+												<option ng-value="0.875 | num">7/8</option>
+												<option ng-value="0.9375 | num">15/16</option>
+											</select>
+											<span> = {{ getDepth(style) }}</span>
+										</div>
+										<div class="list-group-item">
+											<span><strong>Volume = </strong>{{getVolume(style)}}</span>
+										</div>
+										<div class="list-group-item">
+											<span>
+												<strong>Count = </strong>
+												<input type="number" min="1" ng-model="style.count" ng-init="style.count = 1" style="width:50px" />
+											</span>
 										</div>
 										<div class="list-group-item">
 											<span><strong>Price = </strong>{{calcPrice(style) | currency}}</span>
@@ -143,13 +168,14 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary" ng-click="addToWishList(style)">Add to Wish List</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('body').removeClass('modal-open');$('.modal-backdrop').remove();$('body').removeClass('modal-open');$('.modal-backdrop').remove();$('body').removeClass('modal-open');$('.modal-backdrop').remove();">Close</button>
+								<progress-btn ng-click="addToWishList(style)"></progress-btn>
 							</div>
 							<div ng-hide="authData" class="alert alert-warning alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								<strong>Hey there!</strong> Please <strong>login</strong> before using the Wish List.
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -170,6 +196,7 @@
 				<th>Width</th>
 				<th>Height</th>
 				<th>Depth</th>
+				<th>Count</th>
 				<th>Price</th>
 			</thead>
 			<tbody>
@@ -181,6 +208,7 @@
 					<td>{{product.width}}, {{product.widthFraction}}</td>
 					<td>{{product.height}}, {{product.heightFraction}}</td>
 					<td>{{product.depth}}, {{product.depthFraction}}</td>
+					<td>{{product.count}}</td>
 					<td>{{product.price | currency}}</td>
 					<td>
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{product.$id}}-trash-modal">
@@ -201,11 +229,8 @@
 										<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeFromWishList(product)">Yes, remove this Cabinet</button>
 									</div>
 								</div>
-								<!-- /.modal-content -->
 							</div>
-							<!-- /.modal-dialog -->
 						</div>
-						<!-- /.modal -->
 					</td>
 					<td>
 						<button type="button" class="btn btn-success pull-right" ng-click="addToCart(product)">Add to Cart</button>
@@ -220,6 +245,26 @@
 					<td colspan="10">
 						<button class="btn btn-success pull-right" ng-click="addAllToCart(wishListArr)">Add all to Cart</button>
 					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="debug-bar">
+		<table class="table">
+			<theah>
+				<th>door area</th>
+				<th>door price factor</th>
+				<th>door price</th>
+				<th>style price</th>
+				<th>category price</th>
+				<th>volume</th>
+				<th>cabinet price</th>
+			</theah>
+			<tbody>
+				<tr>
+					<td>{{ getWidth(style) }}</td>
 				</tr>
 			</tbody>
 		</table>

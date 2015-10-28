@@ -103,6 +103,10 @@
                     <input type="text" ng-model="newStyleName" class="pull-right">
                 </li>
                 <li class="list-group-item">
+                    <label>Price factor</label>
+                    <input type="text" ng-model="newStylePrice" class="pull-right">
+                </li>
+                <li class="list-group-item">
                     <label>Image</label>
                     <input type="text" ng-model="styleImageUrl" class="pull-right">
                 </li>
@@ -305,15 +309,20 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th ng-click="filter = 'name'">Name</th>
+                    <th >Name</th>
                     <th>Category</th>
-                    <th ng-click="filter = 'date'">Date added</th>
+                    <th>Price factor</th>
+                    <th>Date added</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="style in doorStylesArr">
                     <td>{{style.name}}</td>
                     <td>{{style.category}}</td>
+                    <td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
+                        <span ng-hide="editPrice">{{style.price | currency}}</span>
+                        <input ng-show="editPrice" my-enter="doorStylesArr.$save(style); editPrice = false" type="text" ng-model="style.price">
+                    </td>
                     <td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
                     <td>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{style.$id}}-trash-modal">

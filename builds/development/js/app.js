@@ -114,7 +114,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 	})
 
 	/* END OF CHECKOUT */
-
+	.state('closets', {
+		url: '/closets',
+		templateUrl: 'views/closets.html'
+	})
 
 }]);
 
@@ -147,4 +150,28 @@ myApp.filter('showByCategory', function () {
 		})
 		return out;
 	}
+});
+
+myApp.filter('num', function () {
+	return function (input) {
+		return parseFloat(input, 10);
+	};
+});
+
+myApp.directive('progressBtn', function () {
+	return {
+		templateUrl: 'views/templates/progress-btn.html'
+	};
+});
+
+myApp.directive('shoppingCart', function () {
+	return {
+		templateUrl: 'views/templates/shopping-cart.html'
+	};
+});
+
+myApp.directive('wishList', function () {
+	return {
+		templateUrl: 'views/templates/wish-list.html'
+	};
 });

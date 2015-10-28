@@ -122,12 +122,14 @@ myApp.controller('DoorsController', ['$scope', '$rootScope', '$firebase', '$fire
             $scope.styleImageUrl = imgUrl;
             var tempStyle = {
                 category: $scope.newStyleCategory,
+				price: $scope.newStylePrice,
                 name: $scope.newStyleName,
                 imageUrl: $scope.styleImageUrl,
                 date: Firebase.ServerValue.TIMESTAMP
             };
             doorStylesArr.$add(tempStyle).then(function (ref) {
                 $scope.newStyleName = '';
+				$scope.newStylePrice = '';
                 $scope.styleImageUrl = '';
             });
         }; //addStyle

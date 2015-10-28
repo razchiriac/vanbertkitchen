@@ -124,3 +124,14 @@ body.modal-open,
 .shadow {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, .23);
 }
+
+.debug-bar {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: #333;
+	color: azure;
+	display: none;
+}
