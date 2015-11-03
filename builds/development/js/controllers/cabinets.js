@@ -149,6 +149,85 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 
 		/////////////////////////////////
 
+		$scope.width = {
+			name: '',
+			value: 0
+		};
+		$scope.height = {
+			name: '',
+			value: 0
+		};
+		$scope.depth = {
+			name: '',
+			value: 0
+		};
+		$scope.fractions = [
+			{
+				name: '',
+				value: parseFloat(0)
+			},
+			{
+				name: '1/16',
+				value: parseFloat(1 / 16)
+			},
+			{
+				name: '1/8',
+				value: parseFloat(1 / 8)
+			},
+			{
+				name: '3/16',
+				value: parseFloat(3 / 16)
+			},
+			{
+				name: '1/4',
+				value: parseFloat(1 / 4)
+			},
+			{
+				name: '5/16',
+				value: parseFloat(5 / 16)
+			},
+			{
+				name: '3/8',
+				value: parseFloat(3 / 8)
+			},
+			{
+				name: '7/16',
+				value: parseFloat(7 / 16)
+			},
+			{
+				name: '1/2',
+				value: parseFloat(1 / 2)
+			},
+			{
+				name: '9/16',
+				value: parseFloat(9 / 16)
+			},
+			{
+				name: '5/8',
+				value: parseFloat(5 / 8)
+			},
+			{
+				name: '11/16',
+				value: parseFloat(11 / 16)
+			},
+			{
+				name: '3/4',
+				value: parseFloat(3 / 4)
+			},
+			{
+				name: '13/16',
+				value: parseFloat(13 / 16)
+			},
+			{
+				name: '7/8',
+				value: parseFloat(7 / 8)
+			},
+			{
+				name: '15/16',
+				value: parseFloat(15 / 16)
+			},
+  ];
+
 		$scope.getWidthOptions = function (thisCabinet) {
 			var result = [];
 			if (thisCabinet === 'all') {
@@ -469,17 +548,17 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 
 
 		$scope.getWidth = function (product) {
-			return product.width - -product.widthFraction;
+			return product.width - -product.widthFraction.value;
 		};
 		$scope.getHeight = function (product) {
-			return product.height - -product.heightFraction;
+			return product.height - -product.heightFraction.value;
 		};
 		$scope.getDepth = function (product) {
-			return product.depth - -product.depthFraction;
+			return product.depth - -product.depthFraction.value;
 		};
 
 		$scope.getVolume = function (product) {
-			return ($scope.getWidth(product) * $scope.getHeight(product) * $scope.getDepth(product)) / (12*12*12);
+			return ($scope.getWidth(product) * $scope.getHeight(product) * $scope.getDepth(product)) / (12 * 12 * 12);
 		};
 
 		$scope.calcPrice = function (product) {
@@ -487,8 +566,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			var width = $scope.getWidth(product);
 			var height = $scope.getHeight(product);
 			var depth = $scope.getDepth(product);
-
-			var volume = (width / 12) * (height / 12) * (depth / 12);
+			var volume = $scope.getVolume(product);
 			var faceArea = (width / 12) * ((height - 4) / 12);
 
 			var doorPrice = parseFloat($scope.getDoor().price) * faceArea;
