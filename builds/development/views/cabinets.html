@@ -104,6 +104,9 @@
 										<div class="list-group-item">
 											<strong>Color:</strong> {{getColor().name}}
 										</div>
+										<div class="list-group-item">
+											<strong>Material:</strong> {{getMaterial().name}}
+										</div>
 										<div class="list-group-item"><strong>Width:</strong>
 											<select ng-model="style.width" ng-options="widthOption for widthOption in getWidthOptions(style)" ng-init="style.width = 12"></select>
 											<span> inches, </span>

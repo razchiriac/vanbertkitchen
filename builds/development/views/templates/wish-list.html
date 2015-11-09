@@ -6,6 +6,7 @@
 			<th>Category</th>
 			<th>Door</th>
 			<th>Color</th>
+			<th>Material</th>
 			<th>Width</th>
 			<th>Height</th>
 			<th>Depth</th>
@@ -23,6 +24,7 @@
 					<select ng-model="cabinet.color" ng-options="color.name for color in cabinetColorsArr" ng-show="editColor" my-enter="wishListArr.$save(cabinet); editColor = false" ng-model="cabinet.color"></select>
 					<span style="cursor:pointer" class="glyphicon glyphicon-pencil" ng-click="editColor = !editCount"></span>
 				</td>
+				<td>{{cabinet.material.name}}</td>
 				<td>{{cabinet.width}}, {{cabinet.widthFraction.name}}</td>
 				<td>{{cabinet.height}}, {{cabinet.heightFraction.name}}</td>
 				<td>{{cabinet.depth}}, {{cabinet.depthFraction.name}}</td>

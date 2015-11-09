@@ -5,6 +5,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		var refCabinetCategories = new Firebase(FIREBASE_URL + '/products/cabinet-categories');
 		var refCabinetStyles = new Firebase(FIREBASE_URL + '/products/cabinet-styles');
 		var refCabinetColors = new Firebase(FIREBASE_URL + '/products/cabinet-colors');
+		var refCabinetMaterials = new Firebase(FIREBASE_URL + '/products/cabinet-materials');
 		var refWishLists = new Firebase(FIREBASE_URL + '/wishlists');
 		var cabinetsObj = $firebaseObject(refCabinets);
 		var cabinetsArr = $firebaseArray(refCabinets);
@@ -14,6 +15,8 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		var cabinetStylesArr = $firebaseArray(refCabinetStyles);
 		var cabinetColorsObj = $firebaseObject(refCabinetColors);
 		var cabinetColorsArr = $firebaseArray(refCabinetColors);
+		var cabinetMaterialsObj = $firebaseObject(refCabinetMaterials);
+		var cabinetMaterialsArr = $firebaseArray(refCabinetMaterials);
 		var wishListsObj = $firebaseObject(refWishLists);
 		var wishListsArr = $firebaseArray(refWishLists);
 		wishListsObj.$loaded().then(function (data) {
@@ -55,6 +58,14 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		cabinetColorsArr.$loaded().then(function (data) {
 			$scope.cabinetColorsArr = data;
 			cabinetColorsArr.$bindTo($scope, 'cabinetColorsArray');
+		});
+		cabinetMaterialsObj.$loaded().then(function (data) {
+			$scope.cabinetMaterials = data;
+			cabinetMaterialsObj.$bindTo($scope, 'cabinetMaterials');
+		});
+		cabinetMaterialsArr.$loaded().then(function (data) {
+			$scope.cabinetMaterialsArr = data;
+			cabinetMaterialsArr.$bindTo($scope, 'cabinetMaterialsArray');
 		});
 		//////// DOORS //////////////////
 		var refDoors = new Firebase(FIREBASE_URL + '/products/doors');
@@ -288,6 +299,19 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			});
 		}; //addStyle
 
+		$scope.addMaterial = function () {
+			$scope.materialImageUrl = 'http://placehold.it/190x305';
+			var tempMaterial = {
+				name: $scope.newMaterialName,
+				imageUrl: $scope.materialImageUrl,
+				date: Firebase.ServerValue.TIMESTAMP
+			};
+			cabinetMaterialsArr.$add(tempMaterial).then(function (ref) {
+				$scope.newMaterialName = '';
+				$scope.materialImageUrl = '';
+			});
+		}; //addMaterial
+
 		$scope.setCat = function (key) {
 			$scope.selectedCat = key;
 		};
@@ -307,6 +331,13 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		};
 		$scope.getDoor = function () {
 			return localStorageService.get('door');
+		};
+		$scope.setMaterial = function (key) {
+			$scope.chosenMaterial = key;
+			localStorageService.set('material', key);
+		};
+		$scope.getMaterial = function () {
+			return localStorageService.get('material');
 		};
 		// creates and / or binds a wish list
 		$rootScope.wishListInit = function () {
@@ -344,6 +375,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					category: product.category,
 					color: $scope.getColor(),
 					door: $scope.getDoor(),
+					material: $scope.getMaterial(),
 					width: product.width,
 					widthFraction: product.widthFraction,
 					height: product.height,
@@ -415,6 +447,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					category: thisCabinet.category,
 					door: thisCabinet.door,
 					color: thisCabinet.color,
+					material: thisCabinet.material,
 					width: thisCabinet.width,
 					widthFraction: thisCabinet.widthFraction,
 					height: thisCabinet.height,

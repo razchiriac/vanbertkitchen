@@ -4,8 +4,9 @@
 		<thead>
 			<th>Name</th>
 			<th>Category</th>
-			<th>Color</th>
 			<th>Door</th>
+			<th>Color</th>
+			<th>Material</th>
 			<th>Width</th>
 			<th>Height</th>
 			<th>Depth</th>
@@ -17,12 +18,13 @@
 			<tr ng-repeat="cabinet in cartArr">
 				<td>{{cabinet.name}}</td>
 				<td>{{getCategory(cabinet.category).name}}</td>
-				<td>{{cabinet.color.name}}</td>
+				<td>{{cabinet.door.name}}</td>
 				<td ng-init="editColor = false">
 					<span ng-hide="editColor">{{cabinet.color.name}}</span>
 					<select ng-model="cabinet.color" ng-options="color.name for color in cabinetColorsArr" ng-show="editColor" my-enter="cartArr.$save(cabinet); editColor = false" ng-model="cabinet.color"></select>
 					<span style="cursor:pointer" class="glyphicon glyphicon-pencil" ng-click="editColor = !editCount"></span>
 				</td>
+				<td>{{cabinet.material.name}}</td>
 				<td>{{cabinet.width}}, {{cabinet.widthFraction.name}}</td>
 				<td>{{cabinet.height}}, {{cabinet.heightFraction.name}}</td>
 				<td>{{cabinet.depth}}, {{cabinet.depthFraction.name}}</td>
