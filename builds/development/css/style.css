@@ -135,3 +135,14 @@ body.modal-open,
 	color: azure;
 	display: none;
 }
+
+.blue {
+	color: blueviolet;
+	font-size: 1.2em;
+	cursor: pointer;
+}
+.green {
+	color: lightgreen;
+	font-size: 1.2em;
+	cursor: pointer;
+}

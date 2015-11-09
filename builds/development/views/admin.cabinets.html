@@ -182,64 +182,64 @@
 											<span ng-hide="editStyleCategory">{{getCategory(style.category).name}}</span>
 											<select ng-show="editStyleCategory" my-enter="saveStyle(style, 'category', newCategory); editStyleCategory = false" ng-model="newCategory" ng-options="category.name for category in cabinetCategoriesArr">
 											</select>
-											<span class="glyphicon glyphicon-pencil" ng-hide="editStyleCategory" ng-click="editStyleCategory = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editStyleCategory" ng-click="saveStyle(style, 'category', newCategory); editStyleCategory = false"></span>
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editStyleCategory" ng-click="editStyleCategory = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editStyleCategory" ng-click="saveStyle(style, 'category', newCategory); editStyleCategory = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editStylePrice = false">
 											<strong>Price: </strong>
 											<span ng-hide="editStylePrice">{{style.price | currency}}</span>
 											<input type="number" ng-show="editStylePrice" my-enter="cabinetStylesArr.$save(style); editStylePrice = false" ng-model="style.price">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editStylePrice" ng-click="editStylePrice = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editStylePrice" ng-click="cabinetStylesArr.$save(style); editStylePrice = false"></span>
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editStylePrice" ng-click="editStylePrice = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editStylePrice" ng-click="cabinetStylesArr.$save(style); editStylePrice = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editMinWidth = false">
 											<strong>Min Width: </strong>
-											<span ng-hide="editMinWidth">{{style.minWidht}}</span>
-											<input type="number" ng-show="editMinWidth" my-enter="cabinetStylesArr.$save(style); editMinWidth = false" ng-model="style.minWidht">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editMinWidth" ng-click="editMinWidth = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editMinWidth" ng-click="cabinetStylesArr.$save(style); editMinWidth = false"></span>
+											<span ng-hide="editMinWidth">{{style.minWidth}}</span>
+											<input type="number" ng-show="editMinWidth" my-enter="cabinetStylesArr.$save(style); editMinWidth = false" ng-model="style.minWidth">
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editMinWidth" ng-click="editMinWidth = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editMinWidth" ng-click="cabinetStylesArr.$save(style); editMinWidth = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editMaxWidth = false">
 											<strong>Max Width: </strong>
-											<span ng-hide="editMaxWidth">{{style.maxWidht}}</span>
-											<input type="number" ng-show="editMaxWidth" my-enter="cabinetStylesArr.$save(style); editMaxWidth = false" ng-model="style.maxWidht">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editMaxWidth" ng-click="editMaxWidth = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editMaxWidth" ng-click="cabinetStylesArr.$save(style); editMaxWidth = false"></span>
+											<span ng-hide="editMaxWidth">{{style.maxWidth}}</span>
+											<input type="number" ng-show="editMaxWidth" my-enter="cabinetStylesArr.$save(style); editMaxWidth = false" ng-model="style.maxWidth">
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaxWidth" ng-click="editMaxWidth = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editMaxWidth" ng-click="cabinetStylesArr.$save(style); editMaxWidth = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editMinHeight = false">
 											<strong>Min Height: </strong>
 											<span ng-hide="editMinHeight">{{style.minHeight}}</span>
 											<input type="number" ng-show="editMinHeight" my-enter="cabinetStylesArr.$save(style); editMinHeight = false" ng-model="style.minHeight">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editMinHeight" ng-click="editMinHeight = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editMinHeight" ng-click="cabinetStylesArr.$save(style); editMinHeight = false"></span>
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editMinHeight" ng-click="editMinHeight = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editMinHeight" ng-click="cabinetStylesArr.$save(style); editMinHeight = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editMaxHeight = false">
 											<strong>Max Height: </strong>
 											<span ng-hide="editMaxHeight">{{style.maxHeight}}</span>
 											<input type="number" ng-show="editMaxHeight" my-enter="cabinetStylesArr.$save(style); editMaxHeight = false" ng-model="style.maxHeight">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editMaxHeight" ng-click="editMaxHeight = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editMaxHeight" ng-click="cabinetStylesArr.$save(style); editMaxHeight = false"></span>
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaxHeight" ng-click="editMaxHeight = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editMaxHeight" ng-click="cabinetStylesArr.$save(style); editMaxHeight = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editMinDepth = false">
 											<strong>Min Depth: </strong>
 											<span ng-hide="editMinDepth">{{style.minDepth}}</span>
 											<input type="number" ng-show="editMinDepth" my-enter="cabinetStylesArr.$save(style); editMinDepth = false" ng-model="style.minDepth">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editMinDepth" ng-click="editMinDepth = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editMinDepth" ng-click="cabinetStylesArr.$save(style); editMinDepth = false"></span>
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editMinDepth" ng-click="editMinDepth = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editMinDepth" ng-click="cabinetStylesArr.$save(style); editMinDepth = false"></span>
 										</div>
 										<hr>
 										<div ng-init="editMaxDepth = false">
 											<strong>Max Depth: </strong>
 											<span ng-hide="editMaxDepth">{{style.maxDepth}}</span>
 											<input type="number" ng-show="editMaxDepth" my-enter="cabinetStylesArr.$save(style); editMaxDepth = false" ng-model="style.maxDepth">
-											<span class="glyphicon glyphicon-pencil" ng-hide="editMaxDepth" ng-click="editMaxDepth = true"></span>
-											<span class="glyphicon glyphicon-check" ng-show="editMaxDepth" ng-click="cabinetStylesArr.$save(style); editMaxDepth = false"></span>
+											<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaxDepth" ng-click="editMaxDepth = true"></span>
+											<span class="glyphicon glyphicon-check green" ng-show="editMaxDepth" ng-click="cabinetStylesArr.$save(style); editMaxDepth = false"></span>
 										</div>
 
 									</div>

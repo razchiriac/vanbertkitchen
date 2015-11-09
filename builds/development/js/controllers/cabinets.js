@@ -199,7 +199,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					result.push(i);
 				}
 			} else {
-				for (i = thisCabinet.minWidth; i <= thisCabinet.maxWidth; i++) {
+				for (i = parseInt(thisCabinet.minWidth); i <= parseInt(thisCabinet.maxWidth); i++) {
 					result.push(i);
 				}
 			}
@@ -421,7 +421,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					heightFraction: thisCabinet.heightFraction,
 					depth: thisCabinet.depth,
 					depthFraction: thisCabinet.depthFraction,
-					kick: product.kick,
+					kick: thisCabinet.kick,
 					price: thisCabinet.price,
 					count: thisCabinet.count,
 					date: Firebase.ServerValue.TIMESTAMP
