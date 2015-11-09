@@ -9,22 +9,24 @@
 			<th>Width</th>
 			<th>Height</th>
 			<th>Depth</th>
+			<th>Kick Border</th>
 			<th>Count</th>
 			<th>Price</th>
 		</thead>
 		<tbody>
 			<tr ng-repeat="cabinet in wishListArr">
 				<td>{{cabinet.name}}</td>
-				<td>{{cabinet.category.name}}</td>
+				<td>{{getCategory(cabinet.category).name}}</td>
 				<td>{{cabinet.door.name}}</td>
 				<td ng-init="editColor = false">
 					<span ng-hide="editColor">{{cabinet.color.name}}</span>
 					<select ng-model="cabinet.color" ng-options="color.name for color in cabinetColorsArr" ng-show="editColor" my-enter="wishListArr.$save(cabinet); editColor = false" ng-model="cabinet.color"></select>
 					<span style="cursor:pointer" class="glyphicon glyphicon-pencil" ng-click="editColor = !editCount"></span>
 				</td>
-				<td>{{cabinet.width}}, {{cabinet.widthFraction}}</td>
-				<td>{{cabinet.height}}, {{cabinet.heightFraction}}</td>
-				<td>{{cabinet.depth}}, {{cabinet.depthFraction}}</td>
+				<td>{{cabinet.width}}, {{cabinet.widthFraction.name}}</td>
+				<td>{{cabinet.height}}, {{cabinet.heightFraction.name}}</td>
+				<td>{{cabinet.depth}}, {{cabinet.depthFraction.name}}</td>
+				<td>{{cabinet.kick}}</td>
 				<td ng-init="editCount = false">
 					<span ng-hide="editCount">{{cabinet.count}}</span>
 					<input style="width:50px" ng-show="editCount" my-enter="wishListArr.$save(cabinet); editCount = false" type="number" ng-model="cabinet.count">

@@ -1,25 +1,40 @@
+<style>
+	.pay-btn {
+		display: none;
+	}
+</style>
 <div class="row" ng-controller="CabinetsController" ng-init="cartInit()">
 	<h4>Your Shopping Cart</h4>
 	<table class="table table-hover">
 		<thead>
 			<th>Name</th>
 			<th>Category</th>
-			<th>Door</th>
 			<th>Color</th>
+			<th>Door</th>
 			<th>Width</th>
 			<th>Height</th>
 			<th>Depth</th>
+			<th>Count</th>
 			<th>Price</th>
 		</thead>
 		<tbody>
 			<tr ng-repeat="cabinet in cartArr">
 				<td>{{cabinet.name}}</td>
-				<td>{{cabinet.category.name}}</td>
-				<td>{{cabinet.door.name}}</td>
+				<td>{{getCategory(cabinet.category).name}}</td>
 				<td>{{cabinet.color.name}}</td>
-				<td>{{cabinet.width}}, {{cabinet.widthFraction}}</td>
-					<td>{{cabinet.height}}, {{cabinet.heightFraction}}</td>
-					<td>{{cabinet.depth}}, {{cabinet.depthFraction}}</td>
+				<td ng-init="editColor = false">
+					<span ng-hide="editColor">{{cabinet.color.name}}</span>
+					<select ng-model="cabinet.color" ng-options="color.name for color in cabinetColorsArr" ng-show="editColor" my-enter="cartArr.$save(cabinet); editColor = false" ng-model="cabinet.color"></select>
+					<span style="cursor:pointer" class="glyphicon glyphicon-pencil" ng-click="editColor = !editCount"></span>
+				</td>
+				<td>{{cabinet.width}}, {{cabinet.widthFraction.name}}</td>
+				<td>{{cabinet.height}}, {{cabinet.heightFraction.name}}</td>
+				<td>{{cabinet.depth}}, {{cabinet.depthFraction.name}}</td>
+				<td ng-init="editCount = false">
+					<span ng-hide="editCount">{{cabinet.count}}</span>
+					<input style="width:50px" ng-show="editCount" my-enter="cartArr.$save(cabinet); editCount = false" type="number" ng-model="cabinet.count">
+					<span style="cursor:pointer" class="glyphicon glyphicon-pencil" ng-click="editCount = !editCount"></span>
+				</td>
 				<td>{{cabinet.price | currency}}</td>
 				<td>
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".{{cabinet.$id}}-trash-modal">
@@ -49,10 +64,11 @@
 			</tr>
 			<tr>
 				<td colspan="9">
-					<h2 class="pull-right">Total: {{cartPrice() | currency}} <button class="btn btn-primary pull-right" ui-sref="checkout"> Complete Purchase <span class="glyphicon glyphicon-chevron-right"></span></button></h2>
+					<h2 class="pull-right">Total: {{cartPrice() | currency}} </h2>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-
+	<button class="btn btn-primary pull-right purchase-btn" ui-sref="checkout"> Complete Purchase <span class="glyphicon glyphicon-chevron-right"></span></button>
+	<button class="btn btn-primary pull-right pay-btn" ng-click="purchase()"> Pay <span class="glyphicon glyphicon-chevron-right"></span></button>
 </div>

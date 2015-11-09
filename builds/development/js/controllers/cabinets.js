@@ -6,149 +6,114 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		var refCabinetStyles = new Firebase(FIREBASE_URL + '/products/cabinet-styles');
 		var refCabinetColors = new Firebase(FIREBASE_URL + '/products/cabinet-colors');
 		var refWishLists = new Firebase(FIREBASE_URL + '/wishlists');
-
 		var cabinetsObj = $firebaseObject(refCabinets);
 		var cabinetsArr = $firebaseArray(refCabinets);
-
 		var cabinetCategoriesObj = $firebaseObject(refCabinetCategories);
 		var cabinetCategoriesArr = $firebaseArray(refCabinetCategories);
-
 		var cabinetStylesObj = $firebaseObject(refCabinetStyles);
 		var cabinetStylesArr = $firebaseArray(refCabinetStyles);
-
 		var cabinetColorsObj = $firebaseObject(refCabinetColors);
 		var cabinetColorsArr = $firebaseArray(refCabinetColors);
-
 		var wishListsObj = $firebaseObject(refWishLists);
 		var wishListsArr = $firebaseArray(refWishLists);
-
 		wishListsObj.$loaded().then(function (data) {
 			$rootScope.wishLists = data;
 			wishListsObj.$bindTo($rootScope, 'wishLists');
 		});
-
 		wishListsArr.$loaded().then(function (data) {
 			$rootScope.wishListsArr = data;
 			wishListsArr.$bindTo($rootScope, 'wishListsArray');
 		});
-
 		cabinetsObj.$loaded().then(function (data) {
 			$scope.cabinets = data;
 			cabinetsObj.$bindTo($scope, 'cabinets');
 		});
-
 		cabinetsArr.$loaded().then(function (data) {
 			$scope.cabinetsArr = data;
 			cabinetsArr.$bindTo($scope, 'cabinetsArray');
 		});
-
 		cabinetCategoriesObj.$loaded().then(function (data) {
 			$scope.cabinetCategories = data;
 			cabinetCategoriesObj.$bindTo($scope, 'cabinetCategories');
 		});
-
 		cabinetCategoriesArr.$loaded().then(function (data) {
 			$scope.cabinetCategoriesArr = data;
 			cabinetCategoriesArr.$bindTo($scope, 'cabinetCategoriesArray');
 		});
-
 		cabinetStylesObj.$loaded().then(function (data) {
 			$scope.cabinetStyles = data;
 			cabinetStylesObj.$bindTo($scope, 'cabinetStyles');
 		});
-
 		cabinetStylesArr.$loaded().then(function (data) {
 			$scope.cabinetStylesArr = data;
 			cabinetStylesArr.$bindTo($scope, 'cabinetStylesArray');
 		});
-
 		cabinetColorsObj.$loaded().then(function (data) {
 			$scope.cabinetColors = data;
 			cabinetColorsObj.$bindTo($scope, 'cabinetColors');
 		});
-
 		cabinetColorsArr.$loaded().then(function (data) {
 			$scope.cabinetColorsArr = data;
 			cabinetColorsArr.$bindTo($scope, 'cabinetColorsArray');
 		});
-
 		//////// DOORS //////////////////
-
 		var refDoors = new Firebase(FIREBASE_URL + '/products/doors');
 		var refDoorCategories = new Firebase(FIREBASE_URL + '/products/door-categories');
 		var refDoorStyles = new Firebase(FIREBASE_URL + '/products/door-styles');
 		var refDoorColors = new Firebase(FIREBASE_URL + '/products/door-colors');
-
 		var doorsObj = $firebaseObject(refDoors);
 		var doorsArr = $firebaseArray(refDoors);
-
 		var doorCategoriesObj = $firebaseObject(refDoorCategories);
 		var doorCategoriesArr = $firebaseArray(refDoorCategories);
-
 		var doorStylesObj = $firebaseObject(refDoorStyles);
 		var doorStylesArr = $firebaseArray(refDoorStyles);
-
 		var doorColorsObj = $firebaseObject(refDoorColors);
 		var doorColorsArr = $firebaseArray(refDoorColors);
-
 		doorsObj.$loaded().then(function (data) {
 			$scope.doors = data;
 			doorsObj.$bindTo($scope, 'doors');
 		}); // make sure doors object data has loaded
-
 		doorsArr.$loaded().then(function (data) {
 			$scope.doorsArr = data;
 			doorsArr.$bindTo($scope, 'doorsArray');
 		}); // make sure doors array data has loaded
-
 		doorCategoriesObj.$loaded().then(function (data) {
 			$scope.doorCategories = data;
 			doorCategoriesObj.$bindTo($scope, 'doorCategories');
 		}); // make sure doors object data has loaded
-
 		doorCategoriesArr.$loaded().then(function (data) {
 			$scope.doorCategoriesArr = data;
 			doorCategoriesArr.$bindTo($scope, 'doorCategoriesArray');
 		}); // make sure doors array data has loaded
-
 		doorStylesObj.$loaded().then(function (data) {
 			$scope.doorStyles = data;
 			doorStylesObj.$bindTo($scope, 'doorStyles');
 		}); // make sure doors object data has loaded
-
 		doorStylesArr.$loaded().then(function (data) {
 			$scope.doorStylesArr = data;
 			doorStylesArr.$bindTo($scope, 'doorStylesArray');
 		}); // make sure doors array data has loaded
-
 		doorColorsObj.$loaded().then(function (data) {
 			$scope.doorColors = data;
 			doorColorsObj.$bindTo($scope, 'doorColors');
 		}); // make sure doors object data has loaded
-
 		doorColorsArr.$loaded().then(function (data) {
 			$scope.doorColorsArr = data;
 			doorColorsArr.$bindTo($scope, 'doorColorsArray');
 		}); // make sure doors array data has loaded
-
-		$scope.getDoorStyles = function (selectedCategory) {
-			$scope.tempStyles = [];
-			angular.forEach(doorStylesArr, function (value, key) {
-				if (($scope.tempStyles.length < 1) || ($.inArray(value, $scope.tempStyles) < 0)) {
-					if (selectedCategory) {
-						if (value.category === selectedCategory) {
-							$scope.tempStyles.push(value.name);
-						}
-					} else {
-						$scope.tempStyles.push(value.name);
-					}
-				}
-			});
-			return $scope.tempStyles;
-		}; // getUniqueStyles
-
 		/////////////////////////////////
-
+		$scope.getWidth = function (product) {
+			return product.width - -product.widthFraction.value;
+		};
+		$scope.getHeight = function (product) {
+			return product.height - -product.heightFraction.value;
+		};
+		$scope.getDepth = function (product) {
+			return product.depth - -product.depthFraction.value;
+		};
+		$scope.getVolume = function (product) {
+			return ($scope.getWidth(product) * $scope.getHeight(product) * $scope.getDepth(product)) / (12 * 12 * 12);
+		};
 		$scope.width = {
 			name: '',
 			value: 0
@@ -227,7 +192,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 				value: parseFloat(15 / 16)
 			},
   ];
-
 		$scope.getWidthOptions = function (thisCabinet) {
 			var result = [];
 			if (thisCabinet === 'all') {
@@ -267,54 +231,16 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			}
 			return result;
 		};
-
-		$scope.tempCabinetColors = [];
-
-		$scope.addColorToCabinet = function (color) {
-			$scope.tempCabinetColors.push(color);
-		};
-
-		$scope.removeColorFromCabinet = function (color) {
-			var index = $scope.tempCabinetColors.indexOf(color);
-			if (index > -1) {
-				$scope.tempCabinetColors.splice(index, 1);
+		$scope.getKickOptions = function (thisCabinet) {
+			var result = [];
+			if (thisCabinet === 'all') {
+				for (i = 0; i <= 10; i++) {
+					result.push(i);
+				}
 			}
+			return result;
 		};
-
-		$scope.addCabinet = function () {
-			var imgUrl = 'http://placehold.it/190x305';
-			$scope.cabinetImageUrl = imgUrl;
-			var tempCabinet = {
-				name: $scope.cabinetname,
-				category: $scope.selectedCat,
-				style: $scope.selectedStyle,
-				colors: $scope.tempCabinetColors,
-				minWidth: $scope.cabinetWidth.min,
-				maxWidth: $scope.cabinetWidth.max,
-				minHeight: $scope.cabinetHeight.min,
-				maxHeight: $scope.cabinetHeight.max,
-				minDepth: $scope.cabinetDepth.min,
-				maxDepth: $scope.cabinetDepth.max,
-				imageUrl: $scope.cabinetImageUrl,
-				date: Firebase.ServerValue.TIMESTAMP
-			};
-
-			cabinetsArr.$add(tempCabinet).then(function (ref) {
-				$scope.cabinetname = '';
-				$scope.selectedCat = '';
-				$scope.selectedStyle = '';
-				$scope.tempCabinetColors = '';
-				$scope.cabinetWidth.min = '';
-				$scope.cabinetWidth.max = '';
-				$scope.cabinetHeight.min = '';
-				$scope.cabinetHeight.max = '';
-				$scope.cabinetDepth.min = '';
-				$scope.cabinetDepth.max = '';
-				$scope.cabinetImageUrl = '';
-			});
-
-		}; //addCabinet
-
+		/////////////////////////////////
 		$scope.addCategory = function () {
 			$scope.newCategoryPrice = 1;
 			$scope.categoryImageUrl = 'http://placehold.it/190x305';
@@ -330,12 +256,13 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 				$scope.categoryImageUrl = '';
 			});
 		}; //addCategory
-
 		$scope.addStyle = function () {
 			$scope.newStylePrice = 1;
 			$scope.styleImageUrl = 'http://placehold.it/190x305';
 			var tempStyle = {
-				category: $scope.newStyleCategory,
+				//TODO: use db refference for linking category to style
+				//category: $scope.newStyleCategory,
+				category: $scope.newStyleCategory.$id,
 				name: $scope.newStyleName,
 				price: $scope.newStylePrice,
 				imageUrl: $scope.styleImageUrl,
@@ -345,9 +272,9 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 				$scope.newStyleName = '';
 				$scope.newStylePrice = '';
 				$scope.styleImageUrl = '';
+				$scope.newStyleCategory = '';
 			});
 		}; //addStyle
-
 		$scope.addColor = function () {
 			$scope.colorImageUrl = 'http://placehold.it/190x305';
 			var tempColor = {
@@ -361,43 +288,12 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			});
 		}; //addStyle
 
-		$scope.getUniqueCategories = function (field) {
-			$scope.tempCategories = [];
-			angular.forEach(cabinetCategoriesArr, function (value, key) {
-				if (($scope.tempCategories.length < 1) || ($.inArray(value, $scope.tempCategories) < 0)) {
-					if (field === 'name' || !field) {
-						$scope.tempCategories.push(value);
-					}
-				}
-			});
-			return $scope.tempCategories;
-		}; // getUniqueCategories
-
-
-		$scope.getUniqueStyles = function (selectedCategory) {
-			$scope.tempStyles = [];
-			angular.forEach(cabinetStylesArr, function (value, key) {
-				if (($scope.tempStyles.length < 1) || ($.inArray(value, $scope.tempStyles) < 0)) {
-					if (selectedCategory) {
-						if (value.category === selectedCategory.name) {
-							$scope.tempStyles.push(value);
-						}
-					} else {
-						$scope.tempStyles.push(value);
-					}
-				}
-			});
-			return $scope.tempStyles;
-		}; // getUniqueStyles
-
 		$scope.setCat = function (key) {
 			$scope.selectedCat = key;
 		};
-
 		$scope.setStyle = function (key) {
 			$scope.selectedStyle = key;
 		};
-
 		$scope.setColor = function (key) {
 			$scope.chosenColor = key;
 			localStorageService.set('color', key);
@@ -405,7 +301,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.getColor = function () {
 			return localStorageService.get('color');
 		};
-
 		$scope.setDoor = function (key) {
 			$scope.chosenDoor = key;
 			localStorageService.set('door', key);
@@ -413,75 +308,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.getDoor = function () {
 			return localStorageService.get('door');
 		};
-
-		// Category filter
-		$scope.categoryIncludes = [];
-
-
-		$scope.includeCategory = function (category) {
-			var i = $.inArray(category, $scope.categoryIncludes);
-			if (i > -1) {
-				$scope.categoryIncludes.splice(i, 1);
-			} else {
-				$scope.categoryIncludes.push(category);
-			}
-		}
-
-		$scope.categoryFilter = function (cabinet) {
-				if ($scope.categoryIncludes.length > 0) {
-					if ($.inArray(cabinet.category, $scope.categoryIncludes) < 0)
-						return;
-				}
-				return cabinet;
-			}
-			// End category filter
-
-		// Style filter
-		$scope.styleIncludes = [];
-
-		$scope.includeStyle = function (style) {
-			var i = $.inArray(style, $scope.styleIncludes);
-			if (i > -1) {
-				$scope.styleIncludes.splice(i, 1);
-			} else {
-				$scope.styleIncludes.push(style);
-			}
-		}
-
-		$scope.styleFilter = function (cabinet) {
-			if ($scope.styleIncludes.length > 0) {
-				if ($.inArray(cabinet.style, $scope.styleIncludes) < 0)
-					return;
-			}
-			return cabinet;
-		};
-		// End style filter
-
-		/* wish list format */
-		/**
-		var demoWishList = {
-			"userID" 	: "103811676446098468781",
-			"cabinets" 	: {
-				"name" 	: "Cabinet 1",
-				........,
-				....,
-				..
-			},
-			"doors" 	: {
-				"name" 	: "Door 1",
-				......,
-				..
-			}
-		}
-		*/
-		/* end of wish list format */
-		/* wishlist process */
-		/*
-		user logs in
-			is there a wish list in the db with the same user id
-				yes - bind it to the scope
-				no	- create a wish list with user id (createWishList)
-		*/
 		// creates and / or binds a wish list
 		$rootScope.wishListInit = function () {
 			// if it exists it binds it, if not, it creates it
@@ -498,7 +324,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			});
 			$rootScope.wishList.userID = $rootScope.authData.google.cachedUserProfile.id;
 		};
-
 		$scope.wishListPrice = function () {
 			var result = 0.00;
 			angular.forEach(wishListArr, function (value, key) {
@@ -506,16 +331,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			});
 			return result;
 		};
-
-		/*
-		user goes to cabinets page
-		user adds a cabinet to wish list
-			is the user logged in ?
-				no 	- ask user to log in before using the wish list
-				yes - add the cabinet to the user's wish list
-		*/
-		/* end of wishlist process */
-
 		$scope.addToWishList = function (product) {
 			//////////////////////
 			// is user logged in ?
@@ -535,6 +350,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					heightFraction: product.heightFraction,
 					depth: product.depth,
 					depthFraction: product.depthFraction,
+					kick: product.kick,
 					price: $scope.calcPrice(product),
 					count: product.count,
 					//imageUrl: thisCabinet.ImageUrl,
@@ -546,21 +362,6 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			//////////////////////
 		}; // addToWishList
 
-
-		$scope.getWidth = function (product) {
-			return product.width - -product.widthFraction.value;
-		};
-		$scope.getHeight = function (product) {
-			return product.height - -product.heightFraction.value;
-		};
-		$scope.getDepth = function (product) {
-			return product.depth - -product.depthFraction.value;
-		};
-
-		$scope.getVolume = function (product) {
-			return ($scope.getWidth(product) * $scope.getHeight(product) * $scope.getDepth(product)) / (12 * 12 * 12);
-		};
-
 		$scope.calcPrice = function (product) {
 
 			var width = $scope.getWidth(product);
@@ -571,7 +372,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 
 			var doorPrice = parseFloat($scope.getDoor().price) * faceArea;
 
-			var tempPrice = doorPrice - -parseFloat(product.price) - -parseFloat(product.category.price) * volume;
+			var tempPrice = doorPrice - -parseFloat(product.price) - -parseFloat($scope.getCategory(product.category).price) * volume;
 
 			return tempPrice;
 		};
@@ -620,6 +421,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					heightFraction: thisCabinet.heightFraction,
 					depth: thisCabinet.depth,
 					depthFraction: thisCabinet.depthFraction,
+					kick: product.kick,
 					price: thisCabinet.price,
 					count: thisCabinet.count,
 					date: Firebase.ServerValue.TIMESTAMP
@@ -702,5 +504,16 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		});
 
 		/* END OF STRIPE CHECKOUT */
+
+		$scope.getCategory = function (catID) {
+			var result = cabinetCategoriesArr.$getRecord(catID);
+			return result;
+		}
+		$scope.saveStyle = function ( style, option, param ) {
+			if ( option === 'category' ) {
+				style.category = param.$id;
+				cabinetStylesArr.$save(style);
+			}
+		}
 
 	}]);

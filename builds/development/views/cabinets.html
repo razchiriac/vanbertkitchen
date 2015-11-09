@@ -52,7 +52,7 @@
 	<div class="row" ng-show="getColor().name !== '' && getDoor().name !== ''">
 		<div class="row" ng-repeat="category in cabinetCategoriesArr">
 			<h3><u>{{category.name}}</u></h3>
-			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show="style.category.name === category.name">
+			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show=" getCategory(style.category).name === category.name">
 
 				<div class="thumbnail shadow" data-toggle="modal" data-target=".cabinet-modal-{{style.$id}}">
 					<img src="{{style.imageUrl}}">
@@ -75,7 +75,7 @@
 											<strong>Name:</strong> {{style.name}} , price = {{style.price | num}}
 										</div>
 										<div class="list-group-item">
-											<strong>Category:</strong> {{style.category.name}} , price = {{style.category.price | num}}
+											<strong>Category:</strong> {{getCategory(style.category).name}} , price = {{getCategory(style.category).price | num}}
 										</div>
 										<div class="list-group-item">
 											<strong>Door:</strong> {{getDoor().name}}
@@ -100,6 +100,10 @@
 											<span> inches, </span>
 											<select ng-model="style.depthFraction" ng-init="style.depthFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
 											<span> = {{ getDepth(style) }}</span>
+										</div>
+										<div class="list-group-item"><strong>Kick Border:</strong>
+											<select ng-model="style.kick" ng-options="kickOption for kickOption in getKickOptions('all')" ng-init="style.kick = 4"></select>
+											<span> inches
 										</div>
 										<div class="list-group-item">
 											<span><strong>Volume = </strong>{{getVolume(style)}}</span>
