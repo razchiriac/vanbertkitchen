@@ -1,5 +1,5 @@
-myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageService', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
-	function ($scope, $rootScope, localStorageService, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
+myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'localStorageService', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
+	function ($scope, $interval, $rootScope, localStorageService, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
 
 		var refCabinets = new Firebase(FIREBASE_URL + '/products/cabinets');
 		var refCabinetCategories = new Firebase(FIREBASE_URL + '/products/cabinet-categories');
@@ -362,14 +362,14 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			});
 			return result;
 		};
+		$scope.SubmitButtonText = "Add to wish list";
 		$scope.addToWishList = function (product) {
 			//////////////////////
 			// is user logged in ?
 			if (!$rootScope.authData) {
 				alert("please log in first");
 			} else {
-				// calculate price
-				// collect cabinet data
+				$scope.SubmitButtonText = "Adding now...";
 				var tempCabinet = {
 					name: product.name,
 					category: product.category,
@@ -389,7 +389,12 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 					date: Firebase.ServerValue.TIMESTAMP
 				};
 				// push it to the user's wish list
+
 				wishListArr.$add(tempCabinet);
+
+				$interval(function () {
+					$scope.SubmitButtonText = "Add to wish list";
+				}, 1000);
 			}
 			//////////////////////
 		}; // addToWishList
@@ -550,14 +555,14 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			var result = cabinetCategoriesArr.$getRecord(catID);
 			return result;
 		}
-		$scope.saveStyle = function ( style, option, param ) {
-			if ( option === 'category' ) {
+		$scope.saveStyle = function (style, option, param) {
+			if (option === 'category') {
 				style.category = param.$id;
 				cabinetStylesArr.$save(style);
 			}
 		}
-		$scope.saveCabinet = function ( cabinet, option, param ) {
-			if ( option === 'category' ) {
+		$scope.saveCabinet = function (cabinet, option, param) {
+			if (option === 'category') {
 				cabinet.category = param.$id;
 				wishListArr.$save(cabinet);
 			}
