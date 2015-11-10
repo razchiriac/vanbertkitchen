@@ -181,3 +181,9 @@ myApp.directive('topVariablesBar', function () {
 		templateUrl: 'views/templates/top-variables-bar.html'
 	};
 });
+
+myApp.directive('cabinetsList', function () {
+	return {
+		templateUrl: 'views/templates/cabinets-list.html'
+	};
+});
