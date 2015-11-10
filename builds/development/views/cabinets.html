@@ -74,112 +74,104 @@
 		<div class="row" ng-repeat="category in cabinetCategoriesArr">
 			<h3><u>{{category.name}}</u></h3>
 			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show=" getCategory(style.category).name === category.name">
-
-				<div class="thumbnail shadow" data-toggle="modal" data-target=".cabinet-modal-{{style.$id}}">
+				<div class="thumbnail shadow" data-toggle="modal" data-target=".{{style.$id}}-cabinet-modal">
 					<img src="{{style.imageUrl}}">
 					<div class="caption">
 						<p>{{style.name}}</p>
 					</div>
 				</div>
-
-
-				<div class="modal fade cabinet-modal-{{style.$id}}">
+				<div class="modal modal-fade {{style.$id}}-cabinet-modal">
 					<div class="modal-dialog">
 						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">{{style.name}}</h4>
+							</div>
 							<div class="modal-body">
-								<h5>{{style.name}}</h5>
-								<hr>
 								<div class="thumbnail">
 									<img src="{{style.imageUrl}}">
-									<div class="caption">
-										<div class="list-group-item">
-											<strong>Name:</strong> {{style.name}} , price = {{style.price | num}}
-										</div>
-										<div class="list-group-item">
-											<strong>Category:</strong> {{getCategory(style.category).name}} , price = {{getCategory(style.category).price | num}}
-										</div>
-										<div class="list-group-item">
-											<strong>Door:</strong> {{getDoor().name}}
-										</div>
-										<div class="list-group-item">
-											<strong>Color:</strong> {{getColor().name}}
-										</div>
-										<div class="list-group-item">
-											<strong>Material:</strong> {{getMaterial().name}}
-										</div>
-										<div class="list-group-item"><strong>Width:</strong>
-											<select ng-model="style.width" ng-options="widthOption for widthOption in getWidthOptions(style)" ng-init="style.width = 12"></select>
-											<span> inches, </span>
-											<select ng-model="style.widthFraction" ng-init="style.widthFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-											<span> = {{ getWidth(style) }}</span>
-										</div>
-										<div class="list-group-item"><strong>Height:</strong>
-											<select ng-model="style.height" ng-options="heightOption for heightOption in getHeightOptions(style)" ng-init="style.height = 12"></select>
-											<span> inches, </span>
-											<select ng-model="style.heightFraction" ng-init="style.heightFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-											<span> = {{ getHeight(style) }}</span>
-										</div>
-										<div class="list-group-item"><strong>Depth:</strong>
-											<select ng-model="style.depth" ng-options="depthOption for depthOption in getDepthOptions(style)" ng-init="style.depth = 12"></select>
-											<span> inches, </span>
-											<select ng-model="style.depthFraction" ng-init="style.depthFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-											<span> = {{ getDepth(style) }}</span>
-										</div>
-										<div class="list-group-item"><strong>Kick Border:</strong>
-											<select ng-model="style.kick" ng-options="kickOption for kickOption in getKickOptions('all')" ng-init="style.kick = 4"></select>
-											<span> inches
+								</div>
+								<div class="list-group-item">
+									<strong>Name:</strong> {{style.name}}
+								</div>
+								<div class="list-group-item">
+									<strong>Category:</strong> {{getCategory(style.category).name}}
+								</div>
+								<div class="list-group-item">
+									<strong>Door:</strong> {{getDoor().name}}
+								</div>
+								<div class="list-group-item">
+									<strong>Color:</strong> {{getColor().name}}
+								</div>
+								<div class="list-group-item">
+									<strong>Material:</strong> {{getMaterial().name}}
+								</div>
+								<div class="list-group-item"><strong>Width:</strong>
+									<select ng-model="style.width" ng-options="widthOption for widthOption in getWidthOptions(style)" ng-init="style.width = 12"></select>
+									<span> inches, </span>
+									<select ng-model="style.widthFraction" ng-init="style.widthFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
+									<span> = {{ getWidth(style) }}</span>
+								</div>
+								<div class="list-group-item"><strong>Height:</strong>
+									<select ng-model="style.height" ng-options="heightOption for heightOption in getHeightOptions(style)" ng-init="style.height = 12"></select>
+									<span> inches, </span>
+									<select ng-model="style.heightFraction" ng-init="style.heightFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
+									<span> = {{ getHeight(style) }}</span>
+								</div>
+								<div class="list-group-item"><strong>Depth:</strong>
+									<select ng-model="style.depth" ng-options="depthOption for depthOption in getDepthOptions(style)" ng-init="style.depth = 12"></select>
+									<span> inches, </span>
+									<select ng-model="style.depthFraction" ng-init="style.depthFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
+									<span> = {{ getDepth(style) }}</span>
+								</div>
+								<div class="list-group-item"><strong>Kick Border:</strong>
+									<select ng-model="style.kick" ng-options="kickOption for kickOption in getKickOptions('all')" ng-init="style.kick = 4"></select>
+									<span> inches
 										</div>
 										<div class="list-group-item">
 											<span><strong>Volume = </strong>{{getVolume(style)}}</span>
-										</div>
-										<div class="list-group-item">
-											<span>
+								</div>
+								<div class="list-group-item">
+									<span>
 												<strong>Count = </strong>
 												<input type="number" min="1" ng-model="style.count" ng-init="style.count = 1" style="width:50px" />
 											</span>
-										</div>
-										<div class="list-group-item">
-											<span><strong>Price = </strong>{{calcPrice(style) | currency}}</span>
-										</div>
-									</div>
+								</div>
+								<div class="list-group-item">
+									<span><strong>Price = </strong>{{calcPrice(style) | currency}}</span>
 								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('body').removeClass('modal-open');$('.modal-backdrop').remove();$('body').removeClass('modal-open');$('.modal-backdrop').remove();$('body').removeClass('modal-open');$('.modal-backdrop').remove();">Close</button>
 								<progress-btn ng-click="addToWishList(style)"></progress-btn>
 							</div>
-							<div ng-hide="authData" class="alert alert-warning alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<strong>Hey there!</strong> Please <strong>login</strong> before using the Wish List.
-							</div>
-
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
+	</div>
 
-	</div>
-	<hr>
-	<wish-list></wish-list>
-	<div class="debug-bar">
-		<table class="table">
-			<theah>
-				<th>door area</th>
-				<th>door price factor</th>
-				<th>door price</th>
-				<th>style price</th>
-				<th>category price</th>
-				<th>volume</th>
-				<th>cabinet price</th>
-			</theah>
-			<tbody>
-				<tr>
-					<td>{{ getWidth(style) }}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+</div>
+<hr>
+<wish-list></wish-list>
+<div class="debug-bar">
+	<table class="table">
+		<theah>
+			<th>door area</th>
+			<th>door price factor</th>
+			<th>door price</th>
+			<th>style price</th>
+			<th>category price</th>
+			<th>volume</th>
+			<th>cabinet price</th>
+		</theah>
+		<tbody>
+			<tr>
+				<td>{{ getWidth(style) }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 </div>

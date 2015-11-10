@@ -206,7 +206,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.getWidthOptions = function (thisCabinet) {
 			var result = [];
 			if (thisCabinet === 'all') {
-				for (i = 12; i <= 40; i++) {
+				for (i = 10; i <= 50; i++) {
 					result.push(i);
 				}
 			} else {
@@ -219,7 +219,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.getHeightOptions = function (thisCabinet) {
 			var result = [];
 			if (thisCabinet === 'all') {
-				for (i = 12; i <= 40; i++) {
+				for (i = 10; i <= 50; i++) {
 					result.push(i);
 				}
 			} else {
@@ -232,7 +232,7 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 		$scope.getDepthOptions = function (thisCabinet) {
 			var result = [];
 			if (thisCabinet === 'all') {
-				for (i = 12; i <= 40; i++) {
+				for (i = 10; i <= 50; i++) {
 					result.push(i);
 				}
 			} else {
@@ -546,6 +546,12 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			if ( option === 'category' ) {
 				style.category = param.$id;
 				cabinetStylesArr.$save(style);
+			}
+		}
+		$scope.saveCabinet = function ( cabinet, option, param ) {
+			if ( option === 'category' ) {
+				cabinet.category = param.$id;
+				wishListArr.$save(cabinet);
 			}
 		}
 
