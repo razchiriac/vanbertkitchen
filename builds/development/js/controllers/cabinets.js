@@ -406,6 +406,8 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 
 			var tempPrice = doorPrice - -parseFloat(product.price) - -parseFloat($scope.getCategory(product.category).price) * volume;
 
+			tempPrice *= parseFloat($scope.getMaterial().price);
+
 			return tempPrice;
 		};
 
@@ -500,6 +502,12 @@ myApp.controller('CabinetsController', ['$scope', '$rootScope', 'localStorageSer
 			$('body').removeClass('modal-open');
 			$('.modal-backdrop').remove();
 			cabinetStylesArr.$remove(key);
+		};
+
+		$scope.removeMaterial = function (key) {
+			$('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+			cabinetMaterialsArr.$remove(key);
 		};
 
 		$scope.removeColor = function (key) {
