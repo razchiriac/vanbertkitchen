@@ -106,20 +106,24 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th ng-click="filter = 'name'">Name</th>
+					<th>Name</th>
 					<th>Price factor</th>
-					<th ng-click="filter = 'date'">Date added</th>
+					<th>Date added</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="category in cabinetCategoriesArr">
-					<td ng-dblclick="editCategoryName = !editCategoryName" ng-init="editCategoryName = false">
-						<span ng-hide="editCategoryName">{{category.name}}</span>
-						<input ng-show="editCategoryName" my-enter="cabinetCategoriesArr.$save(category); editCategoryName = false" type="text" ng-model="category.name">
+					<td ng-init="editName = false">
+						<span ng-hide="editName">{{category.name}}</span>
+						<input ng-model="category.name" ng-show="editName" my-enter="cabinetCategoriesArr.$save(category); editName = false" />
+						<span class="glyphicon glyphicon-pencil blue" ng-hide="editName" ng-click="editName = !editName"></span>
+						<span class="glyphicon glyphicon-check green" ng-show="editName" ng-click="cabinetCategoriesArr.$save(category); editName = false"></span>
 					</td>
-					<td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
+					<td ng-init="editPrice = false">
 						<span ng-hide="editPrice">{{category.price | currency}}</span>
-						<input ng-show="editPrice" my-enter="cabinetCategoriesArr.$save(category); editPrice = false" type="text" ng-model="category.price">
+						<input ng-model="category.price" ng-show="editPrice" my-enter="cabinetCategoriesArr.$save(category); editPrice = false" />
+						<span class="glyphicon glyphicon-pencil blue" ng-hide="editPrice" ng-click="editPrice = !editPrice"></span>
+						<span class="glyphicon glyphicon-check green" ng-show="editPrice" ng-click="cabinetCategoriesArr.$save(category); editPrice = false"></span>
 					</td>
 					<td>{{category.date | date : 'MMM d, yyyy, h:mm a'}}</td>
 					<td>
@@ -275,19 +279,14 @@
 							</div>
 						</div>
 					</td>
-					<td ng-dblclick="editStyleName = !editStyleName" ng-init="editStyleName = false">
-						<span ng-hide="editStyleName">{{style.name}}</span>
-						<input ng-show="editStyleName" my-enter="cabinetStylesArr.$save(style); editStyleName = false" type="text" ng-model="style.name">
+					<td>
+						<span>{{style.name}}</span>
 					</td>
-					<td ng-dblclick="editStyleCategory = !editStyleCategory" ng-init="editStyleCategory = false">
-						<span ng-hide="editStyleCategory">{{getCategory(style.category).name}}</span>
-						<!-- edit the style. on enter: save style -->
-						<select ng-show="editStyleCategory" my-enter="saveStyle(style, 'category', newCategory); editStyleCategory = false" ng-model="newCategory" ng-options="category.name for category in cabinetCategoriesArr">
-						</select>
+					<td>
+						<span>{{getCategory(style.category).name}}</span>
 					</td>
-					<td ng-dblclick="editPrice = !editPrice" ng-init="editPrice = false">
-						<span ng-hide="editPrice">{{style.price | currency}}</span>
-						<input ng-show="editPrice" my-enter="cabinetStylesArr.$save(style); editPrice = false" type="text" ng-model="style.price">
+					<td>
+						<span>{{style.price | currency}}</span>
 					</td>
 					<td>{{style.date | date : 'MMM d, yyyy, h:mm a'}}</td>
 					<td>
@@ -396,15 +395,17 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th ng-click="filter = 'name'">Name</th>
-					<th ng-click="filter = 'date'">Date added</th>
+					<th>Name</th>
+					<th>Date added</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="color in cabinetColorsArr">
-					<td ng-dblclick="editColorName = !editColorName" ng-init="editColorName = false">
-						<span ng-hide="editColorName">{{color.name}}</span>
-						<input ng-show="editColorName" my-enter="cabinetColorsArr.$save(Color); editColorName = false" type="text" ng-model="color.name">
+					<td ng-init="editName = false">
+						<span ng-hide="editName">{{color.name}}</span>
+						<input ng-model="color.name" ng-show="editName" my-enter="cabinetColorsArr.$save(color); editName = false" />
+						<span class="glyphicon glyphicon-pencil blue" ng-hide="editName" ng-click="editName = !editName"></span>
+						<span class="glyphicon glyphicon-check green" ng-show="editName" ng-click="cabinetColorsArr.$save(color); editName = false"></span>
 					</td>
 					<td>{{color.date | date : 'MMM d, yyyy, h:mm a'}}</td>
 					<td>
