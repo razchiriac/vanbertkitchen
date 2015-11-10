@@ -2,78 +2,12 @@
 	<div class="page-header">
 		<h1>Cabinets</h1>
 	</div>
-	<div class="row">
-		<div class="col-md-4 btn-group">
-			<button class="btn btn-default" data-toggle="modal" data-target=".door-modal-primary">Choose Door</button>
-			<div class="modal modal-fade door-modal-primary">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Choose a door</h4>
-						</div>
-						<div class="modal-body">
-							<div class="row" ng-repeat="doorCategory in doorCategoriesArr">
-								<h4><u>{{doorCategory.name}}</u></h4>
-								<div class="col-md-4" ng-repeat="doorStyle in doorStylesArr" ng-show="doorStyle.category === doorCategory.name">
-									<button class="btn btn-primary" ng-click="setDoor(doorStyle)" data-dismiss="modal">{{doorStyle.name}}</button>
-								</div>
-								<hr>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<span class="btn btn-success" ng-show="getDoor().name !== ''" data-toggle="modal" data-target=".door-modal-primary">{{getDoor().name}}</span>
-		</div>
-		<div class="col-md-4 btn-group">
-			<button class="btn btn-default" data-toggle="modal" data-target=".colors-modal-primary">Choose Color</button>
-			<div class="modal modal-fade colors-modal-primary">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Choose a color</h4>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-3" ng-repeat="color in cabinetColorsArr">
-									<button class="btn btn-sm btn-primary" ng-click="setColor(color)" data-dismiss="modal">{{color.name}}</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<span class="btn btn-success" ng-show="getColor().name !== ''" data-toggle="modal" data-target=".colors-modal-primary">{{getColor().name}}</span>
-		</div>
-		<div class="col-md-4 btn-group">
-			<button class="btn btn-default" data-toggle="modal" data-target=".material-modal-primary">Choose Material</button>
-			<div class="modal modal-fade material-modal-primary">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Choose a material</h4>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-3" ng-repeat="material in cabinetMaterialsArr">
-									<button class="btn btn-sm btn-primary" ng-click="setMaterial(material)" data-dismiss="modal">{{material.name}}</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<span class="btn btn-success" ng-show="getMaterial().name !== ''" data-toggle="modal" data-target=".material-modal-primary">{{getMaterial().name}}</span>
-		</div>
-	</div>
+	<top-variables-bar></top-variables-bar>
 	<hr>
 	<div class="row" ng-show="getColor().name !== '' && getDoor().name !== ''">
 		<div class="row" ng-repeat="category in cabinetCategoriesArr">
 			<h3><u>{{category.name}}</u></h3>
-			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show=" getCategory(style.category).name === category.name">
+			<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show="getCategory(style.category).name === category.name">
 				<div class="thumbnail shadow" data-toggle="modal" data-target=".{{style.$id}}-cabinet-modal">
 					<img src="{{style.imageUrl}}">
 					<div class="caption">
@@ -155,23 +89,4 @@
 </div>
 <hr>
 <wish-list></wish-list>
-<div class="debug-bar">
-	<table class="table">
-		<theah>
-			<th>door area</th>
-			<th>door price factor</th>
-			<th>door price</th>
-			<th>style price</th>
-			<th>category price</th>
-			<th>volume</th>
-			<th>cabinet price</th>
-		</theah>
-		<tbody>
-			<tr>
-				<td>{{ getWidth(style) }}</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
 </div>

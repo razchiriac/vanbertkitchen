@@ -175,3 +175,9 @@ myApp.directive('wishList', function () {
 		templateUrl: 'views/templates/wish-list.html'
 	};
 });
+
+myApp.directive('topVariablesBar', function () {
+	return {
+		templateUrl: 'views/templates/top-variables-bar.html'
+	};
+});
