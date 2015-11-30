@@ -52,13 +52,11 @@
 								<select ng-model="style.depthFraction" ng-init="style.depthFraction = { name: '', value: 0 }" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
 								<span> = {{ getDepth(style) }}</span>
 							</div>
-							<div class="list-group-item"><strong>Kick Border:</strong>
+							<div class="list-group-item"><strong>Toe Kick:</strong>
 								<select ng-model="style.kick" ng-options="kickOption for kickOption in getKickOptions('all')" ng-init="style.kick = 4"></select>
 								<span> inches
 										</div>
-										<div class="list-group-item">
-											<span><strong>Volume = </strong>{{getVolume(style)}}</span>
-							</div>
+
 							<div class="list-group-item">
 								<span>
 												<strong>Count = </strong>

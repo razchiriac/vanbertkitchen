@@ -21,7 +21,7 @@
 				<td ng-init="editDoor = false">
 					<span ng-hide="editDoor">{{cabinet.door.name}}</span>
 					<select ng-model="cabinet.door" ng-options="door.name for door in doorStylesArr" ng-show="editDoor" my-enter="wishListArr.$save(cabinet); editDoor = false" ng-model="cabinet.door"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDoor" ng-click="editDoor = !editDoor"></span>
+					<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDoor" ng-click="editDoor = !editDoor"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editDoor" ng-click="cartArr.$save(cabinet); editDoor = false"></span>
 				</td>
 				<td ng-init="editColor = false">
@@ -33,7 +33,7 @@
 				<td ng-init="editMaterial = false">
 					<span ng-hide="editMaterial">{{cabinet.material.name}}</span>
 					<select ng-model="cabinet.material" ng-options="material.name for material in cabinetMaterialsArr" ng-show="editMaterial" my-enter="wishListArr.$save(cabinet); editMaterial = false" ng-model="cabinet.material"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaterial" ng-click="editMaterial = !editMaterial"></span>
+					<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaterial" ng-click="editMaterial = !editMaterial"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editMaterial" ng-click="cartArr.$save(cabinet); editMaterial = false"></span>
 				</td>
 				<td ng-init="editWidth = false">
@@ -41,7 +41,7 @@
 					<select ng-show="editWidth" ng-model="cabinet.width" ng-options="widthOption for widthOption in getWidthOptions('all')"></select>
 					<span ng-show="editWidth"> in, </span>
 					<select ng-show="editWidth" ng-model="cabinet.widthFraction" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editWidth" ng-click="editWidth = !editWidth"></span>
+					<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editWidth" ng-click="editWidth = !editWidth"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editWidth" ng-click="cartArr.$save(cabinet); editWidth = false"></span>
 				</td>
 				<td ng-init="editHeight = false">
@@ -49,7 +49,7 @@
 					<select ng-show="editHeight" ng-model="cabinet.height" ng-options="heightOption for heightOption in getHeightOptions('all')"></select>
 					<span ng-show="editHeight"> in, </span>
 					<select ng-show="editHeight" ng-model="cabinet.heightFraction" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editHeight" ng-click="editHeight = !editHeight"></span>
+					<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editHeight" ng-click="editHeight = !editHeight"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editHeight" ng-click="cartArr.$save(cabinet); editHeight = false"></span>
 				</td>
 				<td ng-init="editDepth = false">
@@ -57,14 +57,14 @@
 					<select ng-show="editDepth" ng-model="cabinet.depth" ng-options="depthOption for depthOption in getDepthOptions('all')"></select>
 					<span ng-show="editDepth"> in, </span>
 					<select ng-show="editDepth" ng-model="cabinet.depthFraction" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDepth" ng-click="editDepth = !editDepth"></span>
+					<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDepth" ng-click="editDepth = !editDepth"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editDepth" ng-click="cartArr.$save(cabinet); editDepth = false"></span>
 				</td>
 				<td>{{cabinet.kick}}</td>
 				<td ng-init="editCount = false">
 					<span ng-hide="editCount">{{cabinet.count}}</span>
 					<input style="width:50px" ng-show="editCount" my-enter="cartArr.$save(cabinet); editCount = false" type="number" ng-model="cabinet.count">
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editCount" ng-click="editCount = !editCount"></span>
+					<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editCount" ng-click="editCount = !editCount"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editCount" ng-click="cartArr.$save(cabinet); editCount = false"></span>
 				</td>
 				<td>{{cabinet.price | currency}}</td>
@@ -102,5 +102,11 @@
 		</tbody>
 	</table>
 	<button class="btn btn-primary pull-right purchase-btn" ui-sref="checkout"> Complete Purchase <span class="glyphicon glyphicon-chevron-right"></span></button>
-	<button class="btn btn-primary pull-right pay-btn" ng-click="purchase()"> Pay <span class="glyphicon glyphicon-chevron-right"></span></button>
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="8T8DE8QWAJ8LG">
+		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+	</form>
+
 </div>

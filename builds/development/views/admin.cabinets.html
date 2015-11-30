@@ -194,6 +194,9 @@
 			<tbody>
 				<tr ng-repeat="style in cabinetStylesArr">
 					<td>
+						<img src="{{style.imageUrl}}" alt="" height="50px">
+					</td>
+					<td>
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target=".{{style.$id}}-edit-modal">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
@@ -325,7 +328,7 @@
 									<div class="modal-body">
 										<span>Current image: </span>
 										<img src="{{style.imageUrl}}" alt="{{style.name}} image">
-										<input type="text" ng-model="style.imageUrl">
+										<input type="text" ng-model="style.imageUrl" style="width:550px">
 									</div>
 									<div class="modal-footer">
 										<button class="btn btn-default" data-dismiss="modal">Nevermind</button>

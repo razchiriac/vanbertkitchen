@@ -21,7 +21,7 @@
 				<td ng-init="editDoor = false">
 					<span ng-hide="editDoor">{{cabinet.door.name}}</span>
 					<select ng-model="cabinet.door" ng-options="door.name for door in doorStylesArr" ng-show="editDoor" my-enter="wishListArr.$save(cabinet); editDoor = false" ng-model="cabinet.door"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDoor" ng-click="editDoor = !editDoor"></span>
+<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDoor" ng-click="editDoor = !editDoor"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editDoor" ng-click="wishListArr.$save(cabinet); editDoor = false"></span>
 				</td>
 				<td ng-init="editColor = false">
@@ -32,16 +32,16 @@
 				</td>
 				<td ng-init="editMaterial = false">
 					<span ng-hide="editMaterial">{{cabinet.material.name}}</span>
-					<select ng-model="cabinet.material" ng-options="material.name for material in cabinetMaterialsArr" ng-show="editMaterial" my-enter="wishListArr.$save(cabinet); editMaterial = false" ng-model="cabinet.material"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaterial" ng-click="editMaterial = !editMaterial"></span>
-					<span class="glyphicon glyphicon-check green" ng-show="editMaterial" ng-click="wishListArr.$save(cabinet); editMaterial = false"></span>
+					<select ng-model="cabinet.material" ng-options="material.name for material in cabinetMaterialsArr" ng-show="editMaterial" ng-model="cabinet.material"></select>
+<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editMaterial" ng-click="editMaterial = !editMaterial"></span>-->
+					<span class="glyphicon glyphicon-check green" ng-show="editMaterial" ng-click="wishListArr.$save(cabinet);editMaterial = false"></span>
 				</td>
 				<td ng-init="editWidth = false">
 					<span ng-hide="editWidth">{{cabinet.width}}, {{cabinet.widthFraction.name}}</span>
 					<select ng-show="editWidth" ng-model="cabinet.width" ng-options="widthOption for widthOption in getWidthOptions('all')"></select>
 					<span ng-show="editWidth"> in, </span>
 					<select ng-show="editWidth" ng-model="cabinet.widthFraction" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editWidth" ng-click="editWidth = !editWidth"></span>
+<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editWidth" ng-click="editWidth = !editWidth"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editWidth" ng-click="wishListArr.$save(cabinet); editWidth = false"></span>
 				</td>
 				<td ng-init="editHeight = false">
@@ -49,7 +49,7 @@
 					<select ng-show="editHeight" ng-model="cabinet.height" ng-options="heightOption for heightOption in getHeightOptions('all')"></select>
 					<span ng-show="editHeight"> in, </span>
 					<select ng-show="editHeight" ng-model="cabinet.heightFraction" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editHeight" ng-click="editHeight = !editHeight"></span>
+<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editHeight" ng-click="editHeight = !editHeight"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editHeight" ng-click="wishListArr.$save(cabinet); editHeight = false"></span>
 				</td>
 				<td ng-init="editDepth = false">
@@ -57,7 +57,7 @@
 					<select ng-show="editDepth" ng-model="cabinet.depth" ng-options="depthOption for depthOption in getDepthOptions('all')"></select>
 					<span ng-show="editDepth"> in, </span>
 					<select ng-show="editDepth" ng-model="cabinet.depthFraction" ng-options="fraction.name for fraction in fractions track by fraction.value"></select>
-					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDepth" ng-click="editDepth = !editDepth"></span>
+<!--					<span class="glyphicon glyphicon-pencil blue" ng-hide="editDepth" ng-click="editDepth = !editDepth"></span>-->
 					<span class="glyphicon glyphicon-check green" ng-show="editDepth" ng-click="wishListArr.$save(cabinet); editDepth = false"></span>
 				</td>
 				<td>{{cabinet.kick}}</td>

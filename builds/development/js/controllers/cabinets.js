@@ -243,12 +243,8 @@ myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'lo
 			return result;
 		};
 		$scope.getKickOptions = function (thisCabinet) {
-			var result = [];
-			if (thisCabinet === 'all') {
-				for (i = 0; i <= 10; i++) {
-					result.push(i);
-				}
-			}
+			var result = ['N/A', 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8 ];
+
 			return result;
 		};
 		/////////////////////////////////
@@ -401,18 +397,15 @@ myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'lo
 
 		$scope.calcPrice = function (product) {
 
+			var tempPrice = 0.00;
 			var width = $scope.getWidth(product);
 			var height = $scope.getHeight(product);
 			var depth = $scope.getDepth(product);
 			var volume = $scope.getVolume(product);
 			var faceArea = (width / 12) * ((height - 4) / 12);
-
 			var doorPrice = parseFloat($scope.getDoor().price) * faceArea;
-
-			var tempPrice = doorPrice - -parseFloat(product.price) - -parseFloat($scope.getCategory(product.category).price) * volume;
-
+			tempPrice = doorPrice - -parseFloat(product.price) - -parseFloat($scope.getCategory(product.category).price) * volume;
 			tempPrice *= parseFloat($scope.getMaterial().price);
-
 			return tempPrice;
 		};
 
@@ -524,7 +517,7 @@ myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'lo
 		/* STRIPE CHECKOUT */
 
 		var handler = StripeCheckout.configure({
-			key: 'pk_test_PTQxPyzUAucunSs2MkXAuaPo',
+			key: 'pk_live_nq4oI0EYDnL0xTLbh4TZbs8s',
 			image: 'http://mocajazz.com/css/images/logo.png',
 			locale: 'auto',
 			token: function (token) {

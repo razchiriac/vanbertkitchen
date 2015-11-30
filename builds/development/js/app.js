@@ -21,7 +21,7 @@ myApp.run(["$rootScope", "$state", function ($rootScope, $state) {
 
 myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
-	Stripe.setPublishableKey('pk_test_PTQxPyzUAucunSs2MkXAuaPo');
+	Stripe.setPublishableKey('pk_live_nq4oI0EYDnL0xTLbh4TZbs8s');
 
 	// For any unmatched url, send to /route1
 	$urlRouterProvider.otherwise("/home")
