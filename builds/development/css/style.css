@@ -146,3 +146,13 @@ body.modal-open,
 	font-size: 1.2em;
 	cursor: pointer;
 }
+
+.cabinet {
+	height: 320px;
+}
+.cabinet img {
+	max-height: 270px;
+}
+.cabinet-modal img {
+	max-height: 270px;
+}

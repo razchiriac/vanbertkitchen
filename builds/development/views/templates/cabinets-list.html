@@ -1,14 +1,14 @@
-<div class="row" ng-show="getColor().name !== '' && getDoor().name !== ''">
+<div class="row" ng-show="getColor().name && getDoor().name">
 	<div class="row" ng-repeat="category in cabinetCategoriesArr">
 		<h3><u>{{category.name}}</u></h3>
 		<div class="col-md-3" ng-repeat="style in cabinetStylesArr" ng-show="getCategory(style.category).name === category.name">
-			<div class="thumbnail shadow" data-toggle="modal" data-target=".{{style.$id}}-cabinet-modal">
+			<div class="thumbnail shadow cabinet" data-toggle="modal" data-target=".{{style.$id}}-cabinet-modal">
 				<img src="{{style.imageUrl}}">
 				<div class="caption">
 					<p>{{style.name}}</p>
 				</div>
 			</div>
-			<div class="modal modal-fade {{style.$id}}-cabinet-modal">
+			<div class="modal modal-fade cabinet-modal {{style.$id}}-cabinet-modal">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
