@@ -243,7 +243,7 @@ myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'lo
 			return result;
 		};
 		$scope.getKickOptions = function (thisCabinet) {
-			var result = ['N/A', 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8 ];
+			var result = ['N/A', 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8];
 
 			return result;
 		};
@@ -523,6 +523,8 @@ myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'lo
 			token: function (token) {
 				// Use the token to create the charge with a server-side script.
 				// You can access the token ID with `token.id`
+				var $input = $('<input type=hidden name=stripeToken />').val(token.id);
+				$('form').append($input).submit();
 			}
 		});
 
