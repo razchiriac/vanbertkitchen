@@ -1,8 +1,8 @@
 <?php
   require_once(dirname(__FILE__) . '/config.php');
   
-  $amount = $_POST['amount'] * 100;
-
+  $amount = $_POST['amount'];
+  
   $token  = $_POST['stripeToken'];
 
   $customer = Stripe_Customer::create(array(

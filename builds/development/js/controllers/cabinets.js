@@ -1,6 +1,8 @@
 myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'localStorageService', '$firebase', '$firebaseObject', '$firebaseArray', 'FIREBASE_URL',
 	function ($scope, $interval, $rootScope, localStorageService, $firebase, $firebaseObject, $firebaseArray, FIREBASE_URL) {
-
+		
+		$scope.stripe_price = 0;
+		
 		var refCabinets = new Firebase(FIREBASE_URL + '/products/cabinets');
 		var refCabinetCategories = new Firebase(FIREBASE_URL + '/products/cabinet-categories');
 		var refCabinetStyles = new Firebase(FIREBASE_URL + '/products/cabinet-styles');
@@ -432,6 +434,11 @@ myApp.controller('CabinetsController', ['$scope', '$interval', '$rootScope', 'lo
 			angular.forEach(cartArr, function (value, key) {
 				result += (parseFloat(value.price) * parseFloat(value.count));
 			});
+			return result;
+		};
+		$scope.stripePrice = function() {
+			var result = parseInt( $scope.cartPrice()*100, 10 );
+			$scope.stripe_price = result;
 			return result;
 		};
 

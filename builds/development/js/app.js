@@ -158,6 +158,12 @@ myApp.filter('num', function () {
 	};
 });
 
+myApp.filter('numInt', function() {
+    return function(input) {
+      return parseInt(input, 10);
+    };
+});
+
 myApp.directive('progressBtn', function () {
 	return {
 		templateUrl: 'views/templates/progress-btn.html'
