@@ -103,6 +103,20 @@
 	</table>
 	<div class="pull-right">
 		<!--	Stripe Checkout Button goes Here	-->
+		<!--<a href="pay.php" type="button" class="btn btn-primary">Complete Purchase</a>-->
+		<form action="charge.php" method="post">
+		  <input type="number" id="custom-amount" name="amount" ng-model="customAmount" />
+		  
+		  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		          data-key="pk_test_PTQxPyzUAucunSs2MkXAuaPo"
+		          data-description="Access for a year"
+		          data-amount="{{customAmount}}"
+		          data-locale="auto">
+		  </script>
+		          
+		  
+		  
+		</form>
 	</div>
 
 </div>

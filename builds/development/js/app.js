@@ -37,7 +37,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 		})
 		.state('cart', {
 			url: '/cart',
-			templateUrl: 'views/user/cart.html'
+			templateUrl: 'views/user/cart.php'
 		})
 		/* LOGIN & REGISTER */
 		.state('login', {
@@ -166,7 +166,7 @@ myApp.directive('progressBtn', function () {
 
 myApp.directive('shoppingCart', function () {
 	return {
-		templateUrl: 'views/templates/shopping-cart.html'
+		templateUrl: 'views/templates/shopping-cart.php'
 	};
 });
 

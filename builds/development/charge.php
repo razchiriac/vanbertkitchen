@@ -1,5 +1,7 @@
 <?php
   require_once(dirname(__FILE__) . '/config.php');
+  
+  $amount = $_POST['amount'] * 100;
 
   $token  = $_POST['stripeToken'];
 
@@ -10,8 +12,8 @@
 
   $charge = Stripe_Charge::create(array(
       'customer' => $customer->id,
-      'amount'   => 5000,
+      'amount'   => $amount,
       'currency' => 'usd'
   ));
-
-  echo '<h1>Successfully charged $50.00!</h1>';
+  
+  echo '<h1>Thank You!</h1>';
