@@ -9,7 +9,7 @@
   $user_g_id = $_POST['user_g_id'];
   $user_cart = $_POST['user_cart'];
   // var_dump($user_cart);
-  // mail("raz.chiriac@gmail.com","Order Confirmation", "Hello email!");
+  mail("raz.chiriac@gmail.com","Order Confirmation", $user_cart);
   
   $token  = $_POST['stripeToken'];
 
