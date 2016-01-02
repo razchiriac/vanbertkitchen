@@ -117,6 +117,8 @@
 		          data-key="pk_test_PTQxPyzUAucunSs2MkXAuaPo"
 		          data-description="Purchase"
 		          data-amount="00"
+		          data-billing-address="true"
+		          data-shipping-address="true"
 		          data-locale="auto">
 		  </script>
 		          

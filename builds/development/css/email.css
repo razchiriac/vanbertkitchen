@@ -1,0 +1,37 @@
+body {
+    font-family: Verdana, sans-serif;
+}
+.container {
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    background: #DDD;
+    color: #333;
+    padding: 10px;
+}
+
+.title {
+    background: #FFF;
+    height: 70px;
+    width: 580px;
+    padding: 0 10px;
+}
+.title .left {
+    text-align: left;
+    float: left;
+    width: 40%;
+}
+.title .right {
+    text-align: right;
+    float: right;
+    width: 40%;
+}
+
+.details {
+    width: 580px;
+    background: #EEE;
+    padding: 10px;
+}
+.details .left {
+    width: 49%;
+}
