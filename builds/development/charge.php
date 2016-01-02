@@ -26,4 +26,4 @@
   ));
   
   //echo '<h1>Thank You!</h1>';
-  header('Location: /builds/development/#/success');
+  header('Location: /#/success');
