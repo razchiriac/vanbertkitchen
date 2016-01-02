@@ -9,7 +9,8 @@
   $user_g_id = $_POST['user_g_id'];
   $user_cart = $_POST['user_cart'];
   // var_dump($user_cart);
-  mail("raz.chiriac@gmail.com","Order Confirmation", $user_cart);
+  //mail("raz.chiriac@gmail.com","Order Confirmation", $user_cart);
+    
   
   $token  = $_POST['stripeToken'];
 
@@ -24,6 +25,15 @@
       'currency' => 'usd',
       'metadata' => array("google_id" => $user_g_id )
   ));
+  
+  $to = "raz.chiriac@gmail.com"; // this is your Email address
+  $from = "orders@vbk.com"; // this is the sender's Email address
+  
+  $subject = "Order Confirmation";
+  $message = $user_cart;
+  
+  $headers = "From:" . $from;
+  mail($to,$subject,$message,$headers);
   
   //echo '<h1>Thank You!</h1>';
   header('Location: /#/success');
