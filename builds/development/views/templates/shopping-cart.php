@@ -102,14 +102,16 @@
 		</tbody>
 	</table>
 	<div class="pull-right" ng-init="stripe_price = stripePrice()">
+		
 		<p ng-hide="true">stripePrice() = {{stripePrice()}}</p>
 		<!--	Stripe Checkout Button goes Here	-->
 		<!--<a href="pay.php" type="button" class="btn btn-primary">Complete Purchase</a>-->
 		<form action="charge.php" method="post">
 			<p ng-hide="true">stripePrice() = {{stripePrice()}}</p>
 		  <input type="hidden" id="custom-amount" name="amount" ng-model="stripe_price" ng-value="stripe_price" />
+		  <input type="hidden" name="user_g_id" value="{{authData.google.cachedUserProfile.id}}" />
+		  <input type="hidden" name="user_cart" value="{{cartArr | json}}" />
 		  <p ng-hide="true">stripePrice() = {{stripePrice()}}</p>
-		  
 		  
 		  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 		          data-key="pk_test_PTQxPyzUAucunSs2MkXAuaPo"
