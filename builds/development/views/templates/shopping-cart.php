@@ -115,8 +115,8 @@
 		  
 		  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 		          data-key="pk_test_PTQxPyzUAucunSs2MkXAuaPo"
-		          data-description="Access for a year"
-		          data-amount="10000"
+		          data-description="Purchase"
+		          data-amount="00"
 		          data-locale="auto">
 		  </script>
 		          
